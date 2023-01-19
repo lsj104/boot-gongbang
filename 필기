@@ -1,0 +1,93 @@
+shop member board feed class
+
+com.test.gongbang.controller > ShopController.java
+							 > MemberController.java
+							 > ShopBoardController.java
+							 > BoardController.java
+							 > FeedController.java
+							 > ClassController.java
+							 > HomeController.java
+
+com.test.gongbang.service 	 > ShopService.java (I)
+						 	 > ShopServiceImpl.java
+
+						     > MemberService.java (I)
+						     > MemberServiceImpl.java
+
+							 > ShopBoardService.java (I)
+							 > ShopBoardServiceImpl.java
+
+							 > BoardService.java (I)
+							 > BoardServiceImpl.java
+
+							 > FeedService.java (I)
+							 > FeedServiceImpl.java
+
+							 > ClassService.java (I)
+							 > ClassServiceImpl.java
+
+							 > HomeService.java (I)
+							 > HomeServiceImpl.java
+
+							 
+com.test.gongbang.model > ShopDTO.java
+						> ShopDAO.java (I)	
+						> ShopDAOImpl.java
+						
+						> BoardDTO.java
+						> BoardDAO.java (I)
+						> BoardDAOImpl.java
+						
+						> ShopBoardDTO.java
+						> ShopBoardDAO.java (I)
+						> ShopBoardDAOImpl.java
+						
+						> MemberDTO.java
+						> MemberDAO.java (I) 
+						> MemberDAOImpl.java 
+						
+						> FeedDTO.java
+						> FeedDAO.java (I)
+						> FeedDAOImpl.java
+						
+						> ClassDTO.java
+						> ClassDAO.java (I)
+						> ClassDAOImpl.java
+
+src/main.resources > "mapper"
+			
+
+templates 	> "shop"		> ""
+
+			> "member"		>
+
+			> "shopboard"	>
+
+			> "board"		>
+
+			> "class"		>
+
+			> "feed" 		>
+			
+			> Home.html
+
+
+
+static > css > main.css
+	   > image     	> "class" > 이미지파일
+	   				> "shop" > 이미지파일
+	   				> "member"
+	   				> "feed"
+	   				> "board"
+	   				> "shopboard"
+
+
+
+이미지 > 클래스, 공방, 회원, 피드, 보드, 공방보드
+
+
+
+
+
+
+						
