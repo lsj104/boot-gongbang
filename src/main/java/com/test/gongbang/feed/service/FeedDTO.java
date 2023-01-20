@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class FeedDTO {
     private String seq;
+    private String content;
 
 }
