@@ -7,20 +7,21 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 
+
 @Repository
-public class MemberRepository {
+public class KakaoRepository {
 
     @Autowired
     private SqlSession sql;
 
-    // 정보 저장
+    // 일반 회원 정보 저장
     public void kakaoinsert(HashMap<String, Object> userInfo) {
         System.out.println("정보저장: " + userInfo);
         sql.insert("Member.kakaoInsert", userInfo);
         sql.insert("Member.kakaoInfo", userInfo);
     }
 
-    // 정보 확인
+    // 일반 회원 정보 확인
     public KakaoDTO findkakao(HashMap<String, Object> userInfo) {
         System.out.println("nickname: " + userInfo.get("nickname"));
         System.out.println("email: " + userInfo.get("email"));
@@ -28,8 +29,28 @@ public class MemberRepository {
 
     }
 
-    public void kakaoinfo(KakaoDTO dto) {
-       sql.insert("", dto);
+    // 공방 정보 저장
+    public void kakaogongbanginsert(HashMap<String, Object> userInfo) {
+        System.out.println("정보저장: " + userInfo);
+        sql.insert("Member.kakaoGongbangInsert", userInfo);
+        sql.insert("Member.kakaoGongbangInfo", userInfo);
     }
+
+    // 공방 정보 확인
+    public KakaoDTO findkakaogongbang(HashMap<String, Object> userInfo) {
+        System.out.println("nickname: " + userInfo.get("nickname"));
+        System.out.println("email: " + userInfo.get("email"));
+        return sql.selectOne("Member.findGongbamgKakao", userInfo);
+
+    }
+
+
+    // 회원 탈퇴 - 수정중
+    public void kakaounsign(String item) {
+        System.out.println("정보수정: " + item);
+        sql.update("Member.kakaounsign", item);
+
+    }
+
 
 }
