@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<body>
+<div class="boxedlayout">
+
+    <!-- HEADER
+    ================================================== -->
+    <nav id="wow-menu" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href='index.html'>
+                    <img alt="Kailo" src="/image/logo.png"/>
+                </a>
+            </div>
+            <!-- Menu -->
+            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+                <ul id="menu-top" class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="myaccount.html">My Account</a></li>
+                    <li><a href="checkout.html">Checkout</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li class="dropdown"><a href="#">Pages</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="productsingle.html">Product Single</a></li>
+                            <li><a href="productsingle-nosidebar.html">Product Single No Sidebar</a></li>
+                            <li><a href="shop-nosidebar.html">Shop No Sidebar</a></li>
+                            <li><a href="blogsingle.html">Blog Single</a></li>
+                            <li><a href="useraccount.html">User Account</a></li>
+                            <li><a href="purchaseconfirmation.html">Purchase Confirmation</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="columns.html">Columns</a></li>
+                            <li><a href="elements.html">Elements</a></li>
+                            <li><a href="icons.html">Icons</a></li>
+                            <li><a href="starter.html">Starter</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="checkout.html"><i class="fa fa-shopping-cart"></i> Cart (3)</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE CONTENT
+    ================================================== -->
+    <div class="templatemyaccount">
+
+        <!-- TITLE BEGINS -->
+        <div class="headerimage"
+             style="background-image: url(http://www.themepush.com/demo-kailo/wp-content/uploads/sites/6/2015/03/header.jpg);">
+            <div class="headercontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="fleft">
+                                <h1>My Account</h1>
+                            </div>
+                            <div class="fright breadc">
+                                <a href="index.html">Home</a> / My Account
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TITLE ENDS -->
+
+        <div class="container padtop40 padbot50">
+            <div class="row">
+                <!-- MAIN CONTENT BEGINS -->
+                <div class="col-md-12">
+                    <div class="wraplogin">
+                        <form role="form" action="/kakaoinfo" id="edd_kakaoinfo_form"
+                              class="edd_form" method="post">
+                            <fieldset>
+                                <legend>Fill out Profile</legend>
+                                <p>
+                                    <label>Name</label>
+                                    <input  name="name" id="name"
+                                           class="required edd-input"
+                                           type="text" title="Username"/>
+                                </p>
+                                <p>
+                                    <label>Tel</label>
+                                    <input  name="tel" id="tel"
+                                           class="tel required edd-input"
+                                           type="tel"/>
+                                </p>
+                                <p>
+                                    <input id="kakaonfo_submit" type="submit" class="edd_submit" value="Submit"/>
+                                </p>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <!-- MAIN CONTENT ENDS -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- CALL TO ACTION
+    ================================================== -->
+    <div class="actionbeforefooter text-center">
+        <div class="container">
+            <span><i class="fa fa-star fa-spin"></i> Psst! Like what you see? Enter code <b>WOWKAILO10</b> and get 10% discount for Kailo template. This week only! </span>
+            <a target="_blank" class="actionbutton" href="#">Buy Now </a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
