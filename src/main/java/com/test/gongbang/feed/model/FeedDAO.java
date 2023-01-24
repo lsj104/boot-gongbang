@@ -1,5 +1,9 @@
 package com.test.gongbang.feed.model;
 
-public interface FeedDAO {
+import com.test.gongbang.feed.service.FeedDTO;
 
+import java.util.List;
+
+public interface FeedDAO {
+    List<FeedDTO> list();
 }
