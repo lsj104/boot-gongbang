@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+
+    <select id="findKakao" parameterType="java.util.HashMap"
+            resultType="com.test.gongbang.member.login.kakao.service.KakaoDTO">
+        select *
+        from tblAccount
+                 inner join tblMember tM on tblAccount.seq = tM.aseq
+        where id = #{email, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findGongbamgKakao" parameterType="java.util.HashMap"
+            resultType="com.test.gongbang.member.login.kakao.service.KakaoDTO">
+        select *
+        from tblAccount
+                 inner join tblMember tM on tblAccount.seq = tM.aseq
+        where id = #{email, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="kakaoInsert" parameterType="java.util.HashMap">
+        insert into tblAccount(seq, id, pw, lv, active)
+        values (seqAccount.nextval, #{email, jdbcType=VARCHAR}, 'kakao1234', 3, 'y')
+    </insert>
+
+    <insert id="kakaoGongbangInsert" parameterType="java.util.HashMap">
+        insert into tblAccount(seq, id, pw, lv, active)
+        values (seqAccount.nextval, #{email, jdbcType=VARCHAR}, 'kakao1234', 2, 'y')
+    </insert>
+
+    <insert id="kakaoInfo" parameterType="com.test.gongbang.member.login.kakao.service.KakaoDTO">
+        insert into tblMember(seq, nickname, image, aseq)
+        values (seqMember.nextval, #{nickname,jdbcType=VARCHAR}, #{profile_image , jdbcType=VARCHAR},
+                (select max(seq) from tblAccount))
+    </insert>
+
+    <insert id="kakaoGongbangInfo" parameterType="com.test.gongbang.member.login.kakao.service.KakaoDTO">
+        insert into tblMember(seq, nickname, image, aseq)
+        values (seqMember.nextval, #{nickname,jdbcType=VARCHAR}, #{profile_image , jdbcType=VARCHAR},
+                (select max(seq) from tblAccount))
+    </insert>
+
+    <update id="kakaounsign" parameterType="String">
+        update tblAccount set active = 'n' where id = #{email, jdbcType=VARCHAR}
+    </update>
+
+
+</mapper>
