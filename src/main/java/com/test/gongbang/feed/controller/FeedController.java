@@ -13,18 +13,19 @@ import java.util.List;
 public class FeedController {
     @Autowired private FeedService service;
 
-    @GetMapping("/feed")
+    @GetMapping("feed/feed")
     public String list(Model model) {
         List<FeedDTO> list = service.list();
 
         model.addAttribute("list",list);
 
-        return "feed";
+        return "feed/feed";
     }
 
-    @GetMapping("/feedview")
+    @GetMapping("feed/feedview")
     public String feedview(){
-            return "feedview";
+        return "feed/feedview";
+
     }
 
 }
