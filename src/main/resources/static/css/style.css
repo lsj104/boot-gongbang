@@ -1119,8 +1119,7 @@ ul.related-entries li .relatedinner a {
 	height:150px;
 	line-height:150px;
 	border-radius:50%;
-	text-align;
-	center;
+	text-align: center;
 }
 .notfoundbadge:hover {
 	background-color:#25c5ed;
