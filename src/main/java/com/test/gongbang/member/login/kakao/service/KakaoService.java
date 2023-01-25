@@ -23,7 +23,7 @@ public class KakaoService {
     @Autowired
     private KakaoRepository mr;
 
-    // Kakao Tocken
+    // 일반 회원 토큰
     public String getToken(String code) throws IOException {
         String host = "https://kauth.kakao.com/oauth/token";
         URL url = new URL(host);
@@ -76,8 +76,7 @@ public class KakaoService {
         return token;
     }
 
-
-    // Kakao User정보 가져오기
+    // 일반 회원 정보
     public KakaoDTO getuserinfo(String access_Token) {
 
         HashMap<String, Object> userInfo = new HashMap<String, Object>();
@@ -113,8 +112,6 @@ public class KakaoService {
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
             userInfo.put("profile_image", profile_image);
-//            userInfo.put("image", image);
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,7 +130,7 @@ public class KakaoService {
         }
     }
 
-    // 공방
+    // 공방 토큰
     public String getGongbangToken(String code) throws IOException {
         String host = "https://kauth.kakao.com/oauth/token";
         URL url = new URL(host);
@@ -186,6 +183,7 @@ public class KakaoService {
         return token;
     }
 
+    // 공방 정보
     public KakaoDTO getgongbanginfo(String access_Token) {
 
         HashMap<String, Object> userInfo = new HashMap<String, Object>();
@@ -221,8 +219,6 @@ public class KakaoService {
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
             userInfo.put("profile_image", profile_image);
-//            userInfo.put("image", image);
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -240,33 +236,6 @@ public class KakaoService {
             return result;
         }
     }
-
-    // 로그아웃
-//    public void logout(String access_Token) {
-//        String reqURL = "https://kapi.kakao.com/v1/user/logout";
-//        try {
-//            URL url = new URL(reqURL);
-//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//            conn.setRequestMethod("POST");
-//            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-//
-//            int responseCode = conn.getResponseCode();
-//            System.out.println("responseCode : " + responseCode);
-//
-//            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//
-//            String result = "";
-//            String line = "";
-//
-//            while ((line = br.readLine()) != null) {
-//                result += line;
-//            }
-//            System.out.println(result);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 
     // 로그아웃
     public void logout(String access_Token) {
@@ -295,8 +264,7 @@ public class KakaoService {
     }
 
     // 회원 탈퇴
-    public void unlink(String access_Token) {
-        HashMap<String, Object> userInfo = new HashMap<String, Object>();
+    public void unlink(String access_Token, String email) {
 
         String reqURL = "https://kapi.kakao.com/v1/user/unlink";
         try {
@@ -315,14 +283,18 @@ public class KakaoService {
 
             while ((line = br.readLine()) != null) {
                 result += line;
-                mr.kakaounsign(result);
-
             }
 
+            mr.kakaounsign(email);
             System.out.println("결과: " + result);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // 카카오 로그인 -> 전화번호, 이름 입력
+    public void kakaoinfo(KakaoDTO dto) {
+        mr.kakaoinfo(dto);
     }
 }
 

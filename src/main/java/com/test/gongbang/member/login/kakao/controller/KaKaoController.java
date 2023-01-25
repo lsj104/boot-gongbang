@@ -23,11 +23,11 @@ public class KaKaoController {
 
     @GetMapping("/login")
     public String loginPage() {
-//        return "member/login";
         return "member/login/myaccount";
     }
 
 
+    // 일반 회원
     @GetMapping("/kakao")
     public String getCI(@RequestParam String code, Model model, HttpSession session) throws IOException {
         System.out.println("code = " + code);
@@ -40,16 +40,15 @@ public class KaKaoController {
         session.setAttribute("access_token", access_token);
         session.setAttribute("user", userInfo);
 
+        System.out.println("aaaa");
 
-//        return "index"; // 받아온 값 test page
-        return "redirect:/main";
+//        return "redirect:/index"; // 받아온 값 test page
 
-
-//        if (dto.getTel() == null) {
-//            return "kakaoinfo";
-//        } else {
-//            return "main";
-//        }
+        if (dto.getTel() == null) {
+            return "member/login/kakaoinfo";
+        } else {
+            return "redirect:/main";
+        }
 
     }
 
@@ -65,30 +64,25 @@ public class KaKaoController {
 
         session.setAttribute("access_token", access_token);
         session.setAttribute("user", userInfo);
-
-//        return "index"; // 받아온 값 test page
-        return "redirect:/main";
-
+        System.out.println("aaaa");
 
         // 전화번호 null일때 번호 입력 페이지
-//        if (dto.getTel() == null) {
-//            return "kakaoinfo";
-//        } else {
-//            return "main";
-//        }
-
+        if (dto.getTel() == null) {
+            return "member/login/kakaoinfo";
+        } else {
+            return "redirect:/main";
+        }
     }
 
-
-    // 회원 탈퇴 - 탈퇴는 되는데 DB active 변경 안됨
+    // 회원 탈퇴
     @RequestMapping(value = "/kakaounlink")
     public String unlink(HttpSession session) {
-        ks.unlink((String) session.getAttribute("access_token"));
+        ks.unlink((String) session.getAttribute("access_token"), ((KakaoDTO) session.getAttribute("user")).getId());
+        System.out.println(((KakaoDTO) session.getAttribute("user")).getId());
         session.invalidate();
         System.out.println("회원 탈퇴 완료");
         return "redirect:/main";
     }
-
 
     // 로그아웃
     @RequestMapping(value = "/kakaologout")
@@ -96,6 +90,15 @@ public class KaKaoController {
         ks.logout((String) session.getAttribute("access_token"));
         session.invalidate();
         System.out.println("로그아웃 완료");
+        return "redirect:/main";
+    }
+
+    // 카카오 로그인 -> 이름, 번호 입력
+    @PostMapping(value = "/kakaoinfo")
+    public String kakaoinfo(KakaoDTO dto) {
+//        System.out.println(111);
+        System.out.println("kakaoinfo: " + dto);
+        ks.kakaoinfo(dto);
         return "redirect:/main";
     }
 
