@@ -8,9 +8,13 @@
 <li th:text="|유효토큰 = ${access_token}|">code</li>
 <li th:text="|사용자정보 = ${userInfo}|">code</li>
 <li th:text="|동의정보 = ${agreementInfo}|">code</li>
-<!--<a href="http://localhost:8090/member/logout">로그아웃</a>-->
+
+<li th:text="${user == null}"></li>
+
+<!-- session 확인 -->
+<li th:text="${session.user}"></li>
+
 <a href="http://localhost:8090/member/kakaologout">로그아웃</a>
 <a href="http://localhost:8090/member/kakaounlink">회원탈퇴</a>
-<!--<a href="https://kauth.kakao.com/oauth/logout?client_id=c1704b42e1333bc0cfe4a11e98bc4823&logout_redirect_uri=http://localhost:8090/member/gongbang">회원탈퇴</a>-->
 </body>
 </html>

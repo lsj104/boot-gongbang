@@ -41,16 +41,16 @@ public class KakaoRepository {
         System.out.println("nickname: " + userInfo.get("nickname"));
         System.out.println("email: " + userInfo.get("email"));
         return sql.selectOne("Member.findGongbamgKakao", userInfo);
-
     }
 
-
-    // 회원 탈퇴 - 수정중
+    // 회원 탈퇴
     public void kakaounsign(String item) {
         System.out.println("정보수정: " + item);
         sql.update("Member.kakaounsign", item);
-
     }
 
-
+    // 로그인 후 전화번호, 이름 입력
+    public void kakaoinfo(KakaoDTO dto) {
+        sql.insert("Member.kakaoinfo", dto);
+    }
 }
