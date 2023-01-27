@@ -26,7 +26,6 @@ public class KakaoRepository {
         System.out.println("nickname: " + userInfo.get("nickname"));
         System.out.println("email: " + userInfo.get("email"));
         return sql.selectOne("Member.findKakao", userInfo);
-
     }
 
     // 공방 정보 저장
@@ -53,4 +52,5 @@ public class KakaoRepository {
     public void kakaoinfo(KakaoDTO dto) {
         sql.insert("Member.kakaoinfo", dto);
     }
+
 }

@@ -3,42 +3,42 @@
 
 <body>
 
-	<!-- HEADER
-		================================================== -->
-	<nav th:fragment="header" id="wow-menu"
-		class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<a class="navbar-brand" href='main'> <img alt="만지작"
-					src="/image/logo.png" />
-				</a>
-			</div>
-			<!-- Menu -->
-			<div id="bs-example-navbar-collapse-1"
-				class="collapse navbar-collapse">
-				<ul id="menu-top" class="nav navbar-nav navbar-right">
-					<li class="active"><a href="main">Home</a></li>
-					<li><a href="class">class</a></li>
-					<li><a href="#">Exhibition</a></li>
-					<li><a href="board">Board</a></li>
-					<li><a href="feed/feed">Feed</a></li>
+<!-- HEADER
+    ================================================== -->
+<nav th:fragment="header" id="wow-menu"
+     class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href='http://localhost:8090/main'>
+                <img alt="만지작" src="/image/logo.png"/>
+            </a>
+        </div>
+        <!-- Menu -->
+        <div id="bs-example-navbar-collapse-1"
+             class="collapse navbar-collapse">
+            <ul id="menu-top" class="nav navbar-nav navbar-right">
+                <li class="active"><a href="/main">Home</a></li>
+                <li><a href="class">class</a></li>
+                <li><a href="#">Exhibition</a></li>
+                <li><a href="board">Board</a></li>
+                <li><a href="feed/feed">Feed</a></li>
 
-					<!-- 로그인 X -->
-					<li><a href="blog.html">Login</a></li>
+                <!-- 로그인 X -->
+                <li><a href="/member/login">Login</a></li>
 
-					<!-- 로그인 O 
-						<li class="dropdown"><img src="/image/01.png">User</a>
-							<ul class="dropdown-menu">
-								<li><a href="productsingle.html">MyPage</a></li>
-								<li><a href="productsingle-nosidebar.html">Logout</a></li>								
-							</ul>
-						</li>
-						-->
+                <!-- 로그인 O
+                    <li class="dropdown"><img src="/image/01.png">User</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="productsingle.html">MyPage</a></li>
+                            <li><a href="productsingle-nosidebar.html">Logout</a></li>
+                        </ul>
+                    </li>
+                    -->
 
-				</ul>
-			</div>
-		</div>
-	</nav>
+            </ul>
+        </div>
+    </div>
+</nav>
 </body>
 </html>

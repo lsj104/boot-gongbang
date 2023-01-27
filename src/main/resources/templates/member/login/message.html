@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="https://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <link rel="stylesheet" href="https://me2.do/5BvBFJ57">
-
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+            top.alert("[[${data.message}]]");
+        </script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href) != 0}">
+        <script>
+            top.location.href = '[[${data.href}]]';
+        </script>
+    </th:block>
 </head>
-<body>
-<h1></h1>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<script>
-    
-</script>
-</body>
 </html>

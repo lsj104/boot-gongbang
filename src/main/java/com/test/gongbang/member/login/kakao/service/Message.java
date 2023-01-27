@@ -1,2 +1,18 @@
-package com.test.gongbang.member.login.kakao.service;public class Message {
+package com.test.gongbang.member.login.kakao.service;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class Message {
+    String message = "";
+    String href = "";
+
+    public Message(String message, String href) {
+        this.message = message;
+        this.href = href;
+    }
 }
