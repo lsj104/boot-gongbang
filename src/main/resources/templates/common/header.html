@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-
 <body>
 
 <!-- HEADER
@@ -11,7 +10,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <a class="navbar-brand" href='http://localhost:8090/main'>
-                <img alt="만지작" src="/image/logo.png"/>
+                <img alt="만지작" src="/image/logo.png" style="margin-top: -15px;">
             </a>
         </div>
         <!-- Menu -->
@@ -25,17 +24,16 @@
                 <li><a href="feed/feed">Feed</a></li>
 
                 <!-- 로그인 X -->
-                <li><a href="/member/login">Login</a></li>
+                <li th:if="${session.user == null}"><a href="/member/login">Login</a></li>
 
-                <!-- 로그인 O
-                    <li class="dropdown"><img src="/image/01.png">User</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="productsingle.html">MyPage</a></li>
-                            <li><a href="productsingle-nosidebar.html">Logout</a></li>
+                <!-- 로그인 O -->
+                <li th:if="${session.user != null}" class="dropdown" style="padding: 10px;">
+                    <img src="/image/01.jpg" style="width: 30px; height: 30px; border-radius: 30px; margin-right: 5px;"><span th:text="|${session.user.name}님|"></span>
+                        <ul class="dropdown-menu" style="width: 50px; margin-left: 50px;">
+                            <li><a href="member/mypage">MyPage</a></li>
+                            <li><a href="member/kakaologout">Logout</a></li>
                         </ul>
                     </li>
-                    -->
-
             </ul>
         </div>
     </div>
