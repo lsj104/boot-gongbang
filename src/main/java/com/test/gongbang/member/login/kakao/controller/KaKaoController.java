@@ -110,6 +110,7 @@ public class KaKaoController {
 //        return "redirect:/main";
     }
 
+    // 로그인
     @GetMapping("/kakaologin")
     public String kakaologin(@RequestParam String code, Model model, HttpSession session) throws IOException {
 
