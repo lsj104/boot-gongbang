@@ -5,58 +5,72 @@
       layout:fragment="content">
 
 <body>
-<div class="clear text-center sectionlatestitems" style="margin-top: 100px">
-    <h2 class="maintitle">QnA</h2>
-    <div class="separatr">
-        <span style="font-size: 0.77em;text-transform:uppercase;"><i class="fa fa-question"></i></span>
+
+<!-- TITLE BEGINS -->
+<div class="headerimage">
+    <div class="headercontent">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="fleft">
+                        <h1>QnA</h1>
+                    </div>
+                    <div class="fright breadc">
+                        <a href="http://localhost:8090/main">Home</a> / QnA
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<form class="bs-example bs-example-form" data-example-id="input-group-with-button"
-      style=" margin-left: 1050px;">
-    <div class="row">
-        <div class="col-lg-6" style="width: 300px;">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
+<div class="clear text-center sectionlatestitems" style="margin-top: 30px">
+    <form class="bs-example bs-example-form" data-example-id="input-group-with-button"
+          style=" margin-left: 1050px;">
+        <div class="row">
+            <div class="col-lg-6" style="width: 300px;">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
                     <button class="btn btn-default" type="button"><i class="fa  fa-search"></i></button>
 							  </span>
-            </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div>
+    </form>
+    <div id="homepagetemplate" class="container padtop10 padbot40" style="margin-top: 20px; min-height: 1000px;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>NO.</th>
+                <th colspan="2" style="text-align: center">제목</th>
+                <th style="text-align: center">작성일</th>
+                <th style="text-align: center">작성자</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>1</th>
+                <td scope="row" colspan="2" style="text-align: center">Mark</td>
+                <td style="text-align: center">Otto</td>
+                <td style="text-align: center">@mdo</td>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td scope="row" colspan="2" style="text-align: center">Mark</td>
+                <td style="text-align: center">Otto</td>
+                <td style="text-align: center">@mdo</td>
+            </tr>
+
+            <!--        <tr th:each="list : ${tableList}">-->
+            <!--            <td><span th:text="${list.seq}"></span></td>-->
+            <!--            <td scope="row" colspan="2" style="text-align: center"><span th:text="${list.title}"></span></td>-->
+            <!--            <td style="text-align: center"><span th:text="${list.regdate}"></span></td>-->
+            <!--            <td style="text-align: center"><span th:text="${list.name}"></span></td>-->
+            <!--        </tr>-->
+
+            </tbody>
+        </table>
     </div>
-</form>
-<div id="homepagetemplate" class="container padtop10 padbot40" style="margin-top: 20px; min-height: 1000px;">
-    <table class="table">
-        <thead>
-        <tr>
-            <th>NO.</th>
-            <th colspan="2" style="text-align: center">제목</th>
-            <th style="text-align: center">작성일</th>
-            <th style="text-align: center">작성자</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th>1</th>
-            <td scope="row" colspan="2" style="text-align: center">Mark</td>
-            <td style="text-align: center">Otto</td>
-            <td style="text-align: center">@mdo</td>
-        </tr>
-        <tr>
-            <th>2</th>
-            <td scope="row" colspan="2" style="text-align: center">Mark</td>
-            <td style="text-align: center">Otto</td>
-            <td style="text-align: center">@mdo</td>
-        </tr>
-
-        <!--        <tr th:each="list : ${tableList}">-->
-        <!--            <td><span th:text="${list.seq}"></span></td>-->
-        <!--            <td scope="row" colspan="2" style="text-align: center"><span th:text="${list.title}"></span></td>-->
-        <!--            <td style="text-align: center"><span th:text="${list.regdate}"></span></td>-->
-        <!--            <td style="text-align: center"><span th:text="${list.name}"></span></td>-->
-        <!--        </tr>-->
-
-        </tbody>
-    </table>
 </div>
 </body>
 </html>
