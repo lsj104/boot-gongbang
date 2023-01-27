@@ -21,12 +21,12 @@
 
     <insert id="kakaoInsert" parameterType="java.util.HashMap">
         insert into tblAccount(seq, id, lv, active)
-        values (seqAccount.nextval, #{email, jdbcType=VARCHAR}, 3, 'y')
+        values (seqAccount.nextval, #{email, jdbcType=VARCHAR}, 2, 'y')
     </insert>
 
     <insert id="kakaoGongbangInsert" parameterType="java.util.HashMap">
         insert into tblAccount(seq, id, lv, active)
-        values (seqAccount.nextval, #{email, jdbcType=VARCHAR}, 2, 'y')
+        values (seqAccount.nextval, #{email, jdbcType=VARCHAR}, 1, 'y')
     </insert>
 
     <insert id="kakaoInfo" parameterType="com.test.gongbang.member.login.kakao.service.KakaoDTO">
