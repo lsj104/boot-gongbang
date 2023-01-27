@@ -1,5 +1,6 @@
 package com.test.gongbang.member.login.kakao.controller;
 
+import com.test.gongbang.member.login.kakao.model.KakaoRepository;
 import com.test.gongbang.member.login.kakao.service.KakaoDTO;
 import com.test.gongbang.member.login.kakao.service.KakaoService;
 import lombok.RequiredArgsConstructor;
@@ -7,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,6 +23,8 @@ public class KaKaoController {
     @Autowired
     KakaoService ks;
 
+    @Autowired
+    private KakaoRepository mr;
     KakaoDTO dto = new KakaoDTO();
 
     @GetMapping("/login")
@@ -27,7 +33,7 @@ public class KaKaoController {
     }
 
 
-    // 일반 회원
+    // 일반 회원 - 회원가입
     @GetMapping("/kakao")
     public String getCI(@RequestParam String code, Model model, HttpSession session) throws IOException {
         System.out.println("code = " + code);
@@ -40,21 +46,23 @@ public class KaKaoController {
         session.setAttribute("access_token", access_token);
         session.setAttribute("user", userInfo);
 
-        System.out.println("aaaa");
-
 //        return "redirect:/index"; // 받아온 값 test page
 
-        if (dto.getTel() == null) {
-            return "member/login/kakaoinfo";
-        } else {
-            return "redirect:/main";
-        }
+//        if (dto.getTel() == null) {
+//            return "member/login/kakaoinfo";
+//
+//        } else {
+//            return "redirect:/main";
+//        }
+
+        return "member/login/kakaoinfo";
 
     }
 
-    // 공방
+    // 공방 - 회원가입
     @GetMapping("/gongbang")
     public String getGbCI(@RequestParam String code, Model model, HttpSession session) throws IOException {
+
         System.out.println("code = " + code);
         String access_token = ks.getGongbangToken(code);
         KakaoDTO userInfo = ks.getgongbanginfo(access_token);
@@ -64,14 +72,9 @@ public class KaKaoController {
 
         session.setAttribute("access_token", access_token);
         session.setAttribute("user", userInfo);
-        System.out.println("aaaa");
 
-        // 전화번호 null일때 번호 입력 페이지
-        if (dto.getTel() == null) {
-            return "member/login/kakaoinfo";
-        } else {
-            return "redirect:/main";
-        }
+        return "member/login/kakaoinfo";
+
     }
 
     // 회원 탈퇴
@@ -95,12 +98,36 @@ public class KaKaoController {
 
     // 카카오 로그인 -> 이름, 번호 입력
     @PostMapping(value = "/kakaoinfo")
-    public String kakaoinfo(KakaoDTO dto) {
+    public void kakaoinfo(KakaoDTO dto, HttpServletResponse response) throws IOException {
 //        System.out.println(111);
         System.out.println("kakaoinfo: " + dto);
         ks.kakaoinfo(dto);
-        return "redirect:/main";
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('회원가입이 완료됐습니다. 로그인 후 이용해 주세요.'); location.href='/member/login';</script>");
+        out.flush();
+//        return "redirect:/main";
     }
+
+    @GetMapping("/kakaologin")
+    public String kakaologin(@RequestParam String code, Model model, HttpSession session) throws IOException {
+
+        System.out.println("code = " + code);
+        String access_token = ks.getLoginToken(code);
+        KakaoDTO userInfo = ks.getlogininfo(access_token);
+        model.addAttribute("code", code);
+        model.addAttribute("access_token", access_token);
+        model.addAttribute("userInfo", userInfo);
+
+        session.setAttribute("access_token", access_token);
+        session.setAttribute("user", userInfo);
+
+        return "redirect:/main";
+
+    }
+
+
 
 }
 

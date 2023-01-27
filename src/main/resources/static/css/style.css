@@ -931,7 +931,7 @@ form.wowsortitems {
 	font-size:17px;
 }
 .templatemyaccount form#edd_login_form fieldset {
-		min-height:371px;
+		/*min-height:371px;*/
 }
 .templatemyaccount span.or {
 	display:inline-block;
