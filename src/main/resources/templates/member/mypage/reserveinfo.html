@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}" layout:fragment="content">
+
+<body>
+<div class="boxedlayout">
+
+
+
+  <!-- PAGE CONTENT
+  ================================================== -->
+  <div class="singledownloadphp">
+
+    <!-- TITLE BEGINS -->
+    <div class="headerimage">
+      <div class="headercontent">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="fleft">
+                <h1>MyPage</h1>
+              </div>
+              <div class="fright breadc">
+                <a href="/main"> Home </a> / <a href="/mypage">MyPage</a> / <a href="/mypage/reserveinfo">Reservation Info</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- TITLE ENDS -->
+
+    <div class="container padtop50 padbot50">
+      <div class="row">
+
+        <!-- MAIN CONTENT BEGINS -->
+        <div class="col-md-12">
+          <div id="primary" class="content-area">
+            <main id="main" class="site-main" role="main">
+              <article class="contentdownloadphp">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div id="secondary" class="widget-area" role="complementary">
+                      <aside id="edd_categories_tags_widget-3"
+                             class="widget widget_edd_categories_tags_widget">
+                        <h1 class="widget-title section-title">
+                          <span>Menu</span>
+                        </h1>
+                        <ul class="edd-taxonomy-widget">
+                          <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/memberinfo">개인정보 수정</a></li>
+                          <li th:if="${session.user.lv} == 1" class="cat-item"><b style="color:#3a97b1;">예약내역</b></li>
+                          <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/member/shopinfo">공방정보 수정</a></li>
+                          <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/member/sclassinfo">클래스관리</a></li>
+                          <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/member/shopedit">예약관리</a></li>
+                        </ul>
+                      </aside>
+                    </div>
+                  </div>
+                  <div class="col-md-9 container padtop40 padbot50" >
+                    <span class="smalltitle">reservation History</span>
+                    <table id="edd_user_history">
+                      <thead>
+                      <tr class="edd_purchase_row">
+                        <th class="edd_purchase_id">
+                          #
+                        </th>
+                        <th class="edd_purchase_id">
+                          예약일
+                        </th>
+                        <th class="edd_purchase_date">
+                          클래스
+                        </th>
+                        <th class="edd_purchase_amount">
+                          인원
+                        </th>
+                        <th class="edd_purchase_details">
+
+                        </th>
+                        <th class="edd_purchase_details">
+
+                        </th>
+                      </tr>
+                      </thead>
+                      <th:block th:each="mdto : ${mlist}">
+                        <tr th:each="sdto, status : ${slist}" class="edd_purchase_row">
+                          <td th:text="${status.count}" class="edd_purchase_id">
+                            번호
+                          </td>
+                          <td th:text="${mdto.rdate}" class="edd_purchase_date">
+                            예약일
+                          </td>
+                          <td th:text="${sdto.name}" class="edd_purchase_amount">
+                            클래스명
+                          </td>
+                          <td th:text="|${mdto.rmembercnt}명|" class="edd_purchase_details">
+                            인원
+                          </td>
+                          <td class="edd_purchase_details">
+                            <a href="#">상세보기</a>
+                          </td>
+                          <td class="edd_purchase_details">
+                            <a href="#">취소</a>
+                          </td>
+                        </tr>
+                      </th:block>
+                    </table>
+                  </div>
+                </div>
+              </article>
+            </main>
+          </div>
+        </div>
+        <!-- MAIN CONTENT ENDS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
