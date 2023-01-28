@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}" layout:fragment="content">
+
+<body>
+<div class="boxedlayout">
+
+
+
+    <!-- PAGE CONTENT
+    ================================================== -->
+    <div class="singledownloadphp">
+
+        <!-- TITLE BEGINS -->
+        <div class="headerimage">
+            <div class="headercontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="fleft">
+                                <h1>MyPage</h1>
+                            </div>
+                            <div class="fright breadc">
+                                <a href="index.html"> Home </a> / <a href="shop.html">MyPage</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TITLE ENDS -->
+
+        <div class="container padtop50 padbot50">
+            <div class="row">
+
+                <!-- MAIN CONTENT BEGINS -->
+                <div class="col-md-12">
+                    <div id="primary" class="content-area">
+                        <main id="main" class="site-main" role="main">
+                            <article class="contentdownloadphp">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div id="secondary" class="widget-area" role="complementary">
+                                            <aside id="edd_categories_tags_widget-3"
+                                                   class="widget widget_edd_categories_tags_widget">
+                                                <h1 class="widget-title section-title">
+                                                    <span>Menu</span>
+                                                </h1>
+                                                <ul class="edd-taxonomy-widget">
+                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/member/memberedit">개인정보 수정</a></li>
+                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><a href="#">예약내역</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/member/shopinfo">공방정보 수정</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/member/sclassinfo">클래스관리</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/member/shopedit">예약관리</a></li>
+                                                </ul>
+                                            </aside>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div><img width="200px" height="200px" th:src="@{${session.user.image}}" style="display:block; margin: 60px auto;"></div>
+
+                                        <div style="text-align:center;">
+                                            <p>안녕하세요</p>
+                                            <h2 th:text="|${session.user.name}님|">NickName님</h2>
+                                            <br>
+                                            <p>만지작을 이용해주셔서 감사합니다.</p>
+                                            <p>원하는 항목을 선택해주세요.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </main>
+                    </div>
+                </div>
+                <!-- MAIN CONTENT ENDS -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

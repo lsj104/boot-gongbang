@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}" layout:fragment="content">
+
+<body>
+<div class="boxedlayout">
+
+
+    <!-- PAGE CONTENT
+    ================================================== -->
+    <div class="singledownloadphp">
+
+        <!-- TITLE BEGINS -->
+        <div class="headerimage">
+            <div class="headercontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="fleft">
+                                <h1>MyPage</h1>
+                            </div>
+                            <div class="fright breadc">
+                                <a href="/main"> Home </a> / <a href="/mypage">MyPage</a> / <a
+                                    href="/mypage/memberinfo">Edit Info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TITLE ENDS -->
+
+        <div class="container padtop50 padbot50">
+            <div class="row">
+
+                <!-- MAIN CONTENT BEGINS -->
+                <div class="col-md-12">
+                    <div id="primary" class="content-area">
+                        <main id="main" class="site-main" role="main">
+                            <article class="contentdownloadphp">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div id="secondary" class="widget-area" role="complementary">
+                                            <aside id="edd_categories_tags_widget-3"
+                                                   class="widget widget_edd_categories_tags_widget">
+                                                <h1 class="widget-title section-title">
+                                                    <span>Menu</span>
+                                                </h1>
+                                                <ul class="edd-taxonomy-widget">
+                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><b
+                                                            style="color:#3a97b1;">개인정보 수정</b></li>
+                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><a
+                                                            href="/mypage/reserveinfo">예약내역</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a
+                                                            href="/member/shopinfo">공방정보 수정</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a
+                                                            href="/member/sclassinfo">클래스관리</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a
+                                                            href="/member/shopedit">예약관리</a></li>
+                                                </ul>
+                                            </aside>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <span class="smalltitle">Profile Editor</span>
+                                        <div id="edd_checkout_form_wrap" class="edd_clearfix">
+                                            <form id="edd_purchase_form" class="edd_form" action="#" method="POST">
+                                                <fieldset id="edd_checkout_user_info">
+                                                    <div style="margin: 60px; auto">
+                                                        <img width="200px" height="200px"
+                                                             th:src="@{${session.user.image}}"
+                                                             style="display:block; margin: 60px auto;">
+                                                        <input type="file" name="file" style="margin: 0 auto;">
+                                                    </div>
+                                                    <p id="edd-email-wrap">
+                                                        <label class="edd-label" for="edd-email">
+                                                            아이디
+                                                        </label>
+                                                        <span class="edd-description">아이디는 변경 불가합니다.</span>
+                                                        <input class="edd-input required" type="email" name="edd_email"
+                                                               placeholder="ID" id="edd-email"
+                                                               th:value="${session.user.id}" disabled>
+                                                    </p>
+                                                    <p id="edd-last-name-wrap">
+                                                        <label class="edd-label" for="edd-last">
+                                                            닉네임 </label>
+                                                        <span class="edd-description">NickName</span>
+                                                        <input class="edd-input" type="text" name="edd_last"
+                                                               id="edd-last" placeholder="NickName"
+                                                               th:value="${session.user.nickname}">
+                                                    </p>
+                                                    <p id="edd-first-name-wrap">
+                                                        <label class="edd-label" for="edd-first">
+                                                            이름 <span class="edd-required-indicator">*</span>
+                                                        </label>
+                                                        <span class="edd-description">Name</span>
+                                                        <input class="edd-input required" type="text" name="edd_first"
+                                                               placeholder="Name" id="edd-first"
+                                                               th:value="${session.user.name}" disabled>
+                                                    </p>
+                                                    <p id="edd-last-name-wrap">
+                                                        <label class="edd-label" for="edd-last">
+                                                            연락처 </label>
+                                                        <span class="edd-description">Tel</span>
+                                                        <input class="edd-input" type="text" name="edd_last"
+                                                               id="edd-last" placeholder="Tel"
+                                                               th:value="${session.user.tel}"/>
+                                                    </p>
+                                                    <p id="edd_profile_submit_wrap">
+                                                        <input name="edd_profile_editor_submit"
+                                                               id="edd_profile_editor_submit" type="submit"
+                                                               class="edd_submit" value="Save Changes"/>
+                                                    </p>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </main>
+                    </div>
+                </div>
+                <!-- MAIN CONTENT ENDS -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
