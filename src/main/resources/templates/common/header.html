@@ -31,7 +31,7 @@
                 <li th:if="${session.user != null}" class="dropdown" style="padding: 10px;">
                     <img src="/image/01.jpg" style="width: 30px; height: 30px; border-radius: 30px; margin-right: 5px;"><span th:text="|${session.user.name}님|"></span>
                         <ul class="dropdown-menu" style="width: 50px; margin-left: 50px;">
-                            <li><a href="member/mypage">MyPage</a></li>
+                            <li><a href="/mypage">MyPage</a></li>
                             <li><a href="member/kakaologout">Logout</a></li>
                         </ul>
                     </li>
