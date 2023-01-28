@@ -23,7 +23,7 @@
                                 <h1>MyPage</h1>
                             </div>
                             <div class="fright breadc">
-                                <a href="index.html"> Home </a> / <a href="shop.html">MyPage</a>
+                                <a href="/main"> Home </a> / <a href="/mypage">MyPage</a>
                             </div>
                         </div>
                     </div>
@@ -49,11 +49,11 @@
                                                     <span>Menu</span>
                                                 </h1>
                                                 <ul class="edd-taxonomy-widget">
-                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/member/memberedit">개인정보 수정</a></li>
-                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><a href="#">예약내역</a></li>
-                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/member/shopinfo">공방정보 수정</a></li>
-                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/member/sclassinfo">클래스관리</a></li>
-                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/member/shopedit">예약관리</a></li>
+                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member">개인정보 수정</a></li>
+                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member/reserveinfo">예약내역</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang">공방정보 수정</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/classinfo">클래스관리</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/reserveinfo">예약관리</a></li>
                                                 </ul>
                                             </aside>
                                         </div>
