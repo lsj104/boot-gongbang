@@ -23,4 +23,17 @@
         where mc.mseq = (select seq from tblMember where aseq = #{aseq})
     </select>
 
+    <select id="gongbangclasslist" parameterType="String" resultType="com.test.gongbang.sclass.service.ClassDTO">
+        select * from tblClass c
+                          inner join tblShop s
+                                     on c.sseq = c.seq
+        where s.aseq = #{aseq}
+        order by duedate desc
+    </select>
+
+    <select id="gongbangclassinfo" parameterType="String" resultType="com.test.gongbang.sclass.service.ClassDTO">
+        select * from TBLCLASS
+            where seq = #{seq}
+    </select>
+
 </mapper>

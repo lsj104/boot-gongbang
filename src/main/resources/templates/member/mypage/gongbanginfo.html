@@ -22,7 +22,7 @@
                             </div>
                             <div class="fright breadc">
                                 <a href="/main"> Home </a> / <a href="/mypage">MyPage</a> / <a
-                                    href="/mypage/member">Edit Info</a>
+                                    href="/mypage/gongbang">Edit Info</a>
                             </div>
                         </div>
                     </div>
@@ -48,9 +48,9 @@
                                                     <span>Menu</span>
                                                 </h1>
                                                 <ul class="edd-taxonomy-widget">
-                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><b style="color:#3a97b1;">개인정보 수정</b></li>
-                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><b style="color:#3a97b1;">예약내역</b></li>
-                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang">공방정보 수정</a></li>
+                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member">개인정보 수정</a></li>
+                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member/reserveinfo">예약내역</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><b style="color:#3a97b1;">공방정보 수정</b></li>
                                                     <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/classlist">클래스관리</a></li>
                                                     <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/reserveinfo">예약관리</a></li>
                                                 </ul>
@@ -60,9 +60,9 @@
                                     <div class="col-md-9">
                                         <span class="smalltitle">Profile Editor</span>
                                         <div id="edd_checkout_form_wrap" class="edd_clearfix">
-                                            <form id="edd_purchase_form" class="edd_form" action="/mypage/member/editok" method="POST">
+                                            <form id="edd_purchase_form" class="edd_form" action="#" method="POST">
                                                 <fieldset id="edd_checkout_user_info">
-                                                    <div style="margin: 60px auto;">
+                                                    <div style="margin: 60px; auto">
                                                         <img width="200px" height="200px"
                                                              th:src="@{${session.user.image}}"
                                                              style="display:block; margin: 60px auto;">
@@ -81,13 +81,13 @@
                                                         <label class="edd-label" for="edd-last">
                                                             닉네임 </label>
                                                         <span class="edd-description">NickName</span>
-                                                        <input class="edd-input" type="text" name="nickname"
+                                                        <input class="edd-input" type="text" name="edd_last"
                                                                id="edd-last" placeholder="NickName"
                                                                th:value="${session.user.nickname}">
                                                     </p>
                                                     <p id="edd-first-name-wrap">
                                                         <label class="edd-label" for="edd-first">
-                                                            이름 <span class="edd-required-indicator">*</span>
+                                                            공방이름 <span class="edd-required-indicator">*</span>
                                                         </label>
                                                         <span class="edd-description">Name</span>
                                                         <input class="edd-input required" type="text" name="edd_first"

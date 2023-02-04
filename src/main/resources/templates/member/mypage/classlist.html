@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/base}" layout:fragment="content">
+
+<body>
+<div class="boxedlayout">
+
+
+
+	<!-- PAGE CONTENT
+    ================================================== -->
+	<div class="singledownloadphp">
+
+		<!-- TITLE BEGINS -->
+		<div class="headerimage">
+			<div class="headercontent">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="fleft">
+								<h1>MyPage</h1>
+							</div>
+							<div class="fright breadc">
+								<a href="/main"> Home </a> / <a href="/mypage/gongbang">MyPage</a> / <a href="/mypage/gongbang/classlist">Class Info</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- TITLE ENDS -->
+
+		<div class="container padtop50 padbot50">
+			<div class="row">
+
+				<!-- MAIN CONTENT BEGINS -->
+				<div class="col-md-12">
+					<div id="primary" class="content-area">
+						<main id="main" class="site-main" role="main">
+							<article class="contentdownloadphp">
+								<div class="row">
+									<div class="col-md-3">
+										<div id="secondary" class="widget-area" role="complementary">
+											<aside id="edd_categories_tags_widget-3"
+												   class="widget widget_edd_categories_tags_widget">
+												<h1 class="widget-title section-title">
+													<span>Menu</span>
+												</h1>
+												<ul class="edd-taxonomy-widget">
+													<li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member">개인정보 수정</a></li>
+													<li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member/reserveinfo">예약내역</a></li>
+													<li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang">공방정보 수정</a></li>
+													<li th:if="${session.user.lv} == 2" class="cat-item"><b style="color:#3a97b1;">클래스관리</b></li>
+													<li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/reserveinfo">예약관리</a></li>
+												</ul>
+											</aside>
+										</div>
+									</div>
+									<div class="col-md-9 container padtop40 padbot50">
+										<span class="pagesit fleft">Class List</span>
+										<div class="wowitemboxlist">
+											<div class="wowitembox" th:each="dto : ${list}">
+												<div class="wowitemboxinner">
+													<div class="imagearea">
+														<img style="width: 555px; height: 200px; object-fit: cover;" th:src="@{/image/class/} + ${dto.image}">
+														<div class="caption">
+															<div class="blur">
+															</div>
+															<div class="caption-text">
+																<div class="captionbuttons">
+																	<a th:href="@{/mypage/gongbang/classinfo(seq=${dto.seq})}" class="captiondetails"><i class="fa fa-link"></i> Edit</a>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="notesarea">
+														<a th:href="@{/classviewdetails(seq=${dto.seq})}" th:text="${dto.name}">
+															<h2>Travel Fashion</h2>
+														</a>
+														<div class="description">
+															<p th:text="|${#strings.substring(dto.intro, 0, 30)}...|">
+																클래스 소개
+															</p>
+														</div>
+														<div class="notesbottom">
+															<div class="price fleft" th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></div>
+
+															<div class="clearfix">
+																<div class="cart fright">
+																	<a href="productsingle-nosidebar" class="edd-add-to-cart">
+																		<span th:text="|${dto.rmembercnt}/${dto.membercnt}|"></span>
+																	</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- .wowitemboxinner-->
+											</div>
+									</div>
+								</div>
+								</div>
+							</article>
+						</main>
+					</div>
+				</div>
+				<!-- MAIN CONTENT ENDS -->
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>

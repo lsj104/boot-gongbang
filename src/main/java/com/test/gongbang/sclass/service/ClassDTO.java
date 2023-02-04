@@ -15,4 +15,5 @@ public class ClassDTO {
     private String price;       //클래스 수강 가격
     private String image;       //클래스 이미지
     private String sseq;        //공방 번호
+    private String rmembercnt;  //예약자수
 }
