@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}" layout:fragment="content">
+<style>
+
+  textarea {
+
+    resize: none;
+    height: 300px;
+
+  }
+
+</style>
+<body>
+<div class="boxedlayout">
+  <!-- PAGE CONTENT
+  ================================================== -->
+  <div class="singledownloadphp">
+
+    <!-- TITLE BEGINS -->
+    <div class="headerimage">
+      <div class="headercontent">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="fleft">
+                <h1>MyPage</h1>
+              </div>
+              <div class="fright breadc">
+                <a href="index.html"> Home </a> / <a href="shop.html">MyPage</a> / <a href="shop.html">Edit Info</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- TITLE ENDS -->
+
+    <div class="container padtop50 padbot50">
+      <div class="row">
+
+        <!-- MAIN CONTENT BEGINS -->
+        <div class="col-md-12">
+          <div id="primary" class="content-area">
+            <main id="main" class="site-main" role="main">
+              <article class="contentdownloadphp">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div id="secondary" class="widget-area" role="complementary">
+                      <aside id="edd_categories_tags_widget-3"
+                             class="widget widget_edd_categories_tags_widget">
+                        <h1 class="widget-title section-title">
+                          <span>Menu</span>
+                        </h1>
+                        <ul class="edd-taxonomy-widget">
+                          <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member">개인정보 수정</a></li>
+                          <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member/reserveinfo">예약내역</a></li>
+                          <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang">공방정보 수정</a></li>
+                          <li th:if="${session.user.lv} == 2" class="cat-item"><b style="color:#3a97b1;">클래스관리</b></li>
+                          <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/reserveinfo">예약관리</a></li>
+                        </ul>
+                      </aside>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <span class="smalltitle">Class Editor</span>
+                    <div id="edd_checkout_form_wrap" class="edd_clearfix">
+                      <form id="edd_purchase_form" class="edd_form" th:object="${dto}" th:action="@{/member/classedit(seq=${dto.seq})}" method="POST">
+                        <fieldset id="edd_checkout_user_info" >
+                          <div style="margin: 60px auto;">
+                            <img width="200px" height="200px" th:src="@{/image/class/} + ${dto.image}" style="display:block; margin: 10px auto;">
+                            <input type="file" name="file" id="file" style="margin: 0 auto;">
+                          </div>
+                          <p id="edd-email-wrap">
+                            <label class="edd-label" for="edd-email">
+                              클래스명
+                            </label>
+                            <span class="edd-description">Class Name</span>
+                            <input class="edd-input required" type="text" name="name" placeholder="Class Name" id="edd-email" th:value="${dto.name}">
+                          </p>
+                          <p id="edd-last-name-wrap">
+                            <label class="edd-label" for="edd-last">
+                              클래스 소개 </label>
+                            <span class="edd-description">Class Intro</span>
+                            <textarea class="edd-input" name="intro" id="intro" placeholder="Class Intro" th:text="${dto.intro}"></textarea>
+                          </p>
+                          <p id="edd-last-name-wrap">
+                            <label class="edd-label" for="edd-last">
+                              커리큘럼 </label>
+                            <span class="edd-description">Curriculum</span>
+                            <textarea class="edd-input" name="course" id="course" placeholder="Curriculum" th:text="${dto.course}"></textarea>
+                          </p>
+                          <p id="edd-last-name-wrap">
+                            <label class="edd-label" for="edd-last">
+                              소요시간 </label>
+                            <span class="edd-description">Class Time</span>
+                            <input class="edd-input" type="text" name="time" id="time" placeholder="Class Time" th:value="${dto.time}">
+                          </p>
+                          <p id="edd-last-name-wrap">
+                            <label class="edd-label" for="edd-last">
+                              수강정원 </label>
+                            <span class="edd-description">Number of Students</span>
+                            <input class="edd-input" type="text" name="membercnt" id="membercnt" placeholder="Number of Students" th:value="${dto.membercnt}">
+                          </p>
+                          <p id="edd_profile_submit_wrap">
+                            <input name="edd_profile_editor_submit" id="edd_profile_editor_submit" type="submit" class="edd_submit" value="Save Changes"/>
+                          </p>
+                        </fieldset>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </main>
+          </div>
+        </div>
+        <!-- MAIN CONTENT ENDS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

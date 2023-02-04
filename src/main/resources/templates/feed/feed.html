@@ -1,34 +1,73 @@
 <!DOCTYPE html>
-<html xmlns:th="https://thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorate="~{common/base}"
-	layout:fragment="content">
-<link rel="stylesheet" href="/css/feed.css">
-<script async defer data-website-id="d3970eeb-d0e7-4399-9668-759bae11de75" src="https://analytics.meta.pimjo.com/umami.js"></script>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+<link rel='stylesheet' href='/css/theme.css'>
+<link rel='stylesheet' href='/css/app.css'>
+<script async defer data-website-id="d3970eeb-d0e7-4399-9668-759bae11de75"
+        src="https://analytics.meta.pimjo.com/umami.js"></script>
+<style>
+    .input-group {
+        width: 300px;
+        margin-bottom: 20px;
+    }
 
+    .btn {
+        border-color: #eee;
+        height: 34px;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+</style>
 <body>
-		
-	<section class="mt-4 mb-5">
-
-<div class="container-fluid">
-	<div class="row">
-		<div class="card-columns">
-			<div class="card card-pin" th:each="dto:${list}">
-				<img class="card-img" th:src="'/image/feed/'+${dto.image}" alt="Card image">
-				<div class="overlay">
-					<h2 class="card-title title" th:text="${dto.content}"></h2>
-					<div class="more">
-						<a href="post.html">
-						<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-					</div>
-				</div>
-			</div>
-
-
-		</div>
-	</div>
+<div class="boxedlayout">
+    <!-- TITLE BEGINS -->
+    <div class="headerimage" style="margin-top: 0;">
+        <div class="headercontent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fleft">
+                            <h1>Feed</h1>
+                        </div>
+                        <div class="fright breadc">
+                            <a href="index.html"> Home </a> / <a href="feed.html">Feed</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TITLE ENDS -->
+    <div class="mt-4 mb-5">
+    <div class="container-fluid" style="margin: 100px 200px;">
+        <h1>Explore</h1>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+			    <button class="btn btn-default" type="button">Search</button>
+			</span>
+        </div>
+        <div class="row">
+            <div class="card-columns" style="column-gap: 5px;">
+                <div class="card card-pin" th:each="dto:${list}">
+                    <img class="card-img" th:src="'/image/feed/'+${dto.image}" alt="Feed image">
+                    <div class="overlay">
+                        <h2 class="card-title title" th:text="${dto.content}"></h2>
+                        <div class="more">
+                            <a href="post.html">
+                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> View </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</section>
-
+</div>
 </body>
 </html>
