@@ -1,5 +1,6 @@
 package com.test.gongbang.sclass.controller;
 
+import com.test.gongbang.shared.service.Paging;
 import com.test.gongbang.shop.service.ShopDTO;
 import org.springframework.stereotype.Controller;
 import com.test.gongbang.sclass.service.ClassDTO;
@@ -7,6 +8,7 @@ import com.test.gongbang.sclass.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,14 +17,22 @@ public class ClassController {
     @Autowired private ClassService service;
 
     @GetMapping("/class")
-    public String list(Model model) {
+    public String list(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
 
-        List<ClassDTO> list = service.list();
+        int totalCount = service.getTotalCount();
+
+        String url = "/class";
+
+        Paging paging = new Paging(Integer.parseInt(page), 9, 10, totalCount, url);
+
+        List<ClassDTO> list = service.list(paging);
 
         model.addAttribute("list",list);
+        model.addAttribute("paging",paging);
 
-        return "class";
+        return "class/class";
     }
+
     @GetMapping ("/classviewdetails")
     public String view(Model model, String seq) {
 
@@ -32,6 +42,6 @@ public class ClassController {
         model.addAttribute("dto", dto);
         model.addAttribute("sdto", sdto);
 
-        return "classviewdetails";
+        return "class/classviewdetails";
     }
 }
