@@ -1,4 +1,4 @@
-package com.test.gongbang.sclass.service;
+package com.test.gongbang.shared.service;
 
 import java.util.List;
 
