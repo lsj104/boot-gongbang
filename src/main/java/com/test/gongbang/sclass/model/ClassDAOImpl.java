@@ -1,8 +1,7 @@
 package com.test.gongbang.sclass.model;
 
 import com.test.gongbang.sclass.service.ClassDTO;
-
-import com.test.gongbang.sclass.service.Paging;
+import com.test.gongbang.shared.service.Paging;
 import com.test.gongbang.shop.service.ShopDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

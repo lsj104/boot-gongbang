@@ -1,7 +1,9 @@
 package com.test.gongbang.shared.service;
 
-import java.util.List;
+import lombok.Data;
 
+import java.util.List;
+@Data
 public class Paging {
     // 현재페이지
     private int nowPage;
@@ -26,17 +28,16 @@ public class Paging {
 
     private String pageBar;
 
-    public void pagination(int nowPage, int pageSize, int blockSize, int totalCount, String url) {
+    public Paging(int nowPage, int pageSize, int blockSize, int totalCount, String url) {
         // 현재 페이지가 1보다 작을 수 없게 제한
         this.nowPage = nowPage < 1 ? 1 : nowPage;
         this.pageSize = pageSize;
-        this.startRow = ((nowPage-1) * pageSize);
-        this.endRow = startRow + pageSize;
+        this.startRow = ((nowPage-1) * pageSize) + 1;
+        this.endRow = startRow + pageSize - 1;
         this.totalCount = totalCount;
+        this.totalPage = (int)Math.ceil((double)totalCount/pageSize);   // Math.ceil() : 올림
 
-        String pageBar = "";	//페이지 바 태그
-
-        totalPage = (int)Math.ceil((double)totalCount/pageSize);	// Math.ceil() : 올림
+        String pageBar = "";   //페이지 바 태그
 
         int n = 0;			//출력될 페이지 번호
         int loop = 0;		//루프 변수
@@ -57,9 +58,9 @@ public class Paging {
 
             if(nowPage == n) {
 
-                pageBar += String.format(" <a href='#!'>%d</a> ", n);
+                pageBar += String.format(" <a href='#!' class='current'>%d</a> ", n);
             } else {
-                pageBar += String.format(" <a href='/%s?page=%d'>%d</a> ", url, n, n);
+                pageBar += String.format(" <a href='%s?page=%d'>%d</a> ", url, n, n);
             }
 
             loop++;
@@ -76,7 +77,5 @@ public class Paging {
 
         this.pageBar = pageBar;
     }
-
-
 
 }
