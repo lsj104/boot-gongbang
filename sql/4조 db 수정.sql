@@ -61,3 +61,11 @@ update tblShop set name = '조자영', nickname = '러브투모로우', tel = '0
 update tblShop set name = '권재희', nickname = '우드얀', tel = '010-9944-3226' where seq = 38;
 update tblShop set name = '전희경', nickname = '브라이튼미', tel = '010-6932-9030' where seq = 39;
 update tblShop set name = '김아름', nickname = '스튜디오 오름', tel = '010-0488-0250' where seq = 40;
+
+
+-- 수진
+-- tblMember 관리자 정보 추가
+insert into TBLMEMBER(seq, nickname, image, aseq, name, tel) VALUES (SEQMEMBER.nextval, '관리자', 'default.png', 1, '관리자', '010-1234-1234');
+
+
+
