@@ -40,26 +40,38 @@
     <div id="homepagetemplate" class="container padtop10 padbot40" style="margin-top: 20px; min-height: 1000px;">
         <table class="table">
             <thead>
+            <!--            <tr>-->
+            <!--                <th>NO.</th>-->
+            <!--                <th colspan="2" style="text-align: center">제목</th>-->
+            <!--                <th style="text-align: center">작성일</th>-->
+            <!--                <th style="text-align: center">작성자</th>-->
+            <!--            </tr>-->
             <tr>
-                <th>NO.</th>
-                <th colspan="2" style="text-align: center">제목</th>
-                <th style="text-align: center">작성일</th>
-                <th style="text-align: center">작성자</th>
+                <td>No.</td>
+                <td>제목</td>
+                <td>작성일</td>
+                <td>작성자</td>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th>1</th>
-                <td scope="row" colspan="2" style="text-align: center">Mark</td>
-                <td style="text-align: center">Otto</td>
-                <td style="text-align: center">@mdo</td>
+            <tr th:each="lists : ${list}">
+                <td th:text="${lists.seq}"></td>
+                <td th:text="${lists.title}"></td>
+                <td th:text="${lists.regdate}"></td>
+                <td th:text="${lists.nickname}"></td>
             </tr>
-            <tr>
-                <th>2</th>
-                <td scope="row" colspan="2" style="text-align: center">Mark</td>
-                <td style="text-align: center">Otto</td>
-                <td style="text-align: center">@mdo</td>
-            </tr>
+            <!--            <tr>-->
+            <!--                <th>1</th>-->
+            <!--                <td scope="row" colspan="2" style="text-align: center">Mark</td>-->
+            <!--                <td style="text-align: center">Otto</td>-->
+            <!--                <td style="text-align: center">@mdo</td>-->
+            <!--            </tr>-->
+            <!--            <tr>-->
+            <!--                <th>2</th>-->
+            <!--                <td scope="row" colspan="2" style="text-align: center">Mark</td>-->
+            <!--                <td style="text-align: center">Otto</td>-->
+            <!--                <td style="text-align: center">@mdo</td>-->
+            <!--            </tr>-->
 
             <!--        <tr th:each="list : ${tableList}">-->
             <!--            <td><span th:text="${list.seq}"></span></td>-->
