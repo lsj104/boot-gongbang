@@ -33,7 +33,7 @@
 		<div class="row padtop30 padbot20">
 			<div class="col-md-12">
 						<span class="pagesit fleft">
-							Showing page 1 of 2
+							Showing page [[${paging.nowPage}]] of [[${paging.totalPage}]]
 						</span>
 				<div class="sortitemsarea fright">
 					<form method="GET" action=" " class="wowsortitems">
@@ -61,7 +61,7 @@
 					<div class="wowitembox" th:each="dto : ${list}">
 						<div class="wowitemboxinner">
 							<div class="imagearea">
-								<img width="555" height="370" th:src="'/image/'+${dto.image}"/>
+								<img style="width: 555px; height: 200px; object-fit: cover;" th:src="'/image/class/'+${dto.image}"/>
 								<div class="caption">
 									<div class="blur">
 									</div>
@@ -73,14 +73,12 @@
 								</div>
 							</div>
 							<div class="notesarea">
-								<a th:href="@{/classviewdetails(seq=${dto.seq})}" th:text="${dto.name}">
-									<h2>Travel Fashion</h2>
-								</a>
-								<div class="description">
-									<p>
-										Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel com.
-									</p>
+								<div class="title" style="height: 40px; overflow: hidden;">
+									<a th:href="@{/classviewdetails(seq=${dto.seq})}" >
+										<h2 th:text="${dto.name}"></h2>
+									</a>
 								</div>
+								<div class="description" th:text="${dto.intro}" style="height: 64px; overflow: hidden"></div>
 								<div class="notesbottom">
 									<div class="price fleft" th:text="|${dto.price}원|"></div>
 									<div class="cart fright">
@@ -99,9 +97,7 @@
 				</div>
 				<div class="clear">
 				</div>
-				<div class='pagination'>
-					<span class='current'>1</span><a href='#' class='inactive'>2</a>
-				</div>
+				<div class='pagination' th:utext="${paging.pageBar}"></div>
 				<div class="clear">
 				</div>
 			</div>

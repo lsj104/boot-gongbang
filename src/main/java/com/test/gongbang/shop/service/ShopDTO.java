@@ -4,12 +4,13 @@ import lombok.Data;
 
 @Data
 public class ShopDTO {
-    private String seq;
-    private String name;
-    private String tel;
-    private String location;
-    private String image;
-    private String aseq;
+    private String seq;         //공방번호
+    private String name;        //대표자명
+    private String nickname;    //공방이름
+    private String tel;         //연락처
+    private String location;    //위치
+    private String image;       //대표 이미지
+    private String aseq;        //계정번호
 
 
     private String cname;

@@ -11,6 +11,7 @@ public class ClassDTO {
     private String course;      //클래스 커리큘럼
     private String time;        //소요시간
     private String duedate;     //클래스 수강일
+    private String duetime;     //클래스 수강시각
     private String membercnt;   //클래스 총 모집인원
     private String price;       //클래스 수강 가격
     private String image;       //클래스 이미지
