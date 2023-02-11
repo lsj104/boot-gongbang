@@ -39,7 +39,7 @@ public class KakaoRepository {
     public KakaoDTO findkakaogongbang(HashMap<String, Object> userInfo) {
         System.out.println("nickname: " + userInfo.get("nickname"));
         System.out.println("email: " + userInfo.get("email"));
-        return sql.selectOne("Member.findGongbamgKakao", userInfo);
+        return sql.selectOne("Member.findGongbangKakao", userInfo);
     }
 
     // 회원 탈퇴
@@ -51,6 +51,10 @@ public class KakaoRepository {
     // 로그인 후 전화번호, 이름 입력
     public void kakaoinfo(KakaoDTO dto) {
         sql.insert("Member.kakaoinfo", dto);
+    }
+
+    public void gongkakaoinfo(KakaoDTO dto) {
+        sql.insert("Member.gongkakaoinfo", dto);
     }
 
 }

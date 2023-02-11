@@ -33,7 +33,7 @@
             <!-- MAIN CONTENT BEGINS -->
             <div class="col-md-12">
                 <div class="wraplogin">
-                    <form role="form" action="/member/kakaoinfo" id="edd_kakaoinfo_form"
+                    <form role="form" action="/member/gongkakaoinfo" id="edd_kakaoinfo_form"
                           class="edd_form" method="post">
                         <fieldset>
                             <legend>Fill out Profile</legend>
@@ -44,6 +44,15 @@
                                        class="required edd-input"
                                        type="text"
                                        title="Username"
+                                       required/>
+                            </p>
+                            <p>
+                                <label>Shopname</label>
+                                <input name="nickname"
+                                       id="nickname"
+                                       class="required edd-input"
+                                       type="text"
+                                       title="Nickname"
                                        required/>
                             </p>
                             <p>
@@ -61,13 +70,12 @@
                                        id="address"
                                        class="required edd-input"
                                        type="text"
-                                       title="Address"
+                                       title="address"
                                        required/>
                             </p>
                             <p>
                                 <input id="kakaonfo_submit" type="submit" class="edd_submit" value="Submit"/>
                             </p>
-
                         </fieldset>
                     </form>
                 </div>

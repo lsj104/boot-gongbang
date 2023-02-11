@@ -9,24 +9,28 @@
         from tblAccount
                  inner join tblMember tM on tblAccount.seq = tM.aseq
         where id = #{email, jdbcType=VARCHAR}
+          and lv = 1
+          and active = 'y'
     </select>
 
-    <select id="findGongbamgKakao" parameterType="java.util.HashMap"
+    <select id="findGongbangKakao" parameterType="java.util.HashMap"
             resultType="com.test.gongbang.member.login.kakao.service.KakaoDTO">
         select *
         from tblAccount
-                 inner join tblMember tM on tblAccount.seq = tM.aseq
+                 inner join tblShop tM on tblAccount.seq = tM.aseq
         where id = #{email, jdbcType=VARCHAR}
+          and lv = 2
+          and active = 'y'
     </select>
 
     <insert id="kakaoInsert" parameterType="java.util.HashMap">
         insert into tblAccount(seq, id, lv, active)
-        values (seqAccount.nextval, #{email, jdbcType=VARCHAR}, 2, 'y')
+        values (seqAccount.nextval, #{email, jdbcType=VARCHAR}, 1, 'y')
     </insert>
 
     <insert id="kakaoGongbangInsert" parameterType="java.util.HashMap">
         insert into tblAccount(seq, id, lv, active)
-        values (seqAccount.nextval, #{email, jdbcType=VARCHAR}, 1, 'y')
+        values (seqAccount.nextval, #{email, jdbcType=VARCHAR}, 2, 'y')
     </insert>
 
     <insert id="kakaoInfo" parameterType="com.test.gongbang.member.login.kakao.service.KakaoDTO">
@@ -36,7 +40,7 @@
     </insert>
 
     <insert id="kakaoGongbangInfo" parameterType="com.test.gongbang.member.login.kakao.service.KakaoDTO">
-        insert into tblMember(seq, nickname, image, aseq)
+        insert into tblShop(seq, nickname, image, aseq)
         values (seqMember.nextval, #{nickname,jdbcType=VARCHAR}, #{profile_image , jdbcType=VARCHAR},
                 (select max(seq) from tblAccount))
     </insert>
@@ -52,12 +56,23 @@
         from tblAccount
                  inner join tblMember tM on tblAccount.seq = tM.aseq
         where id = #{email, jdbcType=VARCHAR}
+          and tblaccount.active = 'y'
     </select>
 
     <update id="kakaoinfo" parameterType="com.test.gongbang.member.login.kakao.service.KakaoDTO">
         update tblMember
-        set name = #{name},
-            tel  = #{tel}
+        set name    = #{name},
+            tel     = #{tel},
+            address = #{address}
+        where aseq = (select max(seq) from tblAccount)
+    </update>
+
+    <update id="gongkakaoinfo" parameterType="com.test.gongbang.member.login.kakao.service.KakaoDTO">
+        update TBLSHOP
+        set name     = #{name, jdbcType=VARCHAR},
+            tel      = #{tel, jdbcType=VARCHAR},
+            nickname = #{nickname, jdbcType=VARCHAR},
+            address  = #{address, jdbcType=VARCHAR}
         where aseq = (select max(seq) from tblAccount)
     </update>
 

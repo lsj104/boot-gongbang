@@ -12,4 +12,5 @@ public class KakaoDTO {
     private String tel;
     private String name;
     private String active;
+    private String address;
 }

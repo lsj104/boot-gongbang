@@ -67,5 +67,14 @@ update tblShop set name = '김아름', nickname = '스튜디오 오름', tel = '
 -- tblMember 관리자 정보 추가
 insert into TBLMEMBER(seq, nickname, image, aseq, name, tel) VALUES (SEQMEMBER.nextval, '관리자', 'default.png', 1, '관리자', '010-1234-1234');
 
+-- tblMember 주소 추가 0211
+ALTER table tblMember add address varchar2(500);
 
+-- tblShop location -> address 컬럼명 변경 0211
+ALTER table TBLSHOP rename column location to address;
+
+-- tblShop name & tel 수정 0211
+alter table TBLSHOP modify (tel null );
+alter table TBLSHOP modify (name null );
+alter table TBLSHOP modify (address null );
 
