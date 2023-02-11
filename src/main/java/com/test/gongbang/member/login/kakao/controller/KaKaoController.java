@@ -73,7 +73,7 @@ public class KaKaoController {
         session.setAttribute("access_token", access_token);
         session.setAttribute("user", userInfo);
 
-        return "member/login/kakaoinfo";
+        return "member/login/gongkakaoinfo";
 
     }
 
@@ -110,13 +110,52 @@ public class KaKaoController {
 //        return "redirect:/main";
     }
 
-    // 로그인
+    // 카카오 로그인 -> 공방
+    @PostMapping(value = "/gongkakaoinfo")
+    public void gongkakaoinfo(KakaoDTO dto, HttpServletResponse response) throws IOException {
+//        System.out.println(111);
+        System.out.println("gongkakaoinfo: " + dto);
+        ks.gongkakaoinfo(dto);
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('회원가입이 완료됐습니다. 로그인 후 이용해 주세요.'); location.href='/member/login';</script>");
+        out.flush();
+//        return "redirect:/main";
+    }
+
+    // 일반 회원 로그인
     @GetMapping("/kakaologin")
-    public String kakaologin(@RequestParam String code, Model model, HttpSession session) throws IOException {
+    public String kakaologin(@RequestParam String code, Model model, HttpSession session, HttpServletResponse response) throws IOException {
 
         System.out.println("code = " + code);
         String access_token = ks.getLoginToken(code);
         KakaoDTO userInfo = ks.getlogininfo(access_token);
+
+        model.addAttribute("code", code);
+        model.addAttribute("access_token", access_token);
+        model.addAttribute("userInfo", userInfo);
+        session.setAttribute("access_token", access_token);
+        session.setAttribute("user", userInfo);
+
+//        if (userInfo == null) {
+//            response.setContentType("text/html; charset=UTF-8");
+//            PrintWriter out = response.getWriter();
+//            out.println("<script>alert('회원가입 후 이용해 주세요.'); location.href='/member/login';</script>");
+//            out.flush();
+//        }
+
+        return "redirect:/main";
+    }
+
+
+    // 공방 회원 로그인
+    @GetMapping("/gongkakaologin")
+    public String gongkakaologin(@RequestParam String code, Model model, HttpSession session) throws IOException {
+
+        System.out.println("code = " + code);
+        String access_token = ks.getgongLoginToken(code);
+        KakaoDTO userInfo = ks.getgonglogininfo(access_token);
         model.addAttribute("code", code);
         model.addAttribute("access_token", access_token);
         model.addAttribute("userInfo", userInfo);
@@ -127,7 +166,6 @@ public class KaKaoController {
         return "redirect:/main";
 
     }
-
 
 
 }
