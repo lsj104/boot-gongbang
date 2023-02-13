@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -23,7 +24,12 @@ public class FeedController {
     }
 
     @GetMapping("feed/feedview")
-    public String feedview(){
+    public String feedview(@RequestParam String seq , Model model){
+
+        FeedDTO dto = service.feedview(seq);
+
+        model.addAttribute("feedview", dto);
+
         return "feed/feedview";
 
     }

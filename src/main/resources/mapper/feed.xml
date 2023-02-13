@@ -3,4 +3,10 @@
 
 <mapper namespace="feed">
     <select id="list" resultType="com.test.gongbang.feed.service.FeedDTO"> select * from tblFeed</select>
+
+    <select id="feedview" resultType="com.test.gongbang.feed.service.FeedDTO" parameterType="String">
+        select * from tblFeed where seq = #{seq}
+    </select>
+
 </mapper>
+
