@@ -49,7 +49,7 @@
                                                 </h1>
                                                 <ul class="edd-taxonomy-widget">
                                                     <li th:if="${session.user.lv} == 1" class="cat-item"><b style="color:#3a97b1;">개인정보 수정</b></li>
-                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><b style="color:#3a97b1;">예약내역</b></li>
+                                                    <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member/reserveinfo">예약내역</a></li>
                                                     <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang">공방정보 수정</a></li>
                                                     <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/classlist">클래스관리</a></li>
                                                     <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/reserveinfo">예약관리</a></li>
@@ -60,22 +60,21 @@
                                     <div class="col-md-9">
                                         <span class="smalltitle">Profile Editor</span>
                                         <div id="edd_checkout_form_wrap" class="edd_clearfix">
-                                            <form id="edd_purchase_form" class="edd_form" action="/mypage/member/editok" method="POST">
+                                            <form id="edd_purchase_form" class="edd_form" action="/mypage/member/editok" method="POST" enctype="multipart/form-data">
                                                 <fieldset id="edd_checkout_user_info">
                                                     <div style="margin: 60px auto;">
-                                                        <img width="200px" height="200px"
-                                                             th:src="@{${session.user.image}}"
-                                                             style="display:block; margin: 60px auto;">
-                                                        <input type="file" name="file" style="margin: 0 auto;">
+                                                        <!--<img width="200px" height="200px" th:src="@{${session.user.image}}" style="display:block; margin: 60px auto;">-->
+                                                        <img width="200px" height="200px" th:src="@{/profile/} + ${session.user.image}" style="display:block; margin: 60px auto;">
+                                                        <input type="file" name="image" style="margin: 0 auto;">
                                                     </div>
                                                     <p id="edd-email-wrap">
                                                         <label class="edd-label" for="edd-email">
                                                             아이디
                                                         </label>
                                                         <span class="edd-description">아이디는 변경 불가합니다.</span>
-                                                        <input class="edd-input required" type="email" name="edd_email"
+                                                        <input class="edd-input required" type="email" name="email"
                                                                placeholder="ID" id="edd-email"
-                                                               th:value="${session.user.id}" disabled>
+                                                               th:value="${session.user.id}" readonly>
                                                     </p>
                                                     <p id="edd-last-name-wrap">
                                                         <label class="edd-label" for="edd-last">
@@ -87,18 +86,19 @@
                                                     </p>
                                                     <p id="edd-first-name-wrap">
                                                         <label class="edd-label" for="edd-first">
-                                                            이름 <span class="edd-required-indicator">*</span>
+                                                            이름
                                                         </label>
-                                                        <span class="edd-description">Name</span>
-                                                        <input class="edd-input required" type="text" name="edd_first"
+                                                        <span class="edd-description">이름은 변경 불가합니다.</span>
+                                                        <input class="edd-input required" type="text" name="name"
                                                                placeholder="Name" id="edd-first"
                                                                th:value="${session.user.name}" disabled>
                                                     </p>
                                                     <p id="edd-last-name-wrap">
                                                         <label class="edd-label" for="edd-last">
-                                                            연락처 </label>
+                                                            연락처
+                                                        </label>
                                                         <span class="edd-description">Tel</span>
-                                                        <input class="edd-input" type="text" name="edd_last"
+                                                        <input class="edd-input" type="text" name="tel"
                                                                id="edd-last" placeholder="Tel"
                                                                th:value="${session.user.tel}"/>
                                                     </p>
@@ -106,6 +106,7 @@
                                                         <input name="edd_profile_editor_submit"
                                                                id="edd_profile_editor_submit" type="submit"
                                                                class="edd_submit" value="Save Changes"/>
+                                                        <a href="/member/kakaounlink">회원탈퇴</a>
                                                     </p>
                                                 </fieldset>
                                             </form>
@@ -121,7 +122,5 @@
         </div>
     </div>
 </div>
-
-
 </body>
 </html>

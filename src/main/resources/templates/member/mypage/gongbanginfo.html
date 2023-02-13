@@ -60,7 +60,7 @@
                                     <div class="col-md-9">
                                         <span class="smalltitle">Profile Editor</span>
                                         <div id="edd_checkout_form_wrap" class="edd_clearfix">
-                                            <form id="edd_purchase_form" class="edd_form" action="#" method="POST">
+                                            <form id="edd_purchase_form" class="edd_form" action="/mypage/gongbang/editok" method="POST" enctype="multipart/form-data">
                                                 <fieldset id="edd_checkout_user_info">
                                                     <div style="margin: 60px; auto">
                                                         <img width="200px" height="200px"
@@ -79,18 +79,19 @@
                                                     </p>
                                                     <p id="edd-last-name-wrap">
                                                         <label class="edd-label" for="edd-last">
-                                                            닉네임 </label>
+                                                            공방이름 </label>
                                                         <span class="edd-description">NickName</span>
-                                                        <input class="edd-input" type="text" name="edd_last"
+                                                        <input class="edd-input" type="text" name="nickname"
                                                                id="edd-last" placeholder="NickName"
                                                                th:value="${session.user.nickname}">
                                                     </p>
                                                     <p id="edd-first-name-wrap">
                                                         <label class="edd-label" for="edd-first">
-                                                            공방이름 <span class="edd-required-indicator">*</span>
+                                                            대표자명
+                                                            <span class="edd-required-indicator">대표자명은 변경 불가합니다.</span>
                                                         </label>
                                                         <span class="edd-description">Name</span>
-                                                        <input class="edd-input required" type="text" name="edd_first"
+                                                        <input class="edd-input required" type="text" name="name"
                                                                placeholder="Name" id="edd-first"
                                                                th:value="${session.user.name}" disabled>
                                                     </p>
@@ -98,9 +99,17 @@
                                                         <label class="edd-label" for="edd-last">
                                                             연락처 </label>
                                                         <span class="edd-description">Tel</span>
-                                                        <input class="edd-input" type="text" name="edd_last"
+                                                        <input class="edd-input" type="text" name="tel"
                                                                id="edd-last" placeholder="Tel"
                                                                th:value="${session.user.tel}"/>
+                                                    </p>
+                                                    <p id="edd-last-name-wrap">
+                                                        <label class="edd-label" for="edd-last">
+                                                            위치 </label>
+                                                        <span class="edd-description">Location</span>
+                                                        <input class="edd-input" type="text" name="location"
+                                                               id="edd-last" placeholder="Tel"
+                                                               th:value="${session.user.location}"/>
                                                     </p>
                                                     <p id="edd_profile_submit_wrap">
                                                         <input name="edd_profile_editor_submit"

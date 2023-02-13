@@ -18,5 +18,8 @@ public class MemberDTO {
     //클래스 예약
     private String rdate;
     private String rmembercnt;
+    private String duedate;
+    private String duetime;
+    private String cseq; //예약 클래스 seq
 
 }

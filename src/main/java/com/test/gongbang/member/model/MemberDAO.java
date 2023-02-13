@@ -10,10 +10,14 @@ public interface MemberDAO {
 
     List<MemberDTO> memberReserveInfo(String aseq);
 
-    List<ShopDTO> memberReserveClassInfo(String aseq);
-
     List<ClassDTO> gongbangClassList(String aseq);
 
-    ClassDTO classEdit(String aseq);
+    ClassDTO classDetail(String seq);
 
+    int memberEdit(MemberDTO dto);
+
+
+    int reserveDel(String seq);
+
+    List<MemberDTO> reserveMemberInfo(String seq);
 }

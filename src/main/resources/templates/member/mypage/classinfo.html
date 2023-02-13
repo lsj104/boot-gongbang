@@ -67,7 +67,7 @@
                   <div class="col-md-9">
                     <span class="smalltitle">Class Editor</span>
                     <div id="edd_checkout_form_wrap" class="edd_clearfix">
-                      <form id="edd_purchase_form" class="edd_form" th:object="${dto}" th:action="@{/member/classedit(seq=${dto.seq})}" method="POST">
+                      <form id="edd_purchase_form" class="edd_form" action="/mypage/gongbang/classeditok" method="POST" enctype="multipart/form-data">
                         <fieldset id="edd_checkout_user_info" >
                           <div style="margin: 60px auto;">
                             <img width="200px" height="200px" th:src="@{/image/class/} + ${dto.image}" style="display:block; margin: 10px auto;">
@@ -121,7 +121,5 @@
     </div>
   </div>
 </div>
-
-
 </body>
 </html>
