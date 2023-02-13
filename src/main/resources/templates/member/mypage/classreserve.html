@@ -1,0 +1,56 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h4 class="modal-title" id="myModalLabel">예약자 정보</h4>
+</div>
+<div class="modal-body">
+    <table id="edd_user_history">
+        <thead>
+        <tr class="edd_purchase_row">
+            <th class="edd_purchase_id">
+                #
+            </th>
+            <th style="text-align: center;" class="edd_purchase_id">
+                예약일
+            </th>
+            <th style="text-align: center;" class="edd_purchase_date">
+                예약자명
+            </th>
+            <th style="text-align: center;" class="edd_purchase_amount">
+                연락처
+            </th>
+            <th style="text-align: center;" class="edd_purchase_amount">
+                예약인원
+            </th>
+        </tr>
+        </thead>
+        <th:block th:if="${#lists.isEmpty(list)}">
+            <td style="text-align: center;" colspan="7">예약정보가 없습니다.</td>
+        </th:block>
+
+        <tr th:each="dto, status : ${list}" class="edd_purchase_row">
+            <td th:text="${status.count}" class="edd_purchase_id">
+                번호
+            </td>
+            <td style="text-align: center;" th:text="${#strings.substring(dto.rdate, 0, 10)}" class="edd_purchase_date">
+                예약일
+            </td>
+            <td style="text-align: center;" th:text="${dto.name}" class="edd_purchase_date">
+                예약자명
+            </td>
+            <td style="text-align: center;" th:text="${dto.tel}" class="edd_purchase_details">
+                연락처
+            </td>
+            <td style="text-align: center;" th:text="|${dto.rmembercnt}명|" class="edd_purchase_details">
+                예약인원
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+</div>
+</body>
+</html>

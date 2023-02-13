@@ -21,19 +21,28 @@ public class MemberDAOImpl implements MemberDAO {
     }
 
     @Override
-    public List<ShopDTO> memberReserveClassInfo(String aseq) {
-        return this.template.selectList("mypage.reserveshopinfo", aseq);
-    }
-
-    @Override
     public List<ClassDTO> gongbangClassList(String aseq) {
         return this.template.selectList("mypage.gongbangclasslist", aseq);
     }
 
     @Override
-    public ClassDTO classEdit(String seq) {
+    public ClassDTO classDetail(String seq) {
         return this.template.selectOne("mypage.gongbangclassinfo", seq);
     }
 
+    @Override
+    public int memberEdit(MemberDTO dto) {
+        return this.template.update("mypage.memberedit", dto);
+    }
+
+    @Override
+    public int reserveDel(String seq) {
+        return this.template.delete("mypage.reservedel", seq);
+    }
+
+    @Override
+    public List<MemberDTO> reserveMemberInfo(String seq) {
+        return this.template.selectList("mypage.reservemember", seq);
+    }
 }
 

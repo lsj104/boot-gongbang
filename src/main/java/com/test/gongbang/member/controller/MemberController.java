@@ -11,10 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 
@@ -40,13 +44,15 @@ public class MemberController {
 
     //회원 > 정보 수정 처리
     @PostMapping("/mypage/member/editok")
-    public String editok(HttpServletRequest resp, HttpSession session) {
+    public String editok(MultipartHttpServletRequest mreq, HttpSession session) {
 
-        String nickname = resp.getParameter("nickname");
+        int result = service.memberEdit(mreq, session);
 
-        System.out.println(nickname);
-
-        return "memeber/mypage/memberinfo";
+        if (result == 1) {
+            return "redirect:/mypage";
+        } else {
+            return "member/mypage/main";
+        }
     }
 
     //회원 > 클래스 예약 내역
@@ -55,13 +61,29 @@ public class MemberController {
         KakaoDTO dto = (KakaoDTO) session.getAttribute("user");
         String aseq = dto.getSeq() + "";
 
-        List<MemberDTO> mlist = service.memberReserveInfo(aseq);
-        List<ShopDTO> slist = service.memberReserveClassInfo(aseq);
-        model.addAttribute("mlist", mlist);
-        model.addAttribute("slist", slist);
+        List<MemberDTO> list = service.memberReserveInfo(aseq);
+        model.addAttribute("list", list);
 
         return "member/mypage/reserveinfo";
     }
+
+    //회원 > 예약 취소
+    @GetMapping("/mypage/member/reservedel")
+    public void reserveDel(@RequestParam String seq, HttpServletResponse response) throws IOException {
+
+        int result = service.reserveDel(seq);
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if (result == 1) {
+            out.println("<script>alert('취소되었습니다.'); location.href='/mypage/member/reserveinfo'</script>");
+        } else {
+            out.println("<script>alert('다시 시도해주세요.'); location.href='/mypage/member/reserveinfo'</script>");
+        }
+        out.flush();
+    }
+
 
     //공방 > 정보 수정
     @GetMapping("/mypage/gongbang")
@@ -69,6 +91,20 @@ public class MemberController {
 
         return "member/mypage/gongbanginfo";
     }
+
+    //공방 정보 수정 처리
+    @PostMapping("/mypage/gongbang/editok")
+    public String gongbangEditok(MultipartHttpServletRequest mreq, HttpSession session) {
+
+        int result = service.gongbangEdit(mreq, session);
+
+        if (result == 1) {
+            return "redirect:/mypage";
+        } else {
+            return "gongbang/mypage/main";
+        }
+    }
+
 
     //공방 > 클래스 목록
     @GetMapping("/mypage/gongbang/classlist")
@@ -87,9 +123,20 @@ public class MemberController {
     @GetMapping("/mypage/gongbang/classinfo")
     public String classInfo(Model model, @RequestParam String seq) {
 
-        ClassDTO dto = service.classEdit(seq);
+        ClassDTO dto = service.classDetail(seq);
         model.addAttribute("dto", dto);
 
         return "member/mypage/classinfo";
     }
+
+    //예약관리 모달
+    @GetMapping("/mypage/gongbang/classreserve")
+    public String reserveMemberInfo(@RequestParam String seq, Model model){
+
+        List<MemberDTO> list = service.reserveMemberInfo(seq);
+        model.addAttribute("list", list);
+
+        return "member/mypage/classreserve";
+    }
+
 }
