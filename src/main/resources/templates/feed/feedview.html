@@ -4,341 +4,122 @@
       layout:decorate="~{common/base}"
       layout:fragment="content">
 
-<body>
-
-<!--<section class="mt-4 mb-5">
-    <div class="container mb-4">
-        <h1 class="font-weight-bold title">Explore</h1>
-        <div class="row">
-            <nav class="navbar navbar-expand-lg navbar-light bg-white pl-2 pr-2">
-                <button class="navbar-light navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExplore" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarsExplore">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Lifestyle</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Food</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Travel</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
-                            <div class="dropdown-menu shadow-lg" aria-labelledby="dropdown01">
-                                <a class="dropdown-item" href="#">Astronomy</a>
-                                <a class="dropdown-item" href="#">Nature</a>
-                                <a class="dropdown-item" href="#">Cooking</a>
-                                <a class="dropdown-item" href="#">Fashion</a>
-                                <a class="dropdown-item" href="#">Wellness</a>
-                                <a class="dropdown-item" href="#">Dieting</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="card-columns">
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1489743342057-3448cc7c3bb9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6d284a2efbca5f89528546307f7e7b87&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
+<body class="bg-light">
+<div class="boxedlayout">
+    <!-- TITLE BEGINS -->
+    <div class="headerimage">
+        <div class="headercontent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fleft">
+                            <h1>Feed</h1>
                         </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1519996521430-02b798c1d881?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=79f770fc1a5d8ff9b0eb033d0f09e15d&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1505210512658-3ae58ae08744?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2ef2e23adda7b89a804cf232f57e3ca3&auto=format&fit=crop&w=333&q=80" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1488353816557-87cd574cea04?ixlib=rb-0.3.5&s=06371203b2e3ad3e241c45f4e149a1b3&auto=format&fit=crop&w=334&q=80" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1518450757707-d21c8c53c8df?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c88b5f311958f841525fdb01ab3b5deb&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1483190656465-2c49e54d29f3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7c4d831daffc28f6ce144ae9e44072e2&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1501813531019-338a4182efb0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ad934c7483b928cae6b0b9cde5ae3445&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1518542331925-4e91e9aa0074?ixlib=rb-0.3.5&s=6958cfb3469de1e681bf17587bed53be&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1513028179155-324cfec2566c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=32ce1df4016dadc177d6fce1b2df2429&auto=format&fit=crop&w=350&q=80" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1516601255109-506725109807?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ce4f3db9818f60686e8e9b62d4920ce5&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1509233631037-deb7efd36207?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=75a5d784cdfc8f5ced8a6fe26c6d921e&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-0.3.5&s=c0043ea5aa03f62a294636f93725dd6e&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1485627658391-1365e4e0dbfe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=976b0db5c3c2b9932bb20e72f98f9b61&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1502550900787-e956c314a221?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e90f191de3a03c2002ac82c009490e07&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9e3cd6ce6496c9c05cbf1b6cda8be0f9&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1509885903707-b68568db61ed?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5f11503655b51165836c2dcefa51a040&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1518707399486-6d702a84ff00?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b5bb16fa7eaed1a1ed47614488f7588d&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1519408299519-b7a0274f7d67?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d4891b98f4554cc55eab1e4a923cbdb1&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1506706435692-290e0c5b4505?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0bb464bb1ceea5155bc079c4f50bc36a&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-pin">
-                    <img class="card-img" src="https://images.unsplash.com/photo-1512355144108-e94a235b10af?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c622d56d975113a08c71c912618b5f83&auto=format&fit=crop&w=500&q=60" alt="Card image">
-                    <div class="overlay">
-                        <h2 class="card-title title">Cool Title</h2>
-                        <div class="more">
-                            <a href="post.html">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
+                        <div class="fright breadc">
+                            <a href="index.html"> Home </a> / <a href="feed.html">Feed</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>-->
+       <div class="mt-4 mb-5">
+           <!-- 본문-->
+        <div class="container" style="margin: 100px auto;">
+            <!--<nav th:replace="feed/header::feedheader"></nav>-->
+            <div class="row justify-content-center">
 
-<nav th:replace="layout/header::header"></nav>
-<div class="mt-5 pt-5 "> <!-- 본문-->
-    <div class="container">
-        <div class="row justify-content-center">
 
-            <!-- postList 하나씩 보여줌 -->
-            <div class="card mb-5 " style="width: 614px;" th:each="post : ${postList}">
+                <div class="card mb-3 " style="width: 935px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-8">
+                            <img th:src="|/image/feed/${feedview.image}|" th:width="600px" class="card-img">
+                        </div>
+                        <div class="col-md-4" style="position: relative;">
+                            <div class="card-header bg-white ">
+                                <!--<a class="text-body font-weight-bold text-monospace " style="height: 70px;"
+                                   th:href="'/'+${mapList.get(post.author)}"
+                                   th:text="${mapList.get(post.author)}"></a>-->
+                                일
+                            </div>
 
-                <!-- 유저 id . 헤더부분-->
-                <div class="card-header bg-white "><a class="text-body font-weight-bold text-monospace "
-                                                      th:href="'/'+${mapList.get(post.author)}"
-                                                      th:text="${mapList.get(post.author)}"></a>
-                    <!-- 권한이 있으면 삭제버튼 -->
-                    <!--<button type="button" class="close" aria-label="Close" sec:authorize="isAuthenticated()" th:if="${post.author.toString().equals(user.id.toString())}">
-                        <a th:href="'/delete/'+${post.id}" aria-hidden="true">&times;</a>
-                    </button>-->
-                </div>
+                            <div class="card-body border border-bottom border-gray overflow-auto" style="height: 420px;">
+                                <!--<a  th:href="'/'+${mapList.get(post.author)}" >
+                                <span style="font-size:90%" class="card-title font-weight-bold"
+                                      th:text="${mapList.get(post.author)}"></span>
+                                </a>-->
+                                이
+                                <span style="font-size:80%" class="card-text" th:text="${feedview.content}"></span><br/>
 
-                <!-- 이미지-->
-                <img th:src="${post.image}" class="card-img-top" alt="...">
-
-                <!--  게시글 내용-->
-                <div class="card-body pt-2 pb-0  border border-bottom border-gray">
-                    <section>
+                                <!--댓글 -->
+                                <!--<p class="mb-0" th:each="comment : ${comments.get(post.id)}">
+                                    <a  th:href="'/'+${mapList.get(comment.author)}" >
+                                        <span style="font-size:85%" class="card-title font-weight-bold"
+                                              th:text="${mapList.get(comment.author)}"></span>
+                                    </a>
+                                    <span style="font-size:75%" class="card-text" th:text="${comment.comment}"></span>
+                                    <button type="button" class="close " aria-label="Close" sec:authorize="isAuthenticated()" th:if="${comment.author.toString().equals(user.id.toString())}">
+                                        <a th:href="'/comments/detail/'+${post.id}+'/delete/'+${comment.id}"
+                                           aria-hidden="true" style="color:lightslategrey">&times;</a>
+                                    </button>
+                                    <br/>
+                                    <span class="mb-0 text-muted" style="font-size:75%;"
+                                          th:text="${#calendars.format(comment.regDate,'MM월 dd일 ')}"></span>
+                                </p>-->
+                            </div>
+                            <div class="card-body"
+                                 style="position: absolute; bottom: 63px;width:100%; padding-bottom: 0px;">
                         <span>
                             <i class="far fa-heart fa-2x"></i>
                         </span>
-                        <a style="color:black"
-                           th:href="'/detail/'+${post.id}">
-                            <i class="far fa-comment fa-2x pl-2"></i>
-                        </a>
-                    </section>
-                    <a  th:href="'/'+${mapList.get(post.author)}" >
-                        <span style="font-size:90%" class="card-title font-weight-bold" th:text="${mapList.get(post.author)}"></span>
-                    </a>
-                    <span style="font-size:80%" class="card-text" th:text="${post.content}"></span><br/>
-                    <div style="max-height: 100px;" class="overflow-auto">
-                        <p class="mb-0" th:each="comment : ${comments.get(post.id)}">
-                            <a  th:href="'/'+${mapList.get(comment.author)}" >
-                                 <span style="font-size:85%" class="card-title font-weight-bold"
-                                       th:text="${mapList.get(comment.author)}"></span>
-                            </a>
-                            <span style="font-size:75%" class="card-text" th:text="${comment.comment}"></span>
-                        </p>
+                                <!-- <a style="color:black"
+                                    th:href="'/detail/'+${post.id}">
+                                     <i class="far fa-comment fa-2x pl-2"></i>
+                                 </a>-->
+                                삼
+                                <!--<p><a th:href="'/detail/'+${post.id}" class="small mb-0 text-muted"
+                                      th:text="${#calendars.format(post.regDate,'MM월 dd일 ')}"></a>
+                                </p>-->
+                            </div>
+
+                            <!--<form th:action="'/comments/detail/'+${post.id}" method="post"
+                                  style="position:absolute; bottom:0px;">
+                                <div class="form-row card-footer w-auto m-0" sec:authorize="isAuthenticated()">
+                                    <div class="col d-none">
+                                        <input type="number" class="form-control" placeholder="작성자" id="comment_user_id"
+                                               name="author" th:value="${user.id}">
+                                    </div>
+                                    <input type="hidden" id="comment_post_id" name="postId" th:value="${post.id}">
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" id="comment_text" name="comment"
+                                               placeholder="댓글 달기">
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-outline-secondary" type="submit" id="comment_insert">작성
+                                        </button>
+                                    </div>
+                                </div>
+                                <div sec:authorize="isAnonymous()" class="form-row card-footer w-auto m-0" >
+                                    로그인 후 댓글을 이용하실 수 있습니다
+                                </div>
+
+                            </form>-->
+                            사
+                        </div>
                     </div>
-                    <p><a th:href="'/detail/'+${post.id}" class="small mb-0 text-muted"
-                          th:text="${#calendars.format(post.regDate,'MM월 dd일 ')}"></a>
-                    </p>
                 </div>
 
-                <!--<a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-                <!--<a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
-                <form th:action="@{/comments}" method="post">
-                    <!-- 로그인 되어있을때는 댓글 등록 가능-->
-                    <!--<div class="form-row card-footer w-auto m-0" sec:authorize="isAuthenticated()" >
-                        <div class="col d-none"  >
-                            <input type="number" class="form-control" placeholder="작성자" id="comment_user_id"
-                                   name="author" th:value="${user.id}" >
-                        </div>
-                        <input type="hidden" id="comment_post_id" name="postId" th:value="${post.id}">
-                        <div class="col-10">
-                            <input type="text" class="form-control" id="comment_text" name="comment"
-                                   placeholder="댓글 달기">
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-outline-secondary" type="submit" id="comment_insert">작성</button>
-                        </div>
-                    </div>-->
 
-                    <!-- 로그인 상태 아닐 경우-->
-                    <!--<div sec:authorize="isAnonymous()" class="form-row card-footer w-auto m-0" >
-                        로그인 후 댓글을 이용하실 수 있습니다.
-                    </div>-->
-                </form>
+                <!--<div sec:authorize="isAuthenticated()">
+                    <a th:if="${post.author.toString().equals(user.id.toString())}" class="btn btn-success btn-block " th:href="'/update/'+${post.id}"  style="width: 935px;">수정</a>
 
+                    <a th:if="${post.author.toString().equals(user.id.toString())}" class="btn btn-info btn-block " th:href="'/delete/'+${post.id}"  style="width: 935px;">삭제</a>
+                </div>-->
+                오
             </div>
-
-
-
         </div>
+       </div>
     </div>
-</div>
-
-
-</div>
-
-
 </body>
 </html>
 

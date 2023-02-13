@@ -17,4 +17,13 @@ public class FeedServiceImpl implements FeedService{
         return list;
     }
 
+    @Override
+    public FeedDTO feedview(String seq) {
+
+        FeedDTO dto = dao.feedview(seq);
+
+        return dto;
+    }
+
+
 }
