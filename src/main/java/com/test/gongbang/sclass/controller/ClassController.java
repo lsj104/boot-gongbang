@@ -1,5 +1,6 @@
 package com.test.gongbang.sclass.controller;
 
+import com.test.gongbang.sclass.service.CategoryDTO;
 import com.test.gongbang.shared.service.Paging;
 import com.test.gongbang.shop.service.ShopDTO;
 import org.springframework.stereotype.Controller;
@@ -17,24 +18,24 @@ public class ClassController {
     @Autowired private ClassService service;
 
     @GetMapping("/class")
-    public String list(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
+    public String list(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") String page, @RequestParam(value = "searchType", required = false) String searchType, @RequestParam(value = "searchWord", required = false) String searchWord) {
 
-        int totalCount = service.getTotalCount();
+        Paging paging = service.paging(Integer.parseInt(page), searchType, searchWord);
 
-        String url = "/class";
+        List<ClassDTO> list = service.list(paging, searchType, searchWord);
 
-        Paging paging = new Paging(Integer.parseInt(page), 9, 10, totalCount, url);
+        List<CategoryDTO> category = service.getCategory();
 
-        List<ClassDTO> list = service.list(paging);
-
-        model.addAttribute("list",list);
-        model.addAttribute("paging",paging);
+        model.addAttribute("list", list);
+        model.addAttribute("paging", paging);
+        model.addAttribute("category", category);
+        model.addAttribute("searchWord", searchWord);
 
         return "class/class";
     }
 
     @GetMapping ("/classviewdetails")
-    public String view(Model model, String seq) {
+    public String view(Model model, @RequestParam String seq) {
 
         ClassDTO dto = service.getClass(seq);
         ShopDTO sdto = service.getShop(seq);

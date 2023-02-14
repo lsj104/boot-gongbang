@@ -17,4 +17,8 @@ public class ClassDTO {
     private String image;       //클래스 이미지
     private String sseq;        //공방 번호
     private String rmembercnt;  //예약자수
+
+    //Shop 정보
+    private String nickname;    //공방명
+    private String location;    //공방위치
 }
