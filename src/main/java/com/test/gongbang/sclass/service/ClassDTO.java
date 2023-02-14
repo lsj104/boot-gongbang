@@ -20,5 +20,5 @@ public class ClassDTO {
 
     //Shop 정보
     private String nickname;    //공방명
-    private String location;    //공방위치
+    private String address;    //공방위치
 }

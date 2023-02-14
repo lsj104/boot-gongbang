@@ -67,7 +67,7 @@
 
 									<h2>위치</h2>
 									<div class="wowmetaposts entry-meta">
-										<div th:text="${sdto.location}"></div>
+										<div th:text="${sdto.address}"></div>
 										<div id="map" style="width: 500px; height: 400px;"></div>
 									</div>
 								</div>
@@ -111,7 +111,7 @@
 
 	var map = new kakao.maps.Map(container, options);	// 지도 생성 및 객체 리턴
 
-	var shopLocation = [[${sdto.location}]];	// 공방 주소
+	var shopLocation = [[${sdto.address}]];	// 공방 주소
 
 	var geocoder = new kakao.maps.services.Geocoder();
 
@@ -144,7 +144,7 @@
 											<img id="shopImg">
 									   </div>
 										<div class="desc">
-											<p class="ellipsis" id="shopLocation">[[${sdto.location}]]</p>
+											<p class="ellipsis" id="shopLocation">[[${sdto.address}]]</p>
 										</div>
 									</div>
 								</div>
