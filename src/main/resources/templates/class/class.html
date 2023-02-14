@@ -17,7 +17,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="fleft">
-							<h1>Shop</h1>
+							<h1>Class</h1>
 						</div>
 						<div class="fright breadc">
 							<a href="main">Home</a> / Class
@@ -32,36 +32,49 @@
 	<div class="container padbot30">
 		<div class="row padtop30 padbot20">
 			<div class="col-md-12">
-						<span class="pagesit fleft">
-							Showing page [[${paging.nowPage}]] of [[${paging.totalPage}]]
-						</span>
-				<div class="sortitemsarea fright">
-					<form method="GET" action=" " class="wowsortitems">
-						<select name="data" id="data" onchange='this.form.submit()'>
-							<option value="1">Sort by newest</option>
-							<option value="2">Sort by price: low to high</option>
-							<option value="3">Sort by price: high to low</option>
-							<option value="4">Sort by popularity</option>
-							<option value="5">Sort by oldest</option>
-							<option value="6">Sort by comments</option>
-							<option value="7">Sort alphabetically</option>
-						</select>
-						<noscript>
-							<input type="submit" value="Submit">
-						</noscript>
-					</form>
-				</div>
+				<span class="pagesit fleft">
+					Showing page [[${paging.nowPage}]] of [[${paging.totalPage}]]
+				</span>
+<!--				<div class="sortitemsarea fright">-->
+<!--					<form method="GET" action=" " class="wowsortitems">-->
+<!--						<select name="data" id="data" onchange='this.form.submit()'>-->
+<!--							<option value="1">Sort by newest</option>-->
+<!--							<option value="2">Sort by price: low to high</option>-->
+<!--							<option value="3">Sort by price: high to low</option>-->
+<!--							<option value="4">Sort by popularity</option>-->
+<!--							<option value="5">Sort by oldest</option>-->
+<!--							<option value="6">Sort by comments</option>-->
+<!--							<option value="7">Sort alphabetically</option>-->
+<!--						</select>-->
+<!--						<noscript>-->
+<!--							<input type="submit" value="Submit">-->
+<!--						</noscript>-->
+<!--					</form>-->
+<!--				</div>-->
 			</div>
 		</div>
 
 		<div class="row">
+			<div th:if="${!#strings.isEmpty(searchWord)}">
+				<span class="pagesit" th:text="|&quot;${searchWord}&quot;로 검색한 결과입니다.|" style="font-weight: bold; font-size: large; "></span>
+			</div>
 			<!-- MAIN CONTENT BEGINS -->
 			<div class="col-md-9">
-				<div class="wowitemboxlist">
+				<div id="searchresultnull" th:if="${#lists.isEmpty(list)}" style="height: 700px;display: flex; align-items: center; justify-content: center">
+					<p class="fa-2x" >
+						<i class="fa-solid fa-quote-left"></i>
+						&nbsp;
+						<span th:text="${searchWord}"></span>
+						&nbsp;
+						<i class="fa-solid fa-quote-right"></i>
+						에 대한 검색 결과가 없습니다.
+					</p>
+				</div>
+				<div class="wowitemboxlist" th:if="${!#lists.isEmpty(list)}">
 					<div class="wowitembox" th:each="dto : ${list}">
 						<div class="wowitemboxinner">
 							<div class="imagearea">
-								<img style="width: 555px; height: 200px; object-fit: cover;" th:src="'/image/class/'+${dto.image}"/>
+								<img style="height: 200px; object-fit: cover;" th:src="@{'/image/class/' + ${dto.image}}"/>
 								<div class="caption">
 									<div class="blur">
 									</div>
@@ -78,9 +91,12 @@
 										<h2 th:text="${dto.name}"></h2>
 									</a>
 								</div>
-								<div class="description" th:text="${dto.intro}" style="height: 64px; overflow: hidden"></div>
+								<div class="description" style="height: 70px; overflow: hidden">
+									<div th:text="${dto.nickname}" style="font-weight: bold; margin-bottom: 2px;"></div>
+									<div th:text="${dto.location}"></div>
+								</div>
 								<div class="notesbottom">
-									<div class="price fleft" th:text="|${dto.price}원|"></div>
+									<div class="price fleft" th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></div>
 									<div class="cart fright">
 										<a href="productsingle-nosidebar" class="edd-add-to-cart">
 											<span class="edd-add-to-cart-label">예약하기</span>
@@ -95,11 +111,9 @@
 					</div>
 					<!-- .wowitembox-->
 				</div>
-				<div class="clear">
-				</div>
-				<div class='pagination' th:utext="${paging.pageBar}"></div>
-				<div class="clear">
-				</div>
+				<div class="clear"></div>
+				<nav th:utext="${paging.pageBar}"></nav>
+				<div class="clear"></div>
 			</div>
 			<!-- MAIN CONTENT ENDS -->
 
@@ -109,32 +123,59 @@
 					<aside id="search-class" class="widget widget_text">
 						<h1 class="widget-title section-title"><span>Search in Class</span></h1>
 						<div class="textwidget">
-							<form role="search" method="get" class="search-form" action="#">
-								<input type="search" class="search-field" placeholder="Type and hit enter..." value="" name="s" title=""/>
-								<input type="hidden" name="post_type" value="download">
+							<form role="search" method="get" class="search-form" action="/class">
+								<input type="hidden" name="searchType" value="class" id="searchType-class">
+								<input type="search" class="search-field" placeholder="Type and hit enter..." value="" name="searchWord" title="" id="searchWord-class"/>
 							</form>
 						</div>
 					</aside>
 					<aside id="search-shop" class="widget widget_text">
 						<h1 class="widget-title section-title"><span>Search in Shop</span></h1>
 						<div class="textwidget">
-							<form role="search" method="get" class="search-form" action="#">
-								<input type="search" class="search-field" placeholder="Type and hit enter..." value="" name="s" title=""/>
-								<input type="hidden" name="post_type" value="download">
+							<form role="search" method="get" class="search-form" action="/class">
+								<input type="hidden" name="searchType" value="shop" id="searchType-shop">
+								<input type="search" class="search-field" placeholder="Type and hit enter..." value="" name="searchWord" title="" id="searchWord-shop"/>
+							</form>
+						</div>
+					</aside>
+					<aside id="search-" class="widget widget_text">
+						<h1 class="widget-title section-title"><span>Search in Region</span></h1>
+						<div class="textwidget">
+							<form role="search" method="get" class="search-form" action="/class" id="searchWord-region">
+								<input type="hidden" name="searchType" value="region" id="searchType-region">
+<!--								<input type="submit">-->
+								<select name="searchWord" form="searchWord-region" onchange="this.form.submit()">
+									<option value="">Region</option>
+									<option value="서울">서울</option>
+									<option value="경기">경기</option>
+									<option value="인천">인천</option>
+									<option value="강원">강원</option>
+									<option value="경상">경상</option>
+									<option value="부산">부산</option>
+									<option value="울산">울산</option>
+									<option value="대구">대구</option>
+									<option value="대전">대전</option>
+									<option value="전라">전라</option>
+									<option value="광주">광주</option>
+									<option value="충청">충청</option>
+									<option value="제주">제주</option>
+								</select>
 							</form>
 						</div>
 					</aside>
 					<aside id="edd_categories_tags_widget-3" class="widget widget_edd_categories_tags_widget">
 						<h1 class="widget-title section-title"><span>Categories</span></h1>
-						<ul class="edd-taxonomy-widget">
-							<li class="cat-item"><a href="#">주방용품</a></li>
-							<li class="cat-item"><a href="#">욕실용품</a></li>
-							<li class="cat-item"><a href="#">인테리어소품</a></li>
-							<li class="cat-item"><a href="#">패션/잡화</a></li>
-							<li class="cat-item"><a href="#">디퓨저/캔들/향수</a></li>
-							<li class="cat-item"><a href="#">문구/사무</a></li>
-						</ul>
+							<ul class="edd-taxonomy-widget">
+								<li class="cat-item" th:each="category:${category}">
+									<a th:href="@{/class(searchType=category, searchWord=${category.name})}" th:text="${category.name}"></a>
+								</li>
+							</ul>
 					</aside>
+
+					<form action="/class">
+						<input type="submit" class="btn-block" value="검색 초기화">
+					</form>
+
 				</div>
 			</div>
 			<!-- SIDEBAR ENDS -->

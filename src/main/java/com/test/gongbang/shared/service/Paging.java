@@ -2,7 +2,6 @@ package com.test.gongbang.shared.service;
 
 import lombok.Data;
 
-import java.util.List;
 @Data
 public class Paging {
     // 현재페이지
@@ -26,56 +25,97 @@ public class Paging {
     // SQL의 조건절에 사용되는 마지막 RNUM
     private int endRow;
 
+    // pageBar html생성문
     private String pageBar;
 
-    public Paging(int nowPage, int pageSize, int blockSize, int totalCount, String url) {
+    public Paging(int nowPage, int pageSize, int blockSize, int totalCount) {
         // 현재 페이지가 1보다 작을 수 없게 제한
         this.nowPage = nowPage < 1 ? 1 : nowPage;
         this.pageSize = pageSize;
+        this.blockSize = blockSize;
         this.startRow = ((nowPage-1) * pageSize) + 1;
         this.endRow = startRow + pageSize - 1;
         this.totalCount = totalCount;
-        this.totalPage = (int)Math.ceil((double)totalCount/pageSize);   // Math.ceil() : 올림
+        this.totalPage = (int)Math.ceil((double)totalCount/pageSize);// Math.ceil() : 올림
+    }
 
-        String pageBar = "";   //페이지 바 태그
+    public void pageBarMaker (Paging paging, String searchType, String searchWord, String url) {
+
+        System.out.println("totalCount" + paging.getTotalCount());
+        System.out.println("now" + paging.getNowPage());
+        System.out.println("pagingBlock" + paging.getBlockSize());
+        System.out.println("pagingBlock" + paging.getBlockSize());
 
         int n = 0;			//출력될 페이지 번호
         int loop = 0;		//루프 변수
 
+        String pageBar = "";
+
+        n = ((paging.getNowPage() -1)/paging.getBlockSize()) * paging.getBlockSize() + 1;
         loop = 1;
-        n = ((nowPage -1)/ blockSize) * blockSize + 1;
 
-        if (n == 1 ) {
-            pageBar += String.format("<a href='#!'style='cursor: not-allowed;'><i class=\"fa-solid fa-angles-left\"></i></a>");
-        } else {
-            pageBar += String.format("<a href='%s?page=%d'><i class=\"fa-solid fa-angles-left\"></i></a>", url, n-1);
-        }
+        pageBar += " <ul class='pagination'> ";
 
+        if (searchType == null || searchWord == null) {
 
-        while (!(loop > blockSize || n > totalPage)) {
-
-            pageBar += "<td>";
-
-            if(nowPage == n) {
-
-                pageBar += String.format(" <a href='#!' class='current'>%d</a> ", n);
+            if (n == 1) {
+                pageBar += " <li class='disabled'><a href='#' aria-label='Previous'><span aria-hidden='true'>«</span></a></li> ";
             } else {
-                pageBar += String.format(" <a href='%s?page=%d'>%d</a> ", url, n, n);
+                pageBar += String.format(" <li><a href='%s?page=%d' aria-label='Previous'><span aria-hidden='true'>«</span></a></li> ", url, n - 1);
             }
 
-            loop++;
-            n++;
+            while (!(loop > paging.getBlockSize() || n > paging.getTotalPage())) {
+
+                if (paging.getNowPage() == paging.getBlockSize()) {
+                    pageBar += String.format(" <li class='active'><a href='#'>%d <span class='sr-only'>(current)</span></a></li> ",n);
+                } else {
+                    pageBar += String.format(" <li><a href='%s?page=%d'>%d</a></li> ", url,  n, n);
+                }
+
+                loop++;
+                n++;
+
+            }
+
+            if (n > paging.getTotalPage()) {
+                pageBar += String.format(" <li><a href='%s?page=%d' aria-label='Next'><span aria-hidden='true'>»</span></a></li> ", url, paging.getTotalPage());
+            } else {
+                pageBar += String.format(" <li><a href='%s?page=%d' aria-label='Next'><span aria-hidden='true'>»</span></a></li> ", url,  n);
+            }
+
+        } else{
+
+            if (n == 1) {
+                pageBar += " <li class='disabled'><a href='#' aria-label='Previous'><span aria-hidden='true'>«</span></a></li> ";
+            } else {
+                pageBar += String.format(" <li><a href='%s?searchType=%s&searchWord=%s&page=%d'aria-label='Previous'><span aria-hidden='true'>«</span></a></li> ", url,  searchType, searchWord, n - 1);
+            }
+
+            while (!(loop > paging.getBlockSize() || n > paging.getTotalPage())) {
+
+                if (paging.getNowPage() == n) {
+                    pageBar += String.format(" <li class='active'><a href='#'>%d <span class='sr-only'>(current)</span></a></li> ", n);
+                } else {
+                    pageBar += String.format(" <li><a href='%s?searchType=%s&searchWord=%s&page=%d'>%d</a></li> ", url, searchType, searchWord, n, n);
+                }
+
+                loop++;
+                n++;
+
+            }
+
+            if (n > paging.getTotalPage()) {
+                pageBar += String.format(" <li class='disabled'><a href='%s?searchType=%s&searchWord=%s&page=%d' aria-label='Next'><span aria-hidden='true'>»</span></a></li> ", url, searchType, searchWord, paging.getTotalPage());
+            } else {
+                pageBar += String.format(" <li><a href='%s?searchType=%s&searchWord=%s&page=%d' aria-label='Next'><span aria-hidden='true'>»</span></a></li> ", url, searchType, searchWord, n);
+            }
 
         }
 
-        if (n > totalPage ) {
-            pageBar += String.format("<a href='#!'style='cursor: not-allowed;'><i class=\"fa-solid fa-angles-right\"></i></a>");
-        } else {
-            pageBar += String.format("<a href='%s?page=%d'><i class=\"fa-solid fa-angles-right\"></i></a>", url, n);
-        }
-
+        pageBar += " </ul>";
 
         this.pageBar = pageBar;
+
     }
 
 }

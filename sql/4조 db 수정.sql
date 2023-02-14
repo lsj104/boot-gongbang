@@ -61,3 +61,11 @@ update tblShop set name = '조자영', nickname = '러브투모로우', tel = '0
 update tblShop set name = '권재희', nickname = '우드얀', tel = '010-9944-3226' where seq = 38;
 update tblShop set name = '전희경', nickname = '브라이튼미', tel = '010-6932-9030' where seq = 39;
 update tblShop set name = '김아름', nickname = '스튜디오 오름', tel = '010-0488-0250' where seq = 40;
+
+--클래스 이미지 파일 수정
+update tblClass set image='북바인딩달력미니노트만들기.jpg' where seq = 67;
+update tblClass set image='힐링하며원데이가죽체험하기필통.png' where seq = 64;
+update tblClass set image='벨벳자이언트얀가방만들기.jpg' where seq = 58;
+update tblClass set image='데일리유니크발찌원데이클래스.jpg' where seq = 51;
+update tblClass set image='반짝반짝주얼리와함께하는나만의힐링데이.jpg' where seq = 48;
+commit;

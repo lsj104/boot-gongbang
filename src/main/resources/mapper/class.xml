@@ -2,8 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="class">
-    <select id="list" parameterType="com.test.gongbang.shared.service.Paging" resultType="com.test.gongbang.sclass.service.ClassDTO"> select * from (select rownum as rnum, c.* from (select * from tblClass order by seq desc) c) where rnum between #{startRow} and #{endRow} order by rnum asc</select>
+    <select id="alllist" parameterType="hashmap" resultType="com.test.gongbang.sclass.service.ClassDTO"> select * from (select rownum as rnum, c.* from (select tc.seq, tc.name, tc.price, tc.image, ts.nickname, ts.location from tblClass tc inner join tblShop ts on tc.sseq = ts.seq order by tc.seq desc) c) where rnum between #{startRow} and #{endRow} order by rnum asc</select>
+    <select id="searchcategory" parameterType="hashmap" resultType="com.test.gongbang.sclass.service.ClassDTO"> select * from (select rownum as rnum, c.* from (select tc.seq, tc.name, tc.price, tc.image, ts.nickname, ts.location from tblClass tc inner join tblShop ts on tc.sseq = ts.seq inner join tblCategory cc on tc.cseq = cc.seq where cc.name = #{searchWord} order by tc.seq desc) c) where rnum between #{startRow} and #{endRow} order by rnum asc</select>
+    <select id="searchshop" parameterType="hashmap" resultType="com.test.gongbang.sclass.service.ClassDTO"> select * from (select rownum as rnum, c.* from (select tc.seq, tc.name, tc.price, tc.image, ts.nickname, ts.location from tblClass tc inner join tblShop ts on tc.sseq = ts.seq where ts.nickname like '%'||#{searchWord}||'%' order by tc.seq desc) c) where rnum between #{startRow} and #{endRow} order by rnum asc</select>
+    <select id="searchclass" parameterType="hashmap" resultType="com.test.gongbang.sclass.service.ClassDTO"> select * from (select rownum as rnum, c.* from (select tc.seq, tc.name, tc.price, tc.image, ts.nickname, ts.location from tblClass tc inner join tblShop ts on tc.sseq = ts.seq where tc.name like '%'||#{searchWord}||'%' order by seq desc) c) where rnum between #{startRow} and #{endRow} order by rnum asc</select>
+    <select id="searchregion" parameterType="hashmap" resultType="com.test.gongbang.sclass.service.ClassDTO"> select * from (select rownum as rnum, c.* from (select tc.seq, tc.name, tc.price, tc.image, ts.nickname, ts.location from tblClass tc inner join tblShop ts on tc.sseq = ts.seq where ts.location like #{searchWord}||'%' order by seq desc) c) where rnum between #{startRow} and #{endRow} order by rnum asc</select>
     <select id="totalcount" resultType="int"> select count(*) from tblClass </select>
+    <select id="searchcategorycount" parameterType="hashmap" resultType="int"> select count(*) from tblClass c inner join tblCategory cc on c.cseq = cc.seq where cc.name = #{searchWord}</select>
+    <select id="searchshopcount" parameterType="hashmap" resultType="int"> select count(*) from tblClass c inner join tblShop s on c.sseq = s.seq where s.nickname like '%'||#{searchWord}||'%'</select>
+    <select id="searchclasscount" parameterType="hashmap" resultType="int"> select count(*) from tblClass c where c.name like '%'||#{searchWord}||'%'</select>
+    <select id="searchregioncount" parameterType="hashmap" resultType="int"> select count(*) from tblClass c inner join tblShop s on c.sseq = s.seq where s.location like #{searchWord}||'%'</select>
     <select id="classviewdetails" parameterType="String" resultType="com.test.gongbang.sclass.service.ClassDTO"> select * from tblClass where seq = #{seq} </select>
     <select id="shop" parameterType="String" resultType="com.test.gongbang.shop.service.ShopDTO"> select * from tblShop where seq = (select sseq from tblClass where seq = #{cseq}) </select>
+    <select id="category" resultType="com.test.gongbang.sclass.service.CategoryDTO"> select * from tblCategory</select>
 </mapper>
+
+
+
+
