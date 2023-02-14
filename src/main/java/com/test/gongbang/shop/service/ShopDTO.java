@@ -8,7 +8,7 @@ public class ShopDTO {
     private String name;        //대표자명
     private String nickname;    //공방이름
     private String tel;         //연락처
-    private String location;    //위치
+    private String address;    //위치
     private String image;       //대표 이미지
     private String aseq;        //계정번호
 
