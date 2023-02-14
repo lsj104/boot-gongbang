@@ -16,4 +16,9 @@ public class FeedDAOImpl implements  FeedDAO{
 
         return template.selectList("feed.list");
     }
+
+    @Override
+    public FeedDTO feedview(String seq) {
+        return template.selectOne("feed.feedview" , seq);
+    }
 }

@@ -30,15 +30,23 @@
         <div class="col-md-12">
             <div class="wraplogin">
                 <form id="edd_login_form" class="edd_form" action="#" method="post">
-                    <fieldset style="height: 238px; margin-bottom: 200px; width: 300px; margin-left: 200px;">
+                    <fieldset style="height: 300px; margin-bottom: 200px; width: 300px; margin-left: 200px;">
                         <legend>Log into Your Account</legend>
                         <p>
-                            <label style="margin-left: 90px">통합 로그인</label>
+                            <label style="margin-left: 90px;">일반 회원</label>
                         </p>
                         <a class="p-2"
                            href="https://kauth.kakao.com/oauth/authorize?client_id=c1704b42e1333bc0cfe4a11e98bc4823&redirect_uri=http://localhost:8090/member/kakaologin&response_type=code">
                             <img src="/image/member/login/kakao_login_medium_narrow.png"
                                  style="height:35px; margin-left: 50px"/>
+                        </a>
+                        <p>
+                            <label style="margin-top: 13px; margin-left: 90px;">공방 회원</label>
+                        </p>
+                        <a class="p-2"
+                           href="https://kauth.kakao.com/oauth/authorize?client_id=c1704b42e1333bc0cfe4a11e98bc4823&redirect_uri=http://localhost:8090/member/gongkakaologin&response_type=code">
+                            <img src="/image/member/login/kakao_login_medium_narrow.png"
+                                 style="height:35px; margin-left: 50px;"/>
                         </a>
                     </fieldset>
                 </form>
@@ -46,10 +54,10 @@
             <!--                <span class="or">or</span>-->
             <div class="wrapregister">
                 <form id="edd_register_form" class="edd_form" action="#" method="post">
-                    <fieldset style="width: 300px">
+                    <fieldset style="width: 300px; height: 300px">
                         <legend>Register New Account</legend>
                         <p>
-                            <label style="margin-left: 90px;">일반 회원</label>
+                            <label style="margin-left: 90px; margin-top: 20px">일반 회원</label>
                         </p>
                         <a class="p-2"
                            href="https://kauth.kakao.com/oauth/authorize?client_id=c1704b42e1333bc0cfe4a11e98bc4823&redirect_uri=http://localhost:8090/member/kakao&response_type=code">

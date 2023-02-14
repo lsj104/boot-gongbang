@@ -6,4 +6,6 @@ public interface FeedService {
 
     List<FeedDTO> list();
 
+
+    FeedDTO feedview(String seq);
 }

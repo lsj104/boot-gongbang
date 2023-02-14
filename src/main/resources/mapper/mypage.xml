@@ -4,17 +4,15 @@
 <mapper namespace="mypage">
 
     <select id="reserveinfo" parameterType="String" resultType="com.test.gongbang.member.service.MemberDTO">
-        select mc.rdate, mc.rmembercnt
-        from tblMemberClass mc
-                 inner join tblClass c
-                            on mc.cseq = c.seq
-                 inner join tblShop s
-                            on c.sseq = s.seq
-        where mc.mseq = (select seq from tblMember where aseq = #{aseq})
-    </select>
-
-    <select id="reserveshopinfo" parameterType="String" resultType="com.test.gongbang.shop.service.ShopDTO">
-        select c.name, c.intro, c.course, c.time, c.duedate, c.duetime, c.price, c.image, s.name, s.tel, s.location
+        select
+            c.duedate as duedate,
+            c.name as name,
+            c.image as image,
+            mc.rdate as rdate,
+            mc.rmembercnt as rmembercnt,
+            mc.seq as seq,
+            c.DUETIME as duetime,
+            c.seq as cseq
         from tblMemberClass mc
                  inner join tblClass c
                             on mc.cseq = c.seq
@@ -36,4 +34,28 @@
             where seq = #{seq}
     </select>
 
+    <update id="memberedit" parameterType="com.test.gongbang.member.service.MemberDTO">
+        update TBLMEMBER
+        <set>
+            <if test="nickname != null">NICKNAME = #{nickname},</if>
+            <if test="image != null">IMAGE = #{image},</if>
+        </set>
+        where ASEQ = (select seq from TBLACCOUNT where id = #{id})
+    </update>
+
+    <delete id="reservedel" parameterType="String">
+        delete from TBLMEMBERCLASS where SEQ = #{seq}
+    </delete>
+
+    <select id="reservemember" parameterType="String" resultType="com.test.gongbang.member.service.MemberDTO">
+        select
+            mc.RDATE as rdate, --예약날짜
+            mc.RMEMBERCNT as rmembercnt, --예약인원
+            m.NAME as name, --예약자명
+            m.TEL as tel -- 연락처
+        from TBLMEMBERCLASS mc
+                 inner join TBLMEMBER m
+                            on mc.mseq = m.seq
+        where cseq = #{seq}
+    </select>
 </mapper>

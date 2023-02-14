@@ -59,7 +59,7 @@
                     <div class="overlay">
                         <h2 class="card-title title" th:text="${dto.content}"></h2>
                         <div class="more">
-                            <a href="post.html">
+                            <a th:href="@{/feed/feedview(seq=${dto.seq})}">
                                 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> View </a>
                         </div>
                     </div>

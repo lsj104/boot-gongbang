@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface FeedDAO {
     List<FeedDTO> list();
+
+    FeedDTO feedview(String seq);
 }

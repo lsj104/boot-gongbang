@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+</head>
+<body>
+<div th:fragment="feedheader">
+    <nav class=" fixed-top navbar navbar-expand-lg bg-white border-bottom border-gray">
+        <div class="container">
+            <div class="row col-12">
+                <div class="col-4 ">
+                    <a class="navbar-brand" style="color:black; font-family: 'Lobster',cursive;font-size:30px;" href="/">만지작</a>
+                </div>
+                <div class="col-4 form-inline " >
+                    <form>
+                        <input class="form-control m-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success m-2" type="submit">Search</button>
+                    </form>
+                </div>
+                <div class="col-4 text-right">
+                    <a href="/insert" style="color:black;">
+                        <i class="far fa-edit fa-2x m-2 mt-3 mb-1 "></i></a>
+                    <span> <i class="far fa-heart fa-2x m-2 mt-3 mb-1"></i></span>
+                    <a href="/user/profile" style="color:black;">
+                        <i class="far fa-user fa-2x m-2 mt-3 mb-1 "></i></a>
+                    <a sec:authorize="isAuthenticated()" href="/user/logout" style="color:black;">
+                        <i class="fas fa-sign-out-alt fa-2x m-2 mt-3 mb-1 "></i></a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
