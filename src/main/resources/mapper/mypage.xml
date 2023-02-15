@@ -22,10 +22,14 @@
     </select>
 
     <select id="gongbangclasslist" parameterType="String" resultType="com.test.gongbang.sclass.service.ClassDTO">
-        select * from tblClass c
-                          inner join tblShop s
-                                     on c.sseq = c.seq
-        where s.aseq = #{aseq}
+        select
+            c.*,
+            count(mc.seq) as rmembercnt
+        from tblClass c
+                 inner join TBLMEMBERCLASS mc
+                            on c.seq = mc.cseq
+        where sseq = (select seq from tblshop where aseq = #{aseq})
+        group by c.SEQ, c.CSEQ, NAME, INTRO, COURSE, TIME, DUEDATE, MEMBERCNT, PRICE, IMAGE, SSEQ, DUETIME
         order by duedate desc
     </select>
 
@@ -39,8 +43,10 @@
         <set>
             <if test="nickname != null">NICKNAME = #{nickname},</if>
             <if test="image != null">IMAGE = #{image},</if>
+            <if test="tel != null">TEL = #{tel},</if>
+            <if test="address != null">ADDRESS = #{address},</if>
         </set>
-        where ASEQ = (select seq from TBLACCOUNT where id = #{id})
+        where ASEQ = #{seq}
     </update>
 
     <delete id="reservedel" parameterType="String">
@@ -58,4 +64,15 @@
                             on mc.mseq = m.seq
         where cseq = #{seq}
     </select>
+
+    <update id="gongbangedit" parameterType="com.test.gongbang.member.service.MemberDTO">
+        update TBLSHOP
+        <set>
+            <if test="nickname != null">NICKNAME = #{nickname},</if>
+            <if test="image != null">IMAGE = #{image},</if>
+            <if test="tel != null">TEL = #{tel},</if>
+            <if test="address != null">ADDRESS = #{address},</if>
+        </set>
+        where ASEQ = #{seq}
+    </update>
 </mapper>

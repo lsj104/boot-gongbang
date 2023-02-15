@@ -15,6 +15,8 @@ public class MemberDTO {
     private String pw;
     private String lv;
 
+    private String address;
+
     //클래스 예약
     private String rdate;
     private String rmembercnt;
