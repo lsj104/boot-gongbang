@@ -80,7 +80,8 @@
 															<h2>Travel Fashion</h2>
 														</a>
 														<div class="description">
-															<p th:text="|${#strings.substring(dto.intro, 0, 30)}...|">
+															<!--<p th:text="|${#strings.substring(dto.intro, 0, 30)}...|">-->
+															<p th:text="${dto.intro}">
 																클래스 소개
 															</p>
 														</div>

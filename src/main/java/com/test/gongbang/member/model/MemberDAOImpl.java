@@ -44,5 +44,10 @@ public class MemberDAOImpl implements MemberDAO {
     public List<MemberDTO> reserveMemberInfo(String seq) {
         return this.template.selectList("mypage.reservemember", seq);
     }
+
+    @Override
+    public int gongbangEdit(MemberDTO dto) {
+        return this.template.update("mypage.gongbangedit", dto);
+    }
 }
 

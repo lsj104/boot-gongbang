@@ -51,7 +51,7 @@ public class MemberController {
         if (result == 1) {
             return "redirect:/mypage";
         } else {
-            return "member/mypage/main";
+            return "mypage/member/main";
         }
     }
 
@@ -101,7 +101,7 @@ public class MemberController {
         if (result == 1) {
             return "redirect:/mypage";
         } else {
-            return "gongbang/mypage/main";
+            return "mypage/gongbang/main";
         }
     }
 

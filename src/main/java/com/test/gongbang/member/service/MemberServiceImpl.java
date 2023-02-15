@@ -67,15 +67,20 @@ public class MemberServiceImpl implements MemberService {
 
         if (kdto.getNickname() != mreq.getParameter("nickname")) {
             dto.setNickname(mreq.getParameter("nickname"));
-            ((KakaoDTO) session.getAttribute("user")).setNickname(mreq.getParameter("nickname"));
+            kdto.setNickname(mreq.getParameter("nickname"));
         }
 
         if (kdto.getTel() != mreq.getParameter("tel")) {
             dto.setTel(mreq.getParameter("tel"));
-            ((KakaoDTO) session.getAttribute("user")).setTel(mreq.getParameter("tel"));
+            kdto.setTel(mreq.getParameter("tel"));
         }
 
-        dto.setId(mreq.getParameter("email"));
+        if (kdto.getAddress() != mreq.getParameter("address")) {
+            dto.setAddress(mreq.getParameter("address"));
+            kdto.setAddress(mreq.getParameter("address"));
+        }
+
+        dto.setSeq(kdto.getSeq()+"");
 
         System.out.println(dto);
 
@@ -98,7 +103,7 @@ public class MemberServiceImpl implements MemberService {
                     e.printStackTrace();
                 }
                 dto.setImage(file1);
-                ((KakaoDTO) session.getAttribute("user")).setImage(file1);
+                kdto.setImage(file1);
 
             }
         }
@@ -136,6 +141,8 @@ public class MemberServiceImpl implements MemberService {
         return dao.reserveDel(seq);
     }
 
+
+    //공방 > 정보 수정
     @Override
     public int gongbangEdit(MultipartHttpServletRequest mreq, HttpSession session) {
 
@@ -144,15 +151,20 @@ public class MemberServiceImpl implements MemberService {
 
         if (kdto.getNickname() != mreq.getParameter("nickname")) {
             dto.setNickname(mreq.getParameter("nickname"));
-            ((KakaoDTO) session.getAttribute("user")).setNickname(mreq.getParameter("nickname"));
+            kdto.setNickname(mreq.getParameter("nickname"));
         }
 
         if (kdto.getTel() != mreq.getParameter("tel")) {
             dto.setTel(mreq.getParameter("tel"));
-            ((KakaoDTO) session.getAttribute("user")).setTel(mreq.getParameter("tel"));
+            kdto.setTel(mreq.getParameter("tel"));
         }
 
-        dto.setId(mreq.getParameter("email"));
+        if (kdto.getAddress() != mreq.getParameter("address")) {
+            dto.setAddress(mreq.getParameter("address"));
+            kdto.setAddress(mreq.getParameter("address"));
+        }
+
+        dto.setSeq(kdto.getSeq()+"");
 
         System.out.println(dto);
 
@@ -165,6 +177,7 @@ public class MemberServiceImpl implements MemberService {
             String path = "C:\\class\\code\\springboot\\profile";
 
             System.out.println(path);
+            System.out.println(dto);
 
             if (!file.isEmpty()) {
                 String file1 = getFileName(path, filename);
@@ -180,7 +193,7 @@ public class MemberServiceImpl implements MemberService {
             }
         }
 
-        int result = dao.memberEdit(dto);
+        int result = dao.gongbangEdit(dto);
         System.out.println("service:" + kdto);
 
         return result;

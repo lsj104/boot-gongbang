@@ -59,7 +59,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-9">
-                                        <div><img width="200px" height="200px" th:src="@{/profile/} + ${session.user.image}" style="display:block; margin: 60px auto;"></div>
+                                        <div th:if="${#strings.substring(session.user.image, 0, 5) != 'http:'}"><img width="200px" height="200px" th:src="@{/profile/} + ${session.user.image}" style="display:block; margin: 60px auto;"></div>
+                                        <div th:if="${#strings.substring(session.user.image, 0, 5) == 'http:'}"><img width="200px" height="200px" th:src="@{${session.user.image}}" style="display:block; margin: 60px auto;"></div>
                                         <div style="text-align:center;">
                                             <p>안녕하세요</p>
                                             <h2 th:text="|${session.user.name}님|">NickName님</h2>
