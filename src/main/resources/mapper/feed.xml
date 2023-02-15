@@ -11,7 +11,21 @@
     </select>
 
     <select id="feedcomment" resultType="com.test.gongbang.feed.service.FeedCommentDTO" parameterType="String">
-        select * from tblFeedComment where fseq = #{seq}
+        select
+            c.*,
+            case
+                when a.lv = 1 then m.nickname
+                when a.lv = 2 then s.nickname
+                end as nickname,
+            case
+                when a.lv = 1 then m.image
+                when a.lv = 2 then s.image
+                end as image
+        from tblFeedComment c
+                 inner join tblAccount a on c.aseq = a.seq
+                 left outer join tblMember m on m.aseq = a.seq
+                 left outer join tblShop s on s.aseq = a.seq
+        where fseq = #{seq}
     </select>
 
 </mapper>
