@@ -25,5 +25,11 @@ public class FeedServiceImpl implements FeedService{
         return dto;
     }
 
+    @Override
+    public FeedCommentDTO feedcomment(String seq) {
+
+        return dao.feedcomment(seq);
+    }
+
 
 }

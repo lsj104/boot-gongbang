@@ -37,10 +37,10 @@
                         </div>
                         <div class="col-md-4" style="position: relative;">
                             <div class="card-header bg-white ">
-                                <!--<a class="text-body font-weight-bold text-monospace " style="height: 70px;"
-                                   th:href="'/'+${mapList.get(post.author)}"
-                                   th:text="${mapList.get(post.author)}"></a>-->
-                                일
+                                글번호
+                                <a class="text-body font-weight-bold text-monospace " style="height: 70px;"
+                                   th:text="${feedview.seq}"></a>
+                                   <!--th:href="'/'+${mapList.get(post.author)}"-->
                             </div>
 
                             <div class="card-body border border-bottom border-gray overflow-auto" style="height: 420px;">
@@ -48,8 +48,8 @@
                                 <span style="font-size:90%" class="card-title font-weight-bold"
                                       th:text="${mapList.get(post.author)}"></span>
                                 </a>-->
-                                이
-                                <span style="font-size:80%" class="card-text" th:text="${feedview.content}"></span><br/>
+                                내용
+                                <span style="font-size:100%" class="card-text" th:text="${feedview.content}"></span><br/>
 
                                 <!--댓글 -->
                                 <!--<p class="mb-0" th:each="comment : ${comments.get(post.id)}">
@@ -71,20 +71,21 @@
                                  style="position: absolute; bottom: 63px;width:100%; padding-bottom: 0px;">
                         <span>
                             <i class="far fa-heart fa-2x"></i>
+                            <!-- 좋아요 -->
                         </span>
                                 <!-- <a style="color:black"
                                     th:href="'/detail/'+${post.id}">
                                      <i class="far fa-comment fa-2x pl-2"></i>
                                  </a>-->
-                                삼
-                                <!--<p><a th:href="'/detail/'+${post.id}" class="small mb-0 text-muted"
-                                      th:text="${#calendars.format(post.regDate,'MM월 dd일 ')}"></a>
-                                </p>-->
+                                좋아요
+                                <p><a th:text="${#strings.substring(feedview.regdate, 0, 10)}">
+                                    <!--th:href="'/detail/'+${post.id}" class="small mb-0 text-muted"-->
+                                </a></p>
                             </div>
 
-                            <!--<form th:action="'/comments/detail/'+${post.id}" method="post"
+                            <form th:action="'/comments/detail/'+${post.id}" method="post"
                                   style="position:absolute; bottom:0px;">
-                                <div class="form-row card-footer w-auto m-0" sec:authorize="isAuthenticated()">
+                                <div class="form-row card-footer w-auto m-0">
                                     <div class="col d-none">
                                         <input type="number" class="form-control" placeholder="작성자" id="comment_user_id"
                                                name="author" th:value="${user.id}">
@@ -103,19 +104,18 @@
                                     로그인 후 댓글을 이용하실 수 있습니다
                                 </div>
 
-                            </form>-->
-                            사
+                            </form>
+                            댓글
                         </div>
                     </div>
                 </div>
 
 
-                <!--<div sec:authorize="isAuthenticated()">
-                    <a th:if="${post.author.toString().equals(user.id.toString())}" class="btn btn-success btn-block " th:href="'/update/'+${post.id}"  style="width: 935px;">수정</a>
+                <div>
+                    <a th:if="${aseq == feedview.aseq}" class="btn btn-success btn-block " th:href="'/feed/update/'+${feedview.seq}"  style="width: 935px;">수정</a>
 
-                    <a th:if="${post.author.toString().equals(user.id.toString())}" class="btn btn-info btn-block " th:href="'/delete/'+${post.id}"  style="width: 935px;">삭제</a>
-                </div>-->
-                오
+                    <a th:if="${aseq == feedview.aseq}" class="btn btn-info btn-block " th:href="'/feed/delete/'+${feedview.seq}"  style="width: 935px;">삭제</a>
+                </div>
             </div>
         </div>
        </div>

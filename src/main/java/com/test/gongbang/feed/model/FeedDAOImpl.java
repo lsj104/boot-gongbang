@@ -1,5 +1,6 @@
 package com.test.gongbang.feed.model;
 
+import com.test.gongbang.feed.service.FeedCommentDTO;
 import com.test.gongbang.feed.service.FeedDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,13 @@ public class FeedDAOImpl implements  FeedDAO{
 
     @Override
     public FeedDTO feedview(String seq) {
+
         return template.selectOne("feed.feedview" , seq);
+
+    }
+
+    @Override
+    public FeedCommentDTO feedcomment(String seq) {
+        return template.selectOne("feed.feedcomment", seq);
     }
 }
