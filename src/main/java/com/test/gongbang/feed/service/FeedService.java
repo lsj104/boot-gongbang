@@ -8,4 +8,9 @@ public interface FeedService {
 
 
     FeedDTO feedview(String seq);
+
+
+    FeedCommentDTO feedcomment(String seq);
 }
+
+
