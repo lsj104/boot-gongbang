@@ -22,4 +22,8 @@ public interface MemberService {
     int gongbangEdit(MultipartHttpServletRequest mreq, HttpSession session);
 
     List<MemberDTO> reserveMemberInfo(String seq);
+
+    int sclassDel(String seq);
+
+    int sclassEdit(MultipartHttpServletRequest mreq);
 }

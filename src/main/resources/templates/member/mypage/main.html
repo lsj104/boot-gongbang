@@ -52,8 +52,7 @@
                                                     <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member">개인정보 수정</a></li>
                                                     <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member/reserveinfo">예약내역</a></li>
                                                     <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang">공방정보 수정</a></li>
-                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/classlist">클래스관리</a></li>
-                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/reserveinfo">예약관리</a></li>
+                                                    <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/classlist">클래스&예약 관리</a></li>
                                                 </ul>
                                             </aside>
                                         </div>

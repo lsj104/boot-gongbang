@@ -49,5 +49,15 @@ public class MemberDAOImpl implements MemberDAO {
     public int gongbangEdit(MemberDTO dto) {
         return this.template.update("mypage.gongbangedit", dto);
     }
+
+    @Override
+    public int sclassDel(String seq) {
+        return this.template.delete("mypage.classdel", seq);
+    }
+
+    @Override
+    public int classEdit(ClassDTO dto) {
+        return this.template.update("mypage.classedit", dto);
+    }
 }
 

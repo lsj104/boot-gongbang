@@ -20,6 +20,7 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberDAO dao;
 
+    //회원 > 예약정보 출력
     @Override
     public List<MemberDTO> memberReserveInfo(String aseq) {
 
@@ -40,6 +41,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
+    //공방 > 클래스 목록
     @Override
     public List<ClassDTO> gongbangClassList(String aseq) {
 
@@ -53,10 +55,12 @@ public class MemberServiceImpl implements MemberService {
         return list;
     }
 
+    //공방 > 클래스 상세
     @Override
     public ClassDTO classDetail(String seq) {
         return dao.classDetail(seq);
     }
+
 
     //회원정보 수정
     @Override
@@ -114,6 +118,7 @@ public class MemberServiceImpl implements MemberService {
         return result;
     }
 
+    //파일 처리
     private String getFileName(String path, String filename) {
         int n = 1;
         int index = filename.lastIndexOf(".");
@@ -204,4 +209,60 @@ public class MemberServiceImpl implements MemberService {
     public List<MemberDTO> reserveMemberInfo(String seq) {
         return dao.reserveMemberInfo(seq);
     }
+
+    //공방 > 클래스 삭제
+    @Override
+    public int sclassDel(String seq) {
+        return dao.sclassDel(seq);
+    }
+
+    //공방 > 클래스 수정
+    @Override
+    public int sclassEdit(MultipartHttpServletRequest mreq) {
+
+        ClassDTO dto = new ClassDTO();
+
+        dto.setName(mreq.getParameter("name"));
+        dto.setIntro(mreq.getParameter("intro"));
+        dto.setCourse(mreq.getParameter("course"));
+        dto.setTime(mreq.getParameter("time"));
+
+        if (mreq.getParameter("duedate").length() > 10) {
+            String duedate = mreq.getParameter("duedate");
+            duedate = duedate.substring(0, 10);
+            dto.setDuedate(duedate);
+        } else {
+            dto.setDuedate(mreq.getParameter("duedate"));
+        }
+
+        dto.setDuetime(mreq.getParameter("duetime"));
+        dto.setMembercnt(mreq.getParameter("membercnt"));
+        dto.setPrice(mreq.getParameter("price"));
+        dto.setSeq(mreq.getParameter("seq"));
+
+
+        MultipartFile file = mreq.getFile("image");
+        String filename = file.getOriginalFilename();
+
+
+        String path = "C:\\class\\code\\springboot\\class";
+
+        if (!file.isEmpty()) {
+            String file1 = getFileName(path, filename);
+
+            try {
+                file.transferTo(new File(path + "\\" + file1));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            dto.setImage(file1);
+
+        }
+        System.out.println(dto);
+
+    int result = dao.classEdit(dto);
+
+        return result;
+    }
 }
+
