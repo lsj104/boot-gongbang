@@ -26,7 +26,22 @@ public class FeedDAOImpl implements  FeedDAO{
     }
 
     @Override
-    public FeedCommentDTO feedcomment(String seq) {
-        return template.selectOne("feed.feedcomment", seq);
+    public List<FeedCommentDTO> feedcomment(String seq) {
+        return template.selectList("feed.feedcomment", seq);
+    }
+
+    @Override
+    public int feeddel(String seq) {
+        return template.delete("feed.feeddel", seq);
+    }
+
+    @Override
+    public List<FeedDTO> hashtag(String seq) {
+        return template.selectList("feed.hashtag", seq);
+    }
+
+    @Override
+    public int feedupdate(FeedDTO dto) {
+        return template.update("feed.feedupdate", dto);
     }
 }

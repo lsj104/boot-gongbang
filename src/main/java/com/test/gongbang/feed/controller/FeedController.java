@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -32,16 +34,19 @@ public class FeedController {
 
         FeedDTO dto = service.feedview(seq);
 
-        model.addAttribute("feedview", dto);
-
         KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
         String aseq = kdto.getSeq() + "";
 
+        List<FeedCommentDTO> clist = service.feedcomment(seq);
+
+        List<FeedDTO> hlist = service.hashtag(seq);
+
+
+        model.addAttribute("feedview", dto);
         model.addAttribute("aseq", aseq);
 
-        FeedCommentDTO cdto = service.feedcomment(seq);
-
-        model.addAttribute("feedcomment", cdto);
+        model.addAttribute("feedcomment", clist);
+        model.addAttribute("hashtag", hlist);
 
 
         return "feed/feedview";
@@ -61,18 +66,32 @@ public class FeedController {
     @GetMapping("feed/update")
     public String feedupdate(@RequestParam String seq , Model model){
 
+        FeedDTO dto = service.feedview(seq);
 
+        model.addAttribute("feedview", dto);
 
         return "feed/update";
 
     }
 
+    @PostMapping("feed/updateok")
+    public String feedupdateok(MultipartHttpServletRequest mreq, HttpSession session){
+
+        int result = service.feedupdate(mreq, session);
+
+        if (result == 1) {
+            return "redirect:/feed/feedview";
+        } else {
+            return "feed/feed";
+        }
+    }
+
     @GetMapping("feed/delete")
-    public String feeddelete(){
+    public String feeddelete(@RequestParam String seq){
 
+        int feeddel = service.feeddel(seq);
 
-
-        return "feed/delete";
+        return "redirect:/feed/feed";
 
     }
 
