@@ -69,8 +69,12 @@
 															</div>
 															<div class="caption-text">
 																<div class="captionbuttons">
-																	<a th:if="${dto.rmembercnt != 0}" onclick="alert('예약자가 있어 수정이 불가능합니다.')" class="captiondetails"><i class="fa fa-link"></i> Edit</a>
-																	<a th:if="${dto.rmembercnt == 0}" th:href="@{/mypage/gongbang/classinfo(seq=${dto.seq})}" class="captiondetails"><i class="fa fa-link"></i> Edit</a>
+																	<th:block th:if="${dto.rmembercnt != null}">
+																		<a onclick="alert('예약자가 있어 수정이 불가능합니다.')" class="captiondetails"><i class="fa fa-link"></i> Edit</a>
+																	</th:block>
+																	<th:block th:if="${dto.rmembercnt == null}">
+																		<a th:href="@{/mypage/gongbang/classinfo(seq=${dto.seq})}" class="captiondetails"><i class="fa fa-link"></i> Edit</a>
+																	</th:block>
 																</div>
 															</div>
 														</div>
