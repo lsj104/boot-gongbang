@@ -22,15 +22,12 @@
     </select>
 
     <select id="gongbangclasslist" parameterType="String" resultType="com.test.gongbang.sclass.service.ClassDTO">
-        select
-            c.*,
-            count(mc.seq) as rmembercnt
-        from tblClass c
-                 inner join TBLMEMBERCLASS mc
-                            on c.seq = mc.cseq
-        where sseq = (select seq from tblshop where aseq = #{aseq})
-        group by c.SEQ, c.CSEQ, NAME, INTRO, COURSE, TIME, DUEDATE, MEMBERCNT, PRICE, IMAGE, SSEQ, DUETIME
-        order by duedate desc
+        select c.*, r.count as rmembercnt from tblClass c
+                                            left outer join (select cseq, count(cseq) as count from tblMemberClass
+                                                        group by cseq) r on r.cseq = c.seq
+                                            inner join tblShop s on s.seq = c.sseq
+                                            inner join tblAccount a on a.seq = s.aseq
+        where s.aseq = #{aseq}
     </select>
 
     <select id="gongbangclassinfo" parameterType="String" resultType="com.test.gongbang.sclass.service.ClassDTO">

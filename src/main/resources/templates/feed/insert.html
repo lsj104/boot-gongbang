@@ -1,51 +1,96 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/base}"
-      layout:fragment="content">
-
-<body class="bg-light">
+      layout:decorate="~{common/base}" layout:fragment="content">
+<style>
+    textarea {
+        resize: none;
+        height: 300px;
+    }
+</style>
+<body>
 <div class="boxedlayout">
-    <!-- TITLE BEGINS -->
-    <div class="headerimage">
-        <div class="headercontent">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="fleft">
-                            <h1>Feed</h1>
-                        </div>
-                        <div class="fright breadc">
-                            <a href="index.html"> Home </a> / <a href="feed.html">Feed</a>
+    <div class="singledownloadphp">
+        <div class="headerimage">
+            <div class="headercontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="fleft">
+                                <h1>Edit Feed</h1>
+                            </div>
+                            <div class="fright breadc">
+                                <a href="/main"> Home </a> / <a href="/feed/feed">Feed</a> / <a
+                                    href="/feed/update">Add Feed</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-<div class="mt-4 pt-5 ">
-    <div class="container">
-        <div  style="text-align: center">글쓰기</div>
-        <div class="row justify-content-center">
+        <div class="container padtop50 padbot50">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="primary" class="content-area">
+                        <main id="main" class="site-main" role="main">
+                            <article class="contentdownloadphp">
+                                <div class="row">
+                                    <div class="col-md-8" style="margin: 0 auto;">
+                                        <span class="smalltitle">피드 추가</span>
+                                        <div id="edd_checkout_form_wrap" class="edd_clearfix">
+                                            <form id="edd_purchase_form" class="edd_form" action="/mypage/gongbang/editok" method="POST" enctype="multipart/form-data">
+                                                <fieldset id="edd_checkout_user_info">
+                                                    <div style="margin: 60px; auto">
+                                                        <input type="file" name="image" style="margin: 0 auto;">
+                                                    </div>
 
-            <form th:action="@{/upload}" method="POST" enctype="multipart/form-data">
-                <table>
-                    <tr>
-                        <th>사진</th>
-                        <td><input id="post_image" name="file" type="file" placeholder="사진파일"></td>
-                    </tr>
-                    <tr>
-                        <th>내용</th>
-                        <td><input id="post_content" name="content" type="textarea"></td>
-                    </tr>
-                </table>
-                <a href="/">목록으로</a>
-                <button type="submit" id="insert">저장</button>
-            </form>
+                                                    <p id="edd-last-name-wrap">
+                                                        <label class="edd-label" for="edd-last">
+                                                            내용
+                                                        </label>
+                                                        <span class="edd-description">Content</span>
+                                                        <textarea class="edd-input" name="content"
+                                                                  id="edd-last" placeholder="Content"></textarea>
+                                                    </p>
+                                                    <p id="edd-last-name-wrap">
+                                                        <label class="edd-label" for="edd-last">
+                                                            해시태그 </label>
+                                                        <span class="edd-description">HashTag</span>
+                                                        <input class="edd-input" type="text" name="tag"
+                                                               id="tag" placeholder="#"/>
+                                                    </p>
+                                                    <p id="edd_profile_submit_wrap">
+                                                        <input name="edd_profile_editor_submit"
+                                                               id="edd_profile_editor_submit" type="submit"
+                                                               class="edd_submit" value="Add"/>
+                                                        <a href="/feed/feed" style="margin-left: 20px;">목록보기</a>
+                                                    </p>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </main>
+                    </div>
+                </div>
+                <!-- MAIN CONTENT ENDS -->
+            </div>
         </div>
     </div>
 </div>
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+<script>
+    var input = document.querySelector('input[name=tag]')
+    var tagify = new Tagify(input);
+
+    tagify.on('add', function() {
+        console.log(tagify.value);
+    })
+</script>
 
 </body>
 </html>
