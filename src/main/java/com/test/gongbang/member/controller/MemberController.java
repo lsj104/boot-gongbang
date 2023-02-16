@@ -44,15 +44,19 @@ public class MemberController {
 
     //회원 > 정보 수정 처리
     @PostMapping("/mypage/member/editok")
-    public String editok(MultipartHttpServletRequest mreq, HttpSession session) {
+    public void editok(MultipartHttpServletRequest mreq, HttpSession session, HttpServletResponse response) throws IOException {
 
         int result = service.memberEdit(mreq, session);
 
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
         if (result == 1) {
-            return "redirect:/mypage";
+            out.println("<script>alert('회원정보가 수정 되었습니다.'); location.href='/mypage'</script>");
         } else {
-            return "mypage/member/main";
+            out.println("<script>alert('다시 시도해주세요.'); location.href='/mypage/member'</script>");
         }
+        out.flush();
     }
 
     //회원 > 클래스 예약 내역
@@ -94,15 +98,19 @@ public class MemberController {
 
     //공방 정보 수정 처리
     @PostMapping("/mypage/gongbang/editok")
-    public String gongbangEditok(MultipartHttpServletRequest mreq, HttpSession session) {
+    public void gongbangEditok(MultipartHttpServletRequest mreq, HttpSession session, HttpServletResponse response) throws IOException {
 
         int result = service.gongbangEdit(mreq, session);
 
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
         if (result == 1) {
-            return "redirect:/mypage";
+            out.println("<script>alert('회원 정보가 수정되었습니다.'); location.href='/mypage'</script>");
         } else {
-            return "mypage/gongbang/main";
+            out.println("<script>alert('다시 시도해주세요.'); location.href='/mypage/gongbang'</script>");
         }
+        out.flush();
     }
 
 
@@ -129,6 +137,23 @@ public class MemberController {
         return "member/mypage/classinfo";
     }
 
+    //공방 > 클래스 수정 처리
+    @PostMapping("/mypage/gongbang/classeditok")
+    public void sclassEditok(MultipartHttpServletRequest mreq, HttpServletResponse response) throws IOException {
+
+        int result = service.sclassEdit(mreq);
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if (result == 1) {
+            out.println("<script>alert('클래스 정보가 수정되었습니다.'); location.href='/mypage/gongbang/classlist'</script>");
+        } else {
+            out.println("<script>alert('다시 시도해주세요.'); location.href='/mypage/gongbang/classlist'</script>");
+        }
+        out.flush();
+    }
+
     //예약관리 모달
     @GetMapping("/mypage/gongbang/classreserve")
     public String reserveMemberInfo(@RequestParam String seq, Model model){
@@ -137,6 +162,23 @@ public class MemberController {
         model.addAttribute("list", list);
 
         return "member/mypage/classreserve";
+    }
+
+    //공방 > 클래스 삭제
+    @GetMapping("/mypage/gongbang/classdel")
+    public void sclassDel(@RequestParam String seq, HttpServletResponse response) throws IOException {
+
+        int result = service.sclassDel(seq);
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if (result == 1) {
+            out.println("<script>alert('삭제되었습니다.'); location.href='/mypage/gongbang/classlist'</script>");
+        } else {
+            out.println("<script>alert('다시 시도해주세요.'); location.href='/mypage/gongbang/classlist'</script>");
+        }
+        out.flush();
     }
 
 }

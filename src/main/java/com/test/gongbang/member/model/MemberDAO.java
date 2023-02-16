@@ -21,4 +21,8 @@ public interface MemberDAO {
     List<MemberDTO> reserveMemberInfo(String seq);
 
     int gongbangEdit(MemberDTO dto);
+
+    int sclassDel(String seq);
+
+    int classEdit(ClassDTO dto);
 }

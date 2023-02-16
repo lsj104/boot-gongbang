@@ -72,4 +72,24 @@
         </set>
         where ASEQ = #{seq}
     </update>
+
+    <delete id="classdel" parameterType="String">
+        delete from TBLCLASS where SEQ = #{seq}
+    </delete>
+
+    <update id="classedit" parameterType="com.test.gongbang.sclass.service.ClassDTO">
+        update TBLCLASS
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="intro != null">intro = #{intro},</if>
+            <if test="course != null">course = #{course},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="duedate != null">duedate = #{duedate},</if>
+            <if test="duetime != null">duetime = #{duetime},</if>
+            <if test="membercnt != null">membercnt = #{membercnt},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="image != null">image = #{image},</if>
+        </set>
+        where seq = #{seq}
+    </update>
 </mapper>

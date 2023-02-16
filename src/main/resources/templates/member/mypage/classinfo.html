@@ -58,8 +58,7 @@
                           <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member">개인정보 수정</a></li>
                           <li th:if="${session.user.lv} == 1" class="cat-item"><a href="/mypage/member/reserveinfo">예약내역</a></li>
                           <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang">공방정보 수정</a></li>
-                          <li th:if="${session.user.lv} == 2" class="cat-item"><b style="color:#3a97b1;">클래스관리</b></li>
-                          <li th:if="${session.user.lv} == 2" class="cat-item"><a href="/mypage/gongbang/reserveinfo">예약관리</a></li>
+                          <li th:if="${session.user.lv} == 2" class="cat-item"><b style="color:#3a97b1;">클래스&예약 관리</b></li>
                         </ul>
                       </aside>
                     </div>
@@ -71,7 +70,7 @@
                         <fieldset id="edd_checkout_user_info" >
                           <div style="margin: 60px auto;">
                             <img width="200px" height="200px" th:src="@{/image/class/} + ${dto.image}" style="display:block; margin: 10px auto;">
-                            <input type="file" name="file" id="file" style="margin: 0 auto;">
+                            <input type="file" name="image" id="file" style="margin: 0 auto;">
                           </div>
                           <p id="edd-email-wrap">
                             <label class="edd-label" for="edd-email">
@@ -79,6 +78,7 @@
                             </label>
                             <span class="edd-description">Class Name</span>
                             <input class="edd-input required" type="text" name="name" placeholder="Class Name" id="edd-email" th:value="${dto.name}">
+                            <input type="hidden" name="seq" th:value="${dto.seq}">
                           </p>
                           <p id="edd-last-name-wrap">
                             <label class="edd-label" for="edd-last">
@@ -96,17 +96,30 @@
                             <label class="edd-label" for="edd-last">
                               소요시간 </label>
                             <span class="edd-description">Class Time</span>
-                            <input class="edd-input" type="text" name="time" id="time" placeholder="Class Time" th:value="${dto.time}">
+                            <input class="edd-input" type="text" name="time" placeholder="Class Time" th:value="${dto.time}">
+                          </p>
+                          <p id="edd-last-name-wrap">
+                            <label class="edd-label" for="edd-last">
+                              수강일자 </label>
+                            <span class="edd-description">DueDate</span>
+                            <input class="edd-input" type="text" name="duedate" placeholder="Date" th:value="${#strings.substring(dto.duedate, 0, 10)}">
+                            <input class="edd-input" type="text" name="duetime" placeholder="Time" th:value="${dto.duetime}">
                           </p>
                           <p id="edd-last-name-wrap">
                             <label class="edd-label" for="edd-last">
                               수강정원 </label>
                             <span class="edd-description">Number of Students</span>
-                            <input class="edd-input" type="text" name="membercnt" id="membercnt" placeholder="Number of Students" th:value="${dto.membercnt}">
+                            <input class="edd-input" type="text" name="membercnt" placeholder="Number of Students" th:value="${dto.membercnt}">
+                          </p>
+                          <p id="edd-last-name-wrap">
+                            <label class="edd-label" for="edd-last">
+                              가격 </label>
+                            <span class="edd-description">Price</span>
+                            <input class="edd-input" type="text" name="price" placeholder="Number of Students" th:value="${dto.price}">
                           </p>
                           <p id="edd_profile_submit_wrap">
                             <input name="edd_profile_editor_submit" id="edd_profile_editor_submit" type="submit" class="edd_submit" value="Save Changes"/>
-                            <input name="edd_profile_editor_submit" type="button" class="edd_submit" value="클래스 삭제"/>
+                            <a class="btn btn-outline-dark edd_submit" th:href="@{/mypage/gongbang/classdel(seq=${dto.seq})}" onclick="return confirm('정말로 삭제하시겠습니까?')">Delete Class</a>
                           </p>
                         </fieldset>
                       </form>
