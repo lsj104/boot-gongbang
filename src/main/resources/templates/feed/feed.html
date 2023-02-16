@@ -60,6 +60,7 @@
                     <img class="card-img" th:src="'/image/feed/'+${dto.image}" alt="Feed image">
                     <div class="overlay">
                         <h2 class="card-title title" th:text="${dto.content}"></h2>
+                        <!--<h3 class="card-body" th:text="|# ${dto.hashtag}|"></h3>-->
                         <div class="more">
                             <a th:href="@{/feed/feedview(seq=${dto.seq})}">
                                 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> View </a>

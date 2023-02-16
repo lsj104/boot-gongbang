@@ -10,5 +10,11 @@ public interface FeedDAO {
 
     FeedDTO feedview(String seq);
 
-    FeedCommentDTO feedcomment(String seq);
+    List<FeedCommentDTO> feedcomment(String seq);
+
+    int feeddel(String seq);
+
+    List<FeedDTO> hashtag(String seq);
+
+    int feedupdate(FeedDTO dto);
 }
