@@ -24,4 +24,35 @@
         values (seqMainBoard.nextval, #{title, jdbcType=VARCHAR}, #{content, jdbcType=VARCHAR}, default, '',
                 #{aseq, jdbcType=INTEGER})
     </insert>
+
+    <select id="read" resultType="com.test.gongbang.qna.service.QnaDTO">
+        select *
+        from TBLMAINBOARD
+        where seq = #{seq}
+    </select>
+
+    <select id="comment" resultType="com.test.gongbang.qna.service.QnaDTO">
+        select TBLMAINBOARDANSWER.content,
+               case
+                   when ta.LV = 1 then tm.IMAGE
+                   when ta.LV = 2 then ts.IMAGE
+                   when ta.LV = 3 then tm.IMAGE
+                   end as image,
+               case
+                   when ta.LV = 1 then tm.NICKNAME
+                   when ta.LV = 2 then ts.nickname
+                   when ta.LV = 3 then tm.NICKNAME
+                   end as nickname,
+               TBLMAINBOARDANSWER.REGDATE
+        from TBLMAINBOARDANSWER
+                 inner join TBLACCOUNT ta on TBLMAINBOARDANSWER.ASEQ = ta.SEQ
+                 left outer join TBLMEMBER tm on TBLMAINBOARDANSWER.ASEQ = tm.aseq
+                 left outer join TBLSHOP ts on TBLMAINBOARDANSWER.ASEQ = ts.ASEQ
+        where BSEQ = #{seq,jdbcType=VARCHAR }
+    </select>
+
+    <insert id="insertComment" parameterType="com.test.gongbang.qna.service.QnaDTO">
+        insert into TBLMAINBOARDANSWER
+        values (seqMainBoardAnswer.nextval, #{comment}, sysdate, #{aseq}, #{seq})
+    </insert>
 </mapper>
