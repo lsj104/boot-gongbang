@@ -12,6 +12,7 @@ public class QnaServiceImpl implements QnaService {
     @Autowired
     private final QnaDAO qnaDAO;
 
+
     public QnaServiceImpl(QnaDAO qnaDAO) {
         this.qnaDAO = qnaDAO;
     }
@@ -20,4 +21,10 @@ public class QnaServiceImpl implements QnaService {
     public List<QnaDTO> selectQna() {
         return qnaDAO.selectQna();
     }
+
+    @Override
+    public void insertQna(QnaDTO dto) throws Exception {
+        qnaDAO.insertQna(dto);
+    }
+
 }
