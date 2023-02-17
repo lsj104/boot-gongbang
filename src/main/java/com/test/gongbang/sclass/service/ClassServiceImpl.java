@@ -1,11 +1,14 @@
 package com.test.gongbang.sclass.service;
 
+import com.test.gongbang.member.login.kakao.service.KakaoDTO;
+import com.test.gongbang.member.service.MemberDTO;
 import com.test.gongbang.sclass.model.ClassDAO;
 import com.test.gongbang.shared.service.Paging;
 import com.test.gongbang.shop.service.ShopDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +66,14 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
+    public List<CategoryDTO> getCategory() {
+
+        List<CategoryDTO> category = dao.getCategory();
+
+        return category;
+    }
+
+    @Override
     public ClassDTO getClass(String seq) {
 
         ClassDTO dto = dao.getClass(seq);
@@ -82,11 +93,20 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
-    public List<CategoryDTO> getCategory() {
+    public int reservation(String cseq, String rmembercnt, HttpSession session) {
 
-        List<CategoryDTO> category = dao.getCategory();
+        String aseq = ((KakaoDTO) session.getAttribute("user")).getSeq() + "";
 
-        return category;
+        HashMap<String,String> reservationMap = new HashMap<>();
+        reservationMap.put("aseq", aseq);
+        reservationMap.put("cseq", cseq);
+        reservationMap.put("rmembercnt", rmembercnt);
+
+        int result = dao.reservation(reservationMap);
+
+        return result;
+
     }
+
 
 }
