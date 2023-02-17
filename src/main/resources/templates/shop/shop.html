@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
       layout:decorate="~{common/base}"
       layout:fragment="content">
 <head>
@@ -34,6 +34,20 @@
         width: 100%;
         margin-bottom: 0px;
     }
+
+    #submitButton {
+        border-radius: 10px;
+        padding: 0px;
+        margin-left: 10px;
+        width: 30px;
+        height: 30px;
+    }
+
+    #enterIcon {
+        font-size: 20px;
+    }
+
+
 
 </style>
 <body>
@@ -76,25 +90,34 @@
         <div id="homepage-template" class="container pad top10 pad-bot40" style="margin-top: 20px; min-height: 1000px;">
             <div class="row">
                 <div class="col-md-6" th:each="list : ${list}">
-                    <table class="table">
-                        <tr>
-                            <td rowspan="4" id="shopImage">
-                                <div style="width: 200px; height: 200px;">
-                                    <img style="height: 200px; object-fit: cover; border-radius: 10px;" th:src="@{'/image/shop/' + ${list.image}}"/>
-                                </div>
-                            </td>
-                            <td class="shopInfo" id="shopNickname" th:text="${list.nickname}"></td>
-                        </tr>
-                        <tr>
-                            <td class="shopInfo" th:text="${list.address}" style="border: none"></td>
-                        </tr>
-                        <tr>
-                            <td class="shopInfo" th:text="${list.name}"></td>
-                        </tr>
-                        <tr>
-                            <td class="shopInfo" th:text="${list.tel}"></td>
-                        </tr>
-                    </table>
+                    <form method="get" action="/shopboard/list">
+                        <table class="table">
+                            <tr>
+                                <td rowspan="4" id="shopImage">
+                                    <div style="width: 200px; height: 200px;">
+                                        <img style="height: 200px; object-fit: cover; border-radius: 10px;" th:src="@{'/image/shop/' + ${list.image}}"/>
+                                    </div>
+                                </td>
+                                <td class="shopInfo" id="shopNickname">
+                                    <span th:text="${list.nickname}"></span>
+                                    <button type="submit" id="submitButton">
+                                        <i id="enterIcon" class="fa-solid fa-right-to-bracket"></i>
+                                    </button>
+                                    <input name="seq" type="hidden" th:value="${list.seq}">
+                                    <input name="shopnickname" type="hidden" th:value="${list.nickname}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="shopInfo" th:text="${list.address}" style="border: none"></td>
+                            </tr>
+                            <tr>
+                                <td class="shopInfo" th:text="${list.name}"></td>
+                            </tr>
+                            <tr>
+                                <td class="shopInfo" th:text="${list.tel}"></td>
+                            </tr>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>
