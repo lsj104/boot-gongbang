@@ -23,8 +23,8 @@ public class ShopController {
 
         model.addAttribute("list", list);
 
-        System.out.println(searchType);
-        System.out.println(searchWord);
+       /* System.out.println(searchType);
+        System.out.println(searchWord);*/
 
         return "shop/shop";
     }
