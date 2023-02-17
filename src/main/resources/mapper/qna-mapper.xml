@@ -7,10 +7,21 @@
                TBLMAINBOARD.CONTENT,
                SUBSTR(TBLMAINBOARD.REGDATE, 1, 10) as regdate,
                TBLMAINBOARD.seq,
-               tm.NICKNAME
+               case
+                   when ta.LV = 1 then tm.NICKNAME
+                   when ta.LV = 2 then ts.nickname
+                   when ta.LV = 3 then tm.NICKNAME
+                   end                             as nickname
         from TBLMAINBOARD
-                 inner join TBLMEMBER tm on TBLMAINBOARD.ASEQ = tm.aseq
                  inner join TBLACCOUNT ta on TBLMAINBOARD.ASEQ = ta.SEQ
+                 left outer join TBLMEMBER tm on TBLMAINBOARD.ASEQ = tm.aseq
+                 left outer join TBLSHOP ts on TBLMAINBOARD.ASEQ = ts.ASEQ
         order by TBLMAINBOARD.SEQ
     </select>
+
+    <insert id="insertQna" parameterType="com.test.gongbang.qna.service.QnaDTO">
+        insert into TBLMAINBOARD
+        values (seqMainBoard.nextval, #{title, jdbcType=VARCHAR}, #{content, jdbcType=VARCHAR}, default, '',
+                #{aseq, jdbcType=INTEGER})
+    </insert>
 </mapper>

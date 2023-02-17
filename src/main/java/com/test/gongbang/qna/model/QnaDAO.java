@@ -10,4 +10,5 @@ import java.util.List;
 @Mapper
 public interface QnaDAO {
     List<QnaDTO> selectQna();
+    void insertQna(QnaDTO dto) throws Exception;
 }

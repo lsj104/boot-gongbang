@@ -9,4 +9,5 @@ public class QnaDTO {
     private String title;
     private String content;
     private String regdate;
+    private long aseq;
 }

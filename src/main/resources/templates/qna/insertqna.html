@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+<head>
+    <style>
+        #content {
+            display: block;
+            background: #fff;
+            padding: 13px 15px;
+            margin-left: 0px;
+            -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+            -moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+            min-height: 300px;
+        }
+
+        #title {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<!-- TITLE BEGINS -->
+<div class="headerimage">
+    <div class="headercontent">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="fleft">
+                        <h1>QnA</h1>
+                    </div>
+                    <div class="fright breadc">
+                        <a href="http://localhost:8090/main">Home</a> / QnA
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <form class="well form-horizontal" action="/qna/insertqna" method="post" id="contact_form"
+          style="margin-top: 50px; margin-bottom: 50px;">
+        <fieldset>
+            <!-- Form Name -->
+            <legend>QnA</legend>
+            <!-- Text area -->
+            <div class="form-group" style="margin-right: 100px;">
+                <label class="col-md-4 control-label">Title</label>
+                <div class="col-md-4 inputGroupContainer" style="margin-right: 50px;">
+                    <div class="input-group">
+                        <textarea id="title" name="title"
+                                  style="width: 500px; height: 40px; border: none; resize: none;" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- Text area -->
+            <div class="form-group" style="margin-right: 100px;">
+                <label class="col-md-4 control-label">Content</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <textarea id="content" name="content"
+                                  style="width: 500px; height: 400px; border: none; resize: none;" required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button id="qnawrite_submit" style="margin-left: 385px" type="submit" class="btn btn-warning"><i
+                            class="fa fa-check-square-o"></i> Send
+                    </button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+</div><!-- /.container -->
+<script>
+    $(document).ready(function () {
+        $('#contact_form').bootstrapValidator({
+            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                first_name: {
+                    validators: {
+                        stringLength: {
+                            min: 2,
+                        },
+                        notEmpty: {
+                            message: 'Please supply your first name'
+                        }
+                    }
+                },
+                last_name: {
+                    validators: {
+                        stringLength: {
+                            min: 2,
+                        },
+                        notEmpty: {
+                            message: 'Please supply your last name'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please supply your email address'
+                        },
+                        emailAddress: {
+                            message: 'Please supply a valid email address'
+                        }
+                    }
+                },
+                phone: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please supply your phone number'
+                        },
+                        phone: {
+                            country: 'US',
+                            message: 'Please supply a vaild phone number with area code'
+                        }
+                    }
+                },
+                address: {
+                    validators: {
+                        stringLength: {
+                            min: 8,
+                        },
+                        notEmpty: {
+                            message: 'Please supply your street address'
+                        }
+                    }
+                },
+                city: {
+                    validators: {
+                        stringLength: {
+                            min: 4,
+                        },
+                        notEmpty: {
+                            message: 'Please supply your city'
+                        }
+                    }
+                },
+                state: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select your state'
+                        }
+                    }
+                },
+                zip: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please supply your zip code'
+                        },
+                        zipCode: {
+                            country: 'US',
+                            message: 'Please supply a vaild zip code'
+                        }
+                    }
+                },
+                comment: {
+                    validators: {
+                        stringLength: {
+                            min: 10,
+                            max: 200,
+                            message: 'Please enter at least 10 characters and no more than 200'
+                        },
+                        notEmpty: {
+                            message: 'Please supply a description of your project'
+                        }
+                    }
+                }
+            }
+        })
+            .on('success.form.bv', function (e) {
+                $('#success_message').slideDown({opacity: "show"}, "slow") // Do something ...
+                $('#contact_form').data('bootstrapValidator').resetForm();
+
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function (result) {
+                    console.log(result);
+                }, 'json');
+            });
+    });
+
+</script>
+</body>
+</html>
