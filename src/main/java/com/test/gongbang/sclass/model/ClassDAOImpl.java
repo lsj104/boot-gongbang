@@ -1,5 +1,6 @@
 package com.test.gongbang.sclass.model;
 
+import com.test.gongbang.member.service.MemberDTO;
 import com.test.gongbang.sclass.service.CategoryDTO;
 import com.test.gongbang.sclass.service.ClassDTO;
 import com.test.gongbang.shop.service.ShopDTO;
@@ -40,7 +41,6 @@ public class ClassDAOImpl implements ClassDAO {
         return template.selectOne("class.totalcount");
     }
 
-
     @Override
     public int getSearchTotalCount(HashMap<String, String> searchMap) {
         System.out.println(searchMap.toString());
@@ -59,6 +59,11 @@ public class ClassDAOImpl implements ClassDAO {
     }
 
     @Override
+    public List<CategoryDTO> getCategory() {
+        return template.selectList("class.category");
+    }
+
+    @Override
     public ClassDTO getClass(String seq) {
         return template.selectOne("class.classviewdetails", seq);
     }
@@ -69,8 +74,9 @@ public class ClassDAOImpl implements ClassDAO {
     }
 
     @Override
-    public List<CategoryDTO> getCategory() {
-        return template.selectList("class.category");
+    public int reservation(HashMap<String, String> reservationMap) {
+        return template.insert("class.reservation", reservationMap);
     }
+
 
 }

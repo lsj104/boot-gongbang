@@ -3,7 +3,16 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{common/base}"
 	  layout:fragment="content">
-
+<style>
+	button {
+		background-color: #555;
+		color: #fff;
+		border-radius: 5px;
+	}
+	button[type=submit]:hover {
+		background-color: #333;
+	}
+</style>
 <body>
 
 <!-- PAGE CONTENT
@@ -80,14 +89,14 @@
 									</div>
 									<div class="caption-text">
 										<div class="captionbuttons">
-											<a th:href="@{/classviewdetails(seq=${dto.seq})}" class="captiondetails"><i class="fa fa-link"></i> View Details</a>
+											<a th:href="@{/class/classviewdetails(seq=${dto.seq})}" class="captiondetails"><i class="fa fa-link"></i> View Details</a>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="notesarea">
 								<div class="title" style="height: 40px; overflow: hidden;">
-									<a th:href="@{/classviewdetails(seq=${dto.seq})}" >
+									<a th:href="@{class/classviewdetails(seq=${dto.seq})}" >
 										<h2 th:text="${dto.name}"></h2>
 									</a>
 								</div>
@@ -98,9 +107,21 @@
 								<div class="notesbottom">
 									<div class="price fleft" th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></div>
 									<div class="cart fright">
-										<a href="productsingle-nosidebar" class="edd-add-to-cart">
-											<span class="edd-add-to-cart-label">예약하기</span>
-										</a>
+										<th:block th:if="${session.user} != null and ${session.user.lv} == 1">
+											<form method="post" action="/class/classreservation">
+												<button type="submit">
+													<i class="fa fa-shopping-cart"></i>
+													<span>예약하기</span>
+												</button>
+												<input type="hidden" name="seq" th:value="${dto.seq}">
+											</form>
+										</th:block>
+										<th:block th:if="${session.user} == null">
+											<button type="button" onclick="loginRequest()">
+												<i class="fa fa-shopping-cart"></i>
+												<span>예약하기</span>
+											</button>
+										</th:block>
 									</div>
 									<div class="clearfix">
 									</div>
@@ -138,7 +159,7 @@
 							</form>
 						</div>
 					</aside>
-					<aside id="search-" class="widget widget_text">
+					<aside id="search-region" class="widget widget_text">
 						<h1 class="widget-title section-title"><span>Search in Region</span></h1>
 						<div class="textwidget">
 							<form role="search" method="get" class="search-form" action="/class" id="searchWord-region">
@@ -183,5 +204,11 @@
 		</div>
 	</div>
 </div>
+<script>
+	function loginRequest() {
+		alert('로그인 후 이용하세요.');
+		location.href='/member/login';
+	}
+</script>
 </body>
 </html>

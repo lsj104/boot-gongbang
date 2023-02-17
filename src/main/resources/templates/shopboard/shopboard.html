@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+
+<body>
+
+<!-- TITLE BEGINS -->
+<div class="headerimage">
+    <div class="headercontent">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="fleft">
+                        <h1 th:text="${shopnickname}"></h1>
+                    </div>
+                    <div class="fright breadc">
+                        <a href="http://localhost:8090/main">Home</a> / Shop
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear text-center intersectionalities" style="margin-top: 30px; margin-bottom: 30px;">
+    <form class="form-inline" id="shopSearch" data-example-id="input-group-with-button" method="get" action="/shop" style="margin-left: 1000px;">
+        <div class="form-group">
+            <div class="input-group">
+                <input class="form-control" name="searchWord" placeholder="Search for..." type="text">
+                <div class="input-group-btn" style="vertical-align: top;">
+                    <button class="btn btn-default" type="submit" style="margin-right: 20px;">
+                        <i class="fa  fa-search"></i>
+                    </button>
+                </div>
+                <div class="input-group-btn">
+                    <button style="margin-right: 200px; color: #777" type="button" class="btn btn-default"
+                            onclick="location.href='http://localhost:8090/shopboard/insert'"><i class="fa fa-pencil"></i> write
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div id="homepagetemplate" class="container padtop10 padbot40" style="margin-top: 20px; min-height: 1000px;">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>No.</td>
+                <td>제목</td>
+                <td>작성자</td>
+                <td>등록일</td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="list, listStat : ${list}">
+                    <td th:text="${listStat.size} - ${listStat.index}"></td>
+                    <td th:text="${list.title}"></td>
+                    <th:block th:if = "${list.membernickname == null}"><td th:text="${list.shopnickname}"></td></th:block>
+                    <th:block th:if = "${list.membernickname != null}"><td th:text="${list.membernickname}"></td></th:block>
+                    <td th:text="${list.regdate}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

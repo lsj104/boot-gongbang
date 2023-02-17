@@ -12,9 +12,10 @@
     <select id="searchshopcount" parameterType="hashmap" resultType="int"> select count(*) from tblClass c inner join tblShop s on c.sseq = s.seq where s.nickname like '%'||#{searchWord}||'%'</select>
     <select id="searchclasscount" parameterType="hashmap" resultType="int"> select count(*) from tblClass c where c.name like '%'||#{searchWord}||'%'</select>
     <select id="searchregioncount" parameterType="hashmap" resultType="int"> select count(*) from tblClass c inner join tblShop s on c.sseq = s.seq where s.address like #{searchWord}||'%'</select>
+    <select id="category" resultType="com.test.gongbang.sclass.service.CategoryDTO"> select * from tblCategory</select>
     <select id="classviewdetails" parameterType="String" resultType="com.test.gongbang.sclass.service.ClassDTO"> select * from tblClass where seq = #{seq} </select>
     <select id="shop" parameterType="String" resultType="com.test.gongbang.shop.service.ShopDTO"> select * from tblShop where seq = (select sseq from tblClass where seq = #{cseq}) </select>
-    <select id="category" resultType="com.test.gongbang.sclass.service.CategoryDTO"> select * from tblCategory</select>
+    <insert id="reservation" parameterType="hashmap">insert into tblMemberClass(seq, mseq, cseq, rdate, rmembercnt) values (seqMemberClass.nextVal,(select seq from tblMember where aseq = #{aseq}), #{cseq}, to_char(sysdate, 'YYYY-MM-DD'), #{rmembercnt})</insert>
 </mapper>
 
 

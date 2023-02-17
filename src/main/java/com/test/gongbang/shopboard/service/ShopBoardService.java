@@ -1,4 +1,9 @@
 package com.test.gongbang.shopboard.service;
 
-public class ShopBoardService {
+import java.util.List;
+
+public interface ShopBoardService {
+
+    List<ShopBoardDTO> list(String seq);
+
 }
