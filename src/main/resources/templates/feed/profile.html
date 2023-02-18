@@ -25,13 +25,13 @@
 <div class="mt-4 pt-5 "> <!-- 본문-->
     <div class="container">
 
-        <!--<h3 th:text="${feedprofile.nickname}"></h3>-->
+        <h3 th:text="${feedprofile.nickname}"></h3>
         <!--<a   th:if="${aseq == feedview.aseq}" th:href="@{/mypage}" >내 정보 보기</a>-->
 
         <!--<h5><span th:text="${feedprofile.nickname}"></span></h5>-->
         <img th:src="@{session.user.iamge}" th:width="200px" class="card-img">
 
-        <h6>게시물 수 : <span th:text="${#lists.size(feedprofile.seq)}"></span></h6>
+        <h6>게시물 수 : <span th:text="${#lists.size(feedprofile)}"></span></h6>
          <!--팔로워 :<span th:text="${followers}"></span> 팔로잉:<span th:text="${followings}"></span> </h6>-->
 
         <!--<a  sec:authorize="isAuthenticated()" th:if="${!loginId.toString().equals(user.id.toString())}" class="btn btn-primary m-2" th:href="'/user/follow/'+${user.id}" >팔로우하기</a>

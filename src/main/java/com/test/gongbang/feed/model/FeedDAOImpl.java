@@ -46,7 +46,7 @@ public class FeedDAOImpl implements  FeedDAO{
     }
 
     @Override
-    public List<FeedDTO> feedprofile(String seq) {
-        return template.selectList("feedprofile",seq);
+    public List<FeedDTO> feedprofile(String aseq) {
+        return template.selectList("feedprofile",aseq);
     }
 }

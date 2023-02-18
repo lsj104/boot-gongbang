@@ -18,5 +18,5 @@ public interface FeedDAO {
 
     int feedupdate(FeedDTO dto);
 
-    List<FeedDTO> feedprofile(String seq);
+    List<FeedDTO> feedprofile(String aseq);
 }

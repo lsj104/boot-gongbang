@@ -100,9 +100,11 @@ public class FeedController {
     }
 
     @GetMapping("feed/profile")
-    public String feedprofile(@RequestParam String seq){
+    public String feedprofile(@RequestParam String aseq, Model model){
 
-        List<FeedDTO> dto = service.feedprofile(seq);
+        List<FeedDTO> dto = service.feedprofile(aseq);
+
+        model.addAttribute("feedprofile", dto);
 
         return "feed/profile";
 
