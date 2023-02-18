@@ -16,6 +16,12 @@
     <select id="classviewdetails" parameterType="String" resultType="com.test.gongbang.sclass.service.ClassDTO"> select * from tblClass where seq = #{seq} </select>
     <select id="shop" parameterType="String" resultType="com.test.gongbang.shop.service.ShopDTO"> select * from tblShop where seq = (select sseq from tblClass where seq = #{cseq}) </select>
     <insert id="reservation" parameterType="hashmap">insert into tblMemberClass(seq, mseq, cseq, rdate, rmembercnt) values (seqMemberClass.nextVal,(select seq from tblMember where aseq = #{aseq}), #{cseq}, to_char(sysdate, 'YYYY-MM-DD'), #{rmembercnt})</insert>
+    <select id="getShopSeq" parameterType="String" resultType="String"> select seq from tblShop where aseq = #{aseq}</select>
+    <insert id="add" parameterType="com.test.gongbang.sclass.service.ClassDTO">
+        insert into tblClass(seq, cseq, name, intro, course, time, duedate, duetime, membercnt, price, image, sseq)
+            values (seqClass.nextVal, #{cseq}, #{name}, #{intro}, #{course}, #{time}, #{duedate}, #{duetime}, #{membercnt}, #{price}, #{image},#{sseq})
+    </insert>
+
 </mapper>
 
 

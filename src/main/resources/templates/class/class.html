@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{common/base}"
-	  layout:fragment="content">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
 <style>
-	button {
-		background-color: #555;
-		color: #fff;
-		border-radius: 5px;
-	}
-	button[type=submit]:hover {
-		background-color: #333;
-	}
+    button {
+        background-color: #555;
+        color: #fff;
+        border-radius: 5px;
+    }
+
+    button[type=submit]:hover {
+        background-color: #333;
+    }
 </style>
 <body>
 
@@ -19,196 +20,211 @@
 ================================================== -->
 <div class="shoppage">
 
-	<!-- TITLE BEGINS -->
-	<div class="headerimage">
-		<div class="headercontent">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="fleft">
-							<h1>Class</h1>
-						</div>
-						<div class="fright breadc">
-							<a href="main">Home</a> / Class
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- TITLE ENDS -->
+    <!-- TITLE BEGINS -->
+    <div class="headerimage">
+        <div class="headercontent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fleft">
+                            <h1>Class</h1>
+                        </div>
+                        <div class="fright breadc">
+                            <a href="main">Home</a> / Class
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TITLE ENDS -->
 
-	<div class="container padbot30">
-		<div class="row padtop30 padbot20">
-			<div class="col-md-12">
+    <div class="container padbot30">
+        <div class="row padtop30 padbot20">
+            <div class="col-md-12">
 				<span class="pagesit fleft">
 					Showing page [[${paging.nowPage}]] of [[${paging.totalPage}]]
 				</span>
-<!--				<div class="sortitemsarea fright">-->
-<!--					<form method="GET" action=" " class="wowsortitems">-->
-<!--						<select name="data" id="data" onchange='this.form.submit()'>-->
-<!--							<option value="1">Sort by newest</option>-->
-<!--							<option value="2">Sort by price: low to high</option>-->
-<!--							<option value="3">Sort by price: high to low</option>-->
-<!--							<option value="4">Sort by popularity</option>-->
-<!--							<option value="5">Sort by oldest</option>-->
-<!--							<option value="6">Sort by comments</option>-->
-<!--							<option value="7">Sort alphabetically</option>-->
-<!--						</select>-->
-<!--						<noscript>-->
-<!--							<input type="submit" value="Submit">-->
-<!--						</noscript>-->
-<!--					</form>-->
-<!--				</div>-->
-			</div>
-		</div>
+                <div class="fright"  th:if="${session.user} != null and ${session.user.lv} == 2">
+                    <form action="/class/classadd" method="post">
+                        <button type="submit" style="width: 90px;">
+                            <i class="fa-solid fa-calendar-plus"></i>
+                            <span>Create</span>
+                        </button>
+                    </form>
+                </div>
+                <!--				<div class="sortitemsarea fright">-->
+                <!--					<form method="GET" action=" " class="wowsortitems">-->
+                <!--						<select name="data" id="data" onchange='this.form.submit()'>-->
+                <!--							<option value="1">Sort by newest</option>-->
+                <!--							<option value="2">Sort by price: low to high</option>-->
+                <!--							<option value="3">Sort by price: high to low</option>-->
+                <!--							<option value="4">Sort by popularity</option>-->
+                <!--							<option value="5">Sort by oldest</option>-->
+                <!--							<option value="6">Sort by comments</option>-->
+                <!--							<option value="7">Sort alphabetically</option>-->
+                <!--						</select>-->
+                <!--						<noscript>-->
+                <!--							<input type="submit" value="Submit">-->
+                <!--						</noscript>-->
+                <!--					</form>-->
+                <!--				</div>-->
+            </div>
+        </div>
 
-		<div class="row">
-			<div th:if="${!#strings.isEmpty(searchWord)}">
-				<span class="pagesit" th:text="|&quot;${searchWord}&quot;로 검색한 결과입니다.|" style="font-weight: bold; font-size: large; "></span>
-			</div>
-			<!-- MAIN CONTENT BEGINS -->
-			<div class="col-md-9">
-				<div id="searchresultnull" th:if="${#lists.isEmpty(list)}" style="height: 700px;display: flex; align-items: center; justify-content: center">
-					<p class="fa-2x" >
-						<i class="fa-solid fa-quote-left"></i>
-						&nbsp;
-						<span th:text="${searchWord}"></span>
-						&nbsp;
-						<i class="fa-solid fa-quote-right"></i>
-						에 대한 검색 결과가 없습니다.
-					</p>
-				</div>
-				<div class="wowitemboxlist" th:if="${!#lists.isEmpty(list)}">
-					<div class="wowitembox" th:each="dto : ${list}">
-						<div class="wowitemboxinner">
-							<div class="imagearea">
-								<img style="height: 200px; object-fit: cover;" th:src="@{'/image/class/' + ${dto.image}}"/>
-								<div class="caption">
-									<div class="blur">
-									</div>
-									<div class="caption-text">
-										<div class="captionbuttons">
-											<a th:href="@{/class/classviewdetails(seq=${dto.seq})}" class="captiondetails"><i class="fa fa-link"></i> View Details</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="notesarea">
-								<div class="title" style="height: 40px; overflow: hidden;">
-									<a th:href="@{class/classviewdetails(seq=${dto.seq})}" >
-										<h2 th:text="${dto.name}"></h2>
-									</a>
-								</div>
-								<div class="description" style="height: 70px; overflow: hidden">
-									<div th:text="${dto.nickname}" style="font-weight: bold; margin-bottom: 2px;"></div>
-									<div th:text="${dto.address}"></div>
-								</div>
-								<div class="notesbottom">
-									<div class="price fleft" th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></div>
-									<div class="cart fright">
-										<th:block th:if="${session.user} != null and ${session.user.lv} == 1">
-											<form method="post" action="/class/classreservation">
-												<button type="submit">
-													<i class="fa fa-shopping-cart"></i>
-													<span>예약하기</span>
-												</button>
-												<input type="hidden" name="seq" th:value="${dto.seq}">
-											</form>
-										</th:block>
-										<th:block th:if="${session.user} == null">
-											<button type="button" onclick="loginRequest()">
-												<i class="fa fa-shopping-cart"></i>
-												<span>예약하기</span>
-											</button>
-										</th:block>
-									</div>
-									<div class="clearfix">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- .wowitemboxinner-->
-					</div>
-					<!-- .wowitembox-->
-				</div>
-				<div class="clear"></div>
-				<nav th:utext="${paging.pageBar}"></nav>
-				<div class="clear"></div>
-			</div>
-			<!-- MAIN CONTENT ENDS -->
+        <div class="row">
+            <div th:if="${!#strings.isEmpty(searchWord)}">
+                <span class="pagesit" th:text="|&quot;${searchWord}&quot;로 검색한 결과입니다.|"
+                      style="font-weight: bold; font-size: large; "></span>
+            </div>
+            <!-- MAIN CONTENT BEGINS -->
+            <div class="col-md-9">
+                <div id="searchresultnull" th:if="${#lists.isEmpty(list)}"
+                     style="height: 700px;display: flex; align-items: center; justify-content: center">
+                    <p class="fa-2x">
+                        <i class="fa-solid fa-quote-left"></i>
+                        &nbsp;
+                        <span th:text="${searchWord}"></span>
+                        &nbsp;
+                        <i class="fa-solid fa-quote-right"></i>
+                        에 대한 검색 결과가 없습니다.
+                    </p>
+                </div>
+                <div class="wowitemboxlist" th:if="${!#lists.isEmpty(list)}">
+                    <div class="wowitembox" th:each="dto : ${list}">
+                        <div class="wowitemboxinner">
+                            <div class="imagearea">
+                                <img style="height: 200px; object-fit: cover;"
+                                     th:src="@{'/image/class/' + ${dto.image}}"/>
+                                <div class="caption">
+                                    <div class="blur">
+                                    </div>
+                                    <div class="caption-text">
+                                        <div class="captionbuttons">
+                                            <a th:href="@{/class/classviewdetails(seq=${dto.seq})}"
+                                               class="captiondetails"><i class="fa fa-link"></i> View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notesarea">
+                                <div class="title" style="height: 40px; overflow: hidden;">
+                                    <a th:href="@{class/classviewdetails(seq=${dto.seq})}">
+                                        <h2 th:text="${dto.name}"></h2>
+                                    </a>
+                                </div>
+                                <div class="description" style="height: 70px; overflow: hidden">
+                                    <div th:text="${dto.nickname}" style="font-weight: bold; margin-bottom: 2px;"></div>
+                                    <div th:text="${dto.address}"></div>
+                                </div>
+                                <div class="notesbottom">
+                                    <div class="price fleft"
+                                         th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></div>
+                                    <div class="cart fright">
+                                        <th:block th:if="${session.user} != null and ${session.user.lv} == 1">
+                                            <form method="post" action="/class/classreservation">
+                                                <button type="submit">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    <span>예약하기</span>
+                                                </button>
+                                                <input type="hidden" name="seq" th:value="${dto.seq}">
+                                            </form>
+                                        </th:block>
+                                        <th:block th:if="${session.user} == null">
+                                            <button type="button" onclick="loginRequest()">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                <span>예약하기</span>
+                                            </button>
+                                        </th:block>
+                                    </div>
+                                    <div class="clearfix">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .wowitemboxinner-->
+                    </div>
+                    <!-- .wowitembox-->
+                </div>
+                <div class="clear"></div>
+                <nav th:utext="${paging.pageBar}"></nav>
+                <div class="clear"></div>
+            </div>
+            <!-- MAIN CONTENT ENDS -->
 
-			<!-- SIDEBAR BEGINS -->
-			<div class="col-md-3">
-				<div id="secondary" class="widget-area" role="complementary">
-					<aside id="search-class" class="widget widget_text">
-						<h1 class="widget-title section-title"><span>Search in Class</span></h1>
-						<div class="textwidget">
-							<form role="search" method="get" class="search-form" action="/class">
-								<input type="hidden" name="searchType" value="class" id="searchType-class">
-								<input type="search" class="search-field" placeholder="Type and hit enter..." value="" name="searchWord" title="" id="searchWord-class"/>
-							</form>
-						</div>
-					</aside>
-					<aside id="search-shop" class="widget widget_text">
-						<h1 class="widget-title section-title"><span>Search in Shop</span></h1>
-						<div class="textwidget">
-							<form role="search" method="get" class="search-form" action="/class">
-								<input type="hidden" name="searchType" value="shop" id="searchType-shop">
-								<input type="search" class="search-field" placeholder="Type and hit enter..." value="" name="searchWord" title="" id="searchWord-shop"/>
-							</form>
-						</div>
-					</aside>
-					<aside id="search-region" class="widget widget_text">
-						<h1 class="widget-title section-title"><span>Search in Region</span></h1>
-						<div class="textwidget">
-							<form role="search" method="get" class="search-form" action="/class" id="searchWord-region">
-								<input type="hidden" name="searchType" value="region" id="searchType-region">
-<!--								<input type="submit">-->
-								<select name="searchWord" form="searchWord-region" onchange="this.form.submit()">
-									<option value="">Region</option>
-									<option value="서울">서울</option>
-									<option value="경기">경기</option>
-									<option value="인천">인천</option>
-									<option value="강원">강원</option>
-									<option value="경상">경상</option>
-									<option value="부산">부산</option>
-									<option value="울산">울산</option>
-									<option value="대구">대구</option>
-									<option value="대전">대전</option>
-									<option value="전라">전라</option>
-									<option value="광주">광주</option>
-									<option value="충청">충청</option>
-									<option value="제주">제주</option>
-								</select>
-							</form>
-						</div>
-					</aside>
-					<aside id="edd_categories_tags_widget-3" class="widget widget_edd_categories_tags_widget">
-						<h1 class="widget-title section-title"><span>Categories</span></h1>
-							<ul class="edd-taxonomy-widget">
-								<li class="cat-item" th:each="category:${category}">
-									<a th:href="@{/class(searchType=category, searchWord=${category.name})}" th:text="${category.name}"></a>
-								</li>
-							</ul>
-					</aside>
+            <!-- SIDEBAR BEGINS -->
+            <div class="col-md-3">
+                <div id="secondary" class="widget-area" role="complementary">
+                    <aside id="search-class" class="widget widget_text">
+                        <h1 class="widget-title section-title"><span>Search in Class</span></h1>
+                        <div class="textwidget">
+                            <form role="search" method="get" class="search-form" action="/class">
+                                <input type="hidden" name="searchType" value="class" id="searchType-class">
+                                <input type="search" class="search-field" placeholder="Type and hit enter..." value=""
+                                       name="searchWord" title="" id="searchWord-class"/>
+                            </form>
+                        </div>
+                    </aside>
+                    <aside id="search-shop" class="widget widget_text">
+                        <h1 class="widget-title section-title"><span>Search in Shop</span></h1>
+                        <div class="textwidget">
+                            <form role="search" method="get" class="search-form" action="/class">
+                                <input type="hidden" name="searchType" value="shop" id="searchType-shop">
+                                <input type="search" class="search-field" placeholder="Type and hit enter..." value=""
+                                       name="searchWord" title="" id="searchWord-shop"/>
+                            </form>
+                        </div>
+                    </aside>
+                    <aside id="search-region" class="widget widget_text">
+                        <h1 class="widget-title section-title"><span>Search in Region</span></h1>
+                        <div class="textwidget">
+                            <form role="search" method="get" class="search-form" action="/class" id="searchWord-region">
+                                <input type="hidden" name="searchType" value="region" id="searchType-region">
+                                <!--								<input type="submit">-->
+                                <select name="searchWord" form="searchWord-region" onchange="this.form.submit()">
+                                    <option value="">Region</option>
+                                    <option value="서울">서울</option>
+                                    <option value="경기">경기</option>
+                                    <option value="인천">인천</option>
+                                    <option value="강원">강원</option>
+                                    <option value="경상">경상</option>
+                                    <option value="부산">부산</option>
+                                    <option value="울산">울산</option>
+                                    <option value="대구">대구</option>
+                                    <option value="대전">대전</option>
+                                    <option value="전라">전라</option>
+                                    <option value="광주">광주</option>
+                                    <option value="충청">충청</option>
+                                    <option value="제주">제주</option>
+                                </select>
+                            </form>
+                        </div>
+                    </aside>
+                    <aside id="edd_categories_tags_widget-3" class="widget widget_edd_categories_tags_widget">
+                        <h1 class="widget-title section-title"><span>Categories</span></h1>
+                        <ul class="edd-taxonomy-widget">
+                            <li class="cat-item" th:each="category:${category}">
+                                <a th:href="@{/class(searchType=category, searchWord=${category.name})}"
+                                   th:text="${category.name}"></a>
+                            </li>
+                        </ul>
+                    </aside>
 
-					<form action="/class">
-						<input type="submit" class="btn-block" value="검색 초기화">
-					</form>
+                    <form action="/class">
+                        <input type="submit" class="btn-block" value="Search Reset">
+                    </form>
+                </div>
+            </div>
+            <!-- SIDEBAR ENDS -->
 
-				</div>
-			</div>
-			<!-- SIDEBAR ENDS -->
-
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 <script>
-	function loginRequest() {
-		alert('로그인 후 이용하세요.');
-		location.href='/member/login';
-	}
+    function loginRequest() {
+        alert('로그인 후 이용하세요.');
+        location.href = '/member/login';
+    }
 </script>
 </body>
 </html>

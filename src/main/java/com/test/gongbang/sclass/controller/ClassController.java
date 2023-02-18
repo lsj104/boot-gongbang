@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -54,7 +56,7 @@ public class ClassController {
         return "class/classviewdetails";
     }
 
-    @PostMapping ("class/classreservation")
+    @PostMapping ("/class/classreservation")
     public String reservation(String seq, Model model, HttpSession session) {
 
         ClassDTO dto = service.getClass(seq);
@@ -69,19 +71,52 @@ public class ClassController {
     @PostMapping ("/class/classreservationOk")
     public String reservationOk(String cseq, String rmembercnt, HttpSession session, HttpServletResponse response) throws IOException {
 
-        System.out.println("reservation:" + cseq + rmembercnt);
-
         int result = service.reservation(cseq, rmembercnt, session);
 
-        if (result != 1) {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
 
-            response.setContentType("text/html; charset=UTF-8");
-            PrintWriter out = response.getWriter();
+        if (result != 1) {
             out.println("<script>alert('예약을 실패하였습니다. 다시 시도해주세요.'); history.back();</script>");
-            out.flush();
+        } else {
+            out.println("<script>alert('예약이 완료되었습니다.');</script>");
         }
 
+        out.flush();
+
        return "redirect:/class";
+    }
+
+    @PostMapping("/class/classadd")
+    public String add(Model model, HttpSession session) {
+
+        String sseq = service.getShopSeq(session);
+        List<CategoryDTO> category = service.getCategory();
+
+        model.addAttribute("sseq", sseq);
+        model.addAttribute("category",category);
+
+        return "class/classadd";
+    }
+
+    @PostMapping("/class/classaddok")
+    public String addOk(HttpSession session, MultipartHttpServletRequest multiReq, HttpServletResponse response) throws IOException {
+
+        int result = service.addClass(multiReq);
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if (result != 1) {
+            out.println("<script>alert('예약을 실패하였습니다. 다시 시도해주세요.'); history.back();</script>");
+        } else {
+            out.println("<script>alert('예약이 완료되었습니다.');");
+        }
+
+        out.flush();
+
+        return "redirect:/class";
+
     }
 
 }
