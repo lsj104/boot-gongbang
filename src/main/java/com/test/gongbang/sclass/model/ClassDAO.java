@@ -26,4 +26,10 @@ public interface ClassDAO {
     ShopDTO getShop(String cseq);
 
     int reservation(HashMap<String, String> reservationMap);
+
+    String getShopSeq(String aseq);
+
+    int addClass(ClassDTO dto);
+
+
 }

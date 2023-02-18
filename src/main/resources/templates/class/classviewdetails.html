@@ -149,10 +149,18 @@
 							<p style="font-size: large; font-weight: bold;" th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></p>
 						</div>
 						<form method="post" action="/class/classreservation" style="text-align: center;">
-							<button type="submit" class="btn-block">
-								<i class="fa fa-shopping-cart"></i>
-								<span>&nbsp;예약하기</span>
-							</button>
+							<th:block th:if="${session.user} != null and ${session.user.lv} == 1">
+								<button type="submit" class="btn-block">
+									<i class="fa fa-shopping-cart"></i>
+									<span>&nbsp;예약하기</span>
+								</button>
+							</th:block>
+							<th:block th:if="${session.user} == null">
+								<button type="button" onclick="loginRequest()">
+									<i class="fa fa-shopping-cart"></i>
+									<span>예약하기</span>
+								</button>
+							</th:block>
 							<input type="hidden" name="seq" th:value="${dto.seq}">
 						</form>
 					</div>

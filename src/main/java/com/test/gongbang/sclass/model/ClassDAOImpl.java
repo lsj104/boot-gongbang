@@ -78,5 +78,16 @@ public class ClassDAOImpl implements ClassDAO {
         return template.insert("class.reservation", reservationMap);
     }
 
+    @Override
+    public String getShopSeq(String aseq) {
+        return template.selectOne("class.getShopSeq", aseq);
+    }
+
+
+    @Override
+    public int addClass(ClassDTO dto) {
+        return template.insert("class.add",dto);
+    }
+
 
 }

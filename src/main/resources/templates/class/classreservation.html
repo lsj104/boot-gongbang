@@ -98,12 +98,12 @@
                                                         <p id="totalPrice" class="fleft" th:text="${#numbers.formatInteger(dto.price, 0, 'COMMA')}"></p>&nbsp;원
                                                     </div>
                                                 </div>
-                                                <input type="button" class="reserve" value="확  인" style="width: 300px;  margin: 10px auto; display: block;" onclick="check()">
+                                                <input type="button" class="reserve" value="Reservation" style="width: 300px;  margin: 10px auto; display: block;" onclick="check()">
                                                 <p class="text-center">※ 모든 결제는 현장 결제로 이루어집니다. ※</p>
-                                                <p id="confirm" style="white-space: pre; color: #ec615a; font-weight: bold; border: 1px solid #eee; "></p>
+                                                <p id="confirm" style="white-space: pre; color: #ec615a; font-weight: bold; margin: 20px 0;"></p>
                                                 <div id="btn" style="text-align: center;">
-                                                    <input type="submit" class="reserve" value="예 약 하 기" style="width: 120px;" >
-                                                    <input type="button" value="취  소" style="width: 120px; height: 38px;" onclick="history.back()">
+                                                    <input type="submit" class="reserve" value="O K" style="width: 130px;" >
+                                                    <input type="button" value="Cancle" style="width: 130px; height: 38px; border-radius: 5px;" onclick="history.back()">
                                                 </div>
                                                 <input type="hidden" name="cseq" th:value="${dto.seq}">
                                             </form>
@@ -144,8 +144,8 @@
             삭제는 마이페이지에서 가능합니다.
 
             다시 한번 학인하시고
-            예약 하시려면 '예약하기' 버튼을
-            취소 하시려면 '취소' 버튼을 눌려주세요.`;
+            예약 하시려면 'OK' 버튼을
+            취소 하시려면 'Cancle' 버튼을 눌려주세요.`;
 
         $('#confirm').text(notification);
         $('#btn').show();

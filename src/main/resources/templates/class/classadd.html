@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+<style>
+    form .create_btn {
+        background-color: #555;
+        color: #fff;
+        border-radius: 5px;
+        margin: 10px;
+    }
+
+    form .create_btn:hover {
+        background-color: #333;
+    }
+    .col-md-4 div input {
+        width: 234px;
+        height: 34px;
+    }
+    .col-md-4 div select {
+        width: 100px;
+        height: 34px;
+    }
+    label {
+        font-weight: bold;
+        margin-right: 20px;
+    }
+    .col-md-4, .col-md-8 {
+        padding: 0 30px;
+    }
+    .col-md-4 div div {
+        line-height: 34px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    input, select {
+        border-radius: 5px;
+    }
+    textarea {
+        border: none;
+        resize: none;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        width: 620px;
+        height: 250px;
+        float: right;
+    }
+
+    .col-md-8 label{
+        float: left;
+    }
+
+    #class_name_wrap, #class_name, #class_image_wrap, #class_image{
+        height: 36px;
+        line-height: 36px;
+    }
+
+    #class_submit_wrap input {
+        width: 140px;
+        height: 38px;
+        display: inline-block;
+        vertical-align: center;
+    }
+
+</style>
+<body>
+
+<!-- PAGE CONTENT
+================================================== -->
+<div class="shoppage">
+
+    <!-- TITLE BEGINS -->
+    <div class="headerimage">
+        <div class="headercontent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fleft">
+                            <h1>Class</h1>
+                        </div>
+                        <div class="fright breadc">
+                            <a href="main">Home</a> / Class
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TITLE ENDS -->
+
+    <div class="container padtop30 padbot30">
+        <div class="row padtop20 padbot20" style="border: 2px solid #eee;">
+            <div class="col-md-12">
+                <h2 class="pagesit" style="font-weight: bold; margin-bottom:30px; margin-left: 15px;">Create Class</h2>
+                <form id="add_form" class="form" action="/class/classaddok" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <!-- MAIN CONTENT BEGINS -->
+                        <div class="col-md-8" style="border-right: 1px solid #eee;">
+                            <div id="class_name_wrap">
+                                <label for="class_name">클래스 이름</label>
+                                <input name="name" id="class_name" class="text edd-input fright" type="text" placeholder="class name..." required style="width: 620px;">
+                            </div>
+                            <div style="clear: both"></div>
+
+                            <div id="class_intro_wrap">
+                                <label for="class_intro">클래스 소개</label>
+                                <textarea id="class_intro" name="intro" required placeholder="class intro..."></textarea>
+                            </div>
+                            <div style="clear: both"></div>
+
+                            <div id="class_course_wrap">
+                                <label for="class_course">커리큘럼</label>
+                                <textarea id="class_course" name="course" required placeholder="class curriculum..."></textarea>
+                            </div>
+                            <div style="clear: both"></div>
+
+                            <div id="class_image_wrap">
+                                <label for="class_image">이미지</label>
+                                <input type="file" name="image" id="class_image" required style="width: 620px;" class="fright">
+                                <div id="image"></div>
+                            </div>
+                            <div style="clear: both"></div>
+
+                        </div>
+                        <!-- MAIN CONTENT ENDS -->
+                        <div class="col-md-4">
+                            <div id="secondary" class="widget-area" role="complementary">
+
+                                <div id="class_category_wrap">
+                                    <label for="class_category">카테고리</label>
+                                    <div class="fright">
+                                        <select name="cseq" id="class_category" class="select edd-select" required style="width: 250px;">
+                                            <option th:each="category:${category}" th:value="${category.seq}" th:text="${category.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="clear: both"></div>
+
+                                <div id="class_time_wrap">
+                                    <label>소요시간</label>
+                                    <div class="fright">
+                                        <select id="class_time_hour" class="select edd-select" required onchange="setTime()">
+                                            <th:block th:each="num, numStat: ${#numbers.sequence(0, 14)}">
+                                                <option th:if="${numStat.current <= 9}" th:value="${numStat.current}" th:text="|0${numStat.current}|"></option>
+                                                <option th:if="${numStat.current > 9}" th:value="${numStat.current}" th:text="${numStat.current}"></option>
+                                            </th:block>
+                                        </select>
+                                        <span>시간 </span>
+                                        <select id="class_time_min" class="select edd-select" required onchange="setTime()">
+                                            <th:block th:each="num, numStat: ${#numbers.sequence(0, 5)}">
+                                                <option th:value="|${numStat.current}0|" th:text="|${numStat.current}0|"></option>
+                                            </th:block>
+                                        </select>
+                                        <span>분</span>
+                                    </div>
+                                        <input type="hidden" name="time" id="class_time">
+                                </div>
+                                <div style="clear: both"></div>
+
+                                <div id="class_schedule_wrap">
+                                    <label>일정</label>
+
+                                    <div class="fright">
+                                        <input name="duedate" id="class_duedate" class="text edd-input" type="date" required style="width: 250px;">
+                                    </div>
+                                    <div class="clear"></div>
+
+                                    <div class="fright">
+                                        <select id="class_duetime_hour" class="select edd-select" required onchange="setTime()">
+                                            <th:block th:each="num, numStat: ${#numbers.sequence(8, 22)}">
+                                                <option th:if="${numStat.current <= 9}" th:value="|0${numStat.current}|" th:text="|0${numStat.current}|"></option>
+                                                <option th:if="${numStat.current > 9}" th:value="${numStat.current}" th:text="${numStat.current}"></option>
+                                            </th:block>
+                                        </select>
+                                        <span style="margin-right: 14px;">시</span>
+                                        <select id="class_duetime_min" class="select edd-select" required onchange="setTime()">
+                                            <th:block th:each="num, numStat: ${#numbers.sequence(0, 6)}">
+                                                <option th:value="|${numStat.current}0|" th:text="|${numStat.current}0|"></option>
+                                            </th:block>
+                                        </select>
+                                        <span>분</span>
+                                    </div>
+                                    <input type="hidden" name="duetime" id="class_duetime">
+                                </div>
+                                <div style="clear: both"></div>
+
+                                <div id="class_membercnt_wrap">
+                                    <label for="class_membercnt">모집인원</label>
+                                    <div class="fright">
+                                        <input name="membercnt" id="class_membercnt" class="edd-input" type="number" required min="1" value="1">
+                                        <span>명</span>
+                                    </div>
+                                </div>
+                                <div style="clear: both"></div>
+
+                                <div id="class_price_wrap">
+                                    <label for="class_price">가격</label>
+                                    <div class="fright" style="height: 34px;">
+                                        <input  id="class_price" type="text" class="text input required" onkeyup="inputNumberFormat(this);">
+                                        <span>원</span>
+                                    </div>
+                                </div>
+                                <div style="clear: both"></div>
+
+                            </div>
+                            <div id="class_submit_confirm_wrap">
+                                <input type="hidden" name="sseq" th:value="${sseq}">
+                                <input name="class_add_submit" type="button" class="btn-block create_btn" value="Create" onclick="check()" style="width: 300px;  margin: 10px auto; display: block;">
+                            </div>
+                            <div id="class_add_check">
+                                <p id="confirm" style="white-space: pre; color: #ec615a; font-weight: bold; margin: 20px auto;"></p>
+                                <div id="class_submit_wrap" style="text-align: center;">
+                                    <input type="hidden" name="sseq" th:value="${sseq}">
+                                    <input name="class_add_submit" id="class_add_submit" type="submit" class="create_btn" value="OK">
+                                    <input type="button" value="Cancle" onclick="history.back()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+
+    $('#class_add_check').hide();
+
+    // controller에 넘길 time과 duetime input[type=hidden]에 담기
+    function setTime() {
+
+        var classTimeH = $('#class_time_hour option:selected').val();
+        var classTimeM = $('#class_time_min option:selected').val();
+
+
+        var classDTimeH = $('#class_duetime_hour option:selected').val();
+        var classDTimeM = $('#class_duetime_min option:selected').val();
+
+        $('#class_time').attr("value", classTimeH + '시간' + classTimeM + '분');
+        $('#class_duetime').attr("value", classDTimeH + '시' + classDTimeM + '분');
+
+    }
+
+
+    // 가격 정규식 표현
+    function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    }
+
+    function inputNumberFormat(obj) {
+        obj.value = comma(uncomma(obj.value));
+    }
+
+    //input[type=date]에 내일 날짜를 min 값으로 설정
+    var today = new Date();
+    var tomorrow = new Date(today.setDate(today.getDate()+1));
+    tomorrow =  tomorrow.toISOString().slice(0, 10);
+    $('#class_duedate').attr("min", tomorrow);
+
+    function check() {
+        var notification = `            예약자 발생시 클래스 수정이 어렵습니다.
+
+            수정은 마이페이지에서 가능합니다.
+
+            다시 한번 확인하시고,
+            클래스를 생성하시려면 'OK'버튼을
+            취소하시려면 'Cancle'버튼을 눌러주세요..`;
+
+        $('#confirm').text(notification);
+        $('#class_add_check').show();
+    }
+
+
+    //첨부 파일
+    $('#image').on('dragenter', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    })
+        .on('dragover', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        })
+        .on('dragleave', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        })
+        .on('drop', function (e) {
+            e.preventDefault();
+
+            // let files = e.originalEvent.dataTransfer.files;
+            // console.log(files);
+            //
+            // if (files != null & files != undefined) {
+            //
+            //     let temp = '';
+            //
+            //     for (let i = 0; i < files.length; i++) {
+            //
+            //         let f = files[i];
+            //
+            //         let filename = f.name;
+            //         let filesize = f.size / 1024 / 1024;
+            //         filesize = filesize < 1 ? filesize.toFixed(2) : filesize.toFixed(1);
+            //
+            //         temp += `<div>
+            //                     <span th:text="${dto.image}"></span>
+            // 				</div>`;
+            //     }//for
+            //
+            //     $(this).append(temp);
+            //
+            //     //<input type="file" files="">
+            //     $('image').prop('files', files);
+            // }
+
+        });
+</script>
+</body>
+</html>
