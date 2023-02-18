@@ -57,6 +57,8 @@ public class FeedServiceImpl implements FeedService{
         dto.setContent(mreq.getParameter("content"));
         dto.setHashtag(mreq.getParameter("hashtag"));
 
+        System.out.print(dto);
+
 
         MultipartFile file = mreq.getFile("image");
         String filename = file.getOriginalFilename();
@@ -83,8 +85,8 @@ public class FeedServiceImpl implements FeedService{
 }
 
     @Override
-    public List<FeedDTO> feedprofile(String seq) {
-        return dao.feedprofile(seq);
+    public List<FeedDTO> feedprofile(String aseq) {
+        return dao.feedprofile(aseq);
     }
 
     private String getFileName(String path, String filename) {

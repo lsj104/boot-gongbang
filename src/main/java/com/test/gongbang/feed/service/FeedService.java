@@ -22,7 +22,7 @@ public interface FeedService {
 
     int feedupdate(MultipartHttpServletRequest mreq, HttpSession session);
 
-    List<FeedDTO> feedprofile(String seq);
+    List<FeedDTO> feedprofile(String aseq);
 }
 
 

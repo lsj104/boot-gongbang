@@ -1,5 +1,8 @@
 package com.test.gongbang.feed.service;
 
+import lombok.Data;
+
+@Data
 public class FeedReCommentDTO {
 
     private String seq;
