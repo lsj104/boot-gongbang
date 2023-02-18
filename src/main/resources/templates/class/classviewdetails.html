@@ -6,14 +6,14 @@
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8973e5377ee3ffb3240c68f087f56fe4&libraries=services,clusterer" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <style>
-	button[type=submit] {
+	button {
 		background-color: #555;
 		color: #fff;
 		font-size: 1.5rem;
 		font-weight: bold;
 		border-radius: 5px;
 	}
-	button[type=submit]:hover {
+	button:hover {
 		background-color: #333;
 	}
 	.wrap {
@@ -156,7 +156,7 @@
 								</button>
 							</th:block>
 							<th:block th:if="${session.user} == null">
-								<button type="button" onclick="loginRequest()">
+								<button type="button" class="btn-block" onclick="loginRequest()">
 									<i class="fa fa-shopping-cart"></i>
 									<span>예약하기</span>
 								</button>
