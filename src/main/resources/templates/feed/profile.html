@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+
+<body class="bg-light">
+<div class="headerimage">
+    <div class="headercontent">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="fleft">
+                        <h1>Feed</h1>
+                    </div>
+                    <div class="fright breadc">
+                        <a href="index.html"> Home </a> / <a href="feed.html">Feed</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4 pt-5 "> <!-- 본문-->
+    <div class="container">
+
+        <!--<h3 th:text="${feedprofile.nickname}"></h3>-->
+        <!--<a   th:if="${aseq == feedview.aseq}" th:href="@{/mypage}" >내 정보 보기</a>-->
+
+        <!--<h5><span th:text="${feedprofile.nickname}"></span></h5>-->
+        <img th:src="@{session.user.iamge}" th:width="200px" class="card-img">
+
+        <h6>게시물 수 : <span th:text="${#lists.size(feedprofile.seq)}"></span></h6>
+         <!--팔로워 :<span th:text="${followers}"></span> 팔로잉:<span th:text="${followings}"></span> </h6>-->
+
+        <!--<a  sec:authorize="isAuthenticated()" th:if="${!loginId.toString().equals(user.id.toString())}" class="btn btn-primary m-2" th:href="'/user/follow/'+${user.id}" >팔로우하기</a>
+        <a  sec:authorize="isAnonymous()"  class="btn btn-primary m-2" th:href="'/user/follow/'+${user.id}+'/login'" >팔로우하기</a>-->
+
+
+        <hr/>
+        <div class="row justify-content-center">
+
+            <!-- postList 하나씩 보여줌 -->
+            <!--<div class="card mb-5 " style="width: 300px;" th:each="post : ${postList}">
+                &lt;!&ndash; 이미지&ndash;&gt;
+                <a  th:href="'/detail/'+${post.id}" >
+                    <img th:src="${post.image}" class="card-img-top" alt="...">
+                </a>
+            </div>-->
+
+
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+</body>
+</html>

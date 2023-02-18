@@ -26,7 +26,7 @@
        <div class="mt-4 mb-5">
            <!-- 본문-->
         <div class="container" style="margin: 100px auto;">
-            <!--<nav th:replace="feed/header::feedheader"></nav>-->
+
             <div class="row justify-content-center">
 
 
@@ -36,11 +36,16 @@
                             <img th:src="|/image/feed/${feedview.image}|" th:width="600px" class="card-img">
                         </div>
                         <div class="col-md-4" style="position: relative;">
+                            <div>
+                                <a th:href="@{/feed/profile(seq=${feedview.aseq})}" th:text="${feedview.nickname}"></a>
+                            </div>
+
                             <div class="card-header bg-white ">
                                 글번호
                                 <a class="text-body font-weight-bold text-monospace " style="height: 70px;"
                                    th:text="${feedview.seq}"></a>
-                                   <!--th:href="'/'+${mapList.get(post.author)}"-->
+
+                                <!--th:href="'/feed/profile'+ seq=${feedview.aseq}"-->
                             </div>
 
                             <div class="card-body border border-bottom border-gray overflow-auto" style="height: 420px;">
@@ -58,7 +63,7 @@
 
                                 <!--댓글 -->
                                 <p class="mb-0" th:each="comment : ${feedcomment}">
-                                    <a href="#" >
+                                    <a href="/profile" >
                                         <th:block th:if="${#strings.substring(comment.image, 0, 5) == 'http:'}">
                                             <img width="40px" height="40px"
                                                  th:src="@{${comment.image}}"
@@ -89,11 +94,11 @@
                             <i class="far fa-heart fa-2x"></i>
                             <!-- 좋아요 -->
                         </span>
-                                <!-- <a style="color:black"
-                                    th:href="'/detail/'+${post.id}">
+                                <a style="color:black"
+                                    th:href="'feed/feedview/'+${feedview.nickname}">
                                      <i class="far fa-comment fa-2x pl-2"></i>
-                                 </a>-->
-                                좋아요
+                                 </a>
+
                                 <p><a th:text="${#strings.substring(feedview.regdate, 0, 10)}">
                                     <!--th:href="'/detail/'+${post.id}" class="small mb-0 text-muted"-->
                                 </a></p>

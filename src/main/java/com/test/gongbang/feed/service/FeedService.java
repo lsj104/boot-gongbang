@@ -21,6 +21,8 @@ public interface FeedService {
     List<FeedDTO> hashtag(String seq);
 
     int feedupdate(MultipartHttpServletRequest mreq, HttpSession session);
+
+    List<FeedDTO> feedprofile(String seq);
 }
 
 

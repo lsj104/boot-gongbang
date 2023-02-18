@@ -20,11 +20,15 @@ public class FeedController {
     @Autowired private FeedService service;
 
     @GetMapping("feed/feed")
-    public String list(Model model) {
+    public String list(Model model, HttpSession session) {
 
         List<FeedDTO> list = service.list();
 
+        KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
+        String aseq = kdto.getSeq() + "";
+
         model.addAttribute("list",list);
+        model.addAttribute("aseq", aseq);
 
         return "feed/feed";
     }
@@ -95,6 +99,14 @@ public class FeedController {
 
     }
 
+    @GetMapping("feed/profile")
+    public String feedprofile(@RequestParam String seq){
+
+        List<FeedDTO> dto = service.feedprofile(seq);
+
+        return "feed/profile";
+
+    }
 
 
 
