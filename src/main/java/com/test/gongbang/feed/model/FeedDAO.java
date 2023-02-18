@@ -17,4 +17,6 @@ public interface FeedDAO {
     List<FeedDTO> hashtag(String seq);
 
     int feedupdate(FeedDTO dto);
+
+    List<FeedDTO> feedprofile(String seq);
 }

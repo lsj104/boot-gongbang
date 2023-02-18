@@ -56,6 +56,20 @@
         delete from tblFeed where seq = #{seq}
     </delete>
 
+    <select id="feedprofile" resultType="com.test.gongbang.feed.service.FeedDTO" parameterType="String">
+        select
+            f.*,
+            m.nickname as nickname,
+            m.image as pimage
+        from tblFeed f
+                 inner join tblAccount a
+                            on f.aseq = a.seq
+                 inner join tblMember m
+                            on a.seq = m.aseq
+        where f.aseq = #{seq}
+        order by f.seq desc
+    </select>
+
 
 </mapper>
 

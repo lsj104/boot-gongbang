@@ -82,6 +82,11 @@ public class FeedServiceImpl implements FeedService{
         return result;
 }
 
+    @Override
+    public List<FeedDTO> feedprofile(String seq) {
+        return dao.feedprofile(seq);
+    }
+
     private String getFileName(String path, String filename) {
         int n = 1;
         int index = filename.lastIndexOf(".");
