@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ShopService {
 
-    List<ShopDTO> list();
+    List<ShopDTO> list(String searchType, String searchWord);
 }

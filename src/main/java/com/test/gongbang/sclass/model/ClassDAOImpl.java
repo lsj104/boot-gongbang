@@ -23,16 +23,13 @@ public class ClassDAOImpl implements ClassDAO {
 
     @Override
     public List<ClassDTO> searchList(HashMap<String, Object> map) {
-        if (!map.isEmpty() && map.get("searchType").equals("category")) {
-            return template.selectList("class.searchcategory", map);
-        } else if (!map.isEmpty() && map.get("searchType").equals("shop")) {
-            return template.selectList("class.searchshop", map);
-        } else if (!map.isEmpty() && map.get("searchType").equals("class")) {
-            return template.selectList("class.searchclass", map);
-        } else if (!map.isEmpty() && map.get("searchType").equals("region")) {
-            return template.selectList("class.searchregion", map);
-        } else {
+        if (map.isEmpty()) {
             return template.selectList("class.alllist", map);
+        } else {
+            if(map.get("searchType").equals("category")) return template.selectList("class.searchcategory", map);
+            else if (map.get("searchType").equals("class")) return template.selectList("class.searchclass", map);
+            else if (map.get("searchType").equals("region")) return template.selectList("class.searchregion", map);
+            else return template.selectList("class.alllist", map);
         }
     }
 
@@ -82,7 +79,6 @@ public class ClassDAOImpl implements ClassDAO {
     public String getShopSeq(String aseq) {
         return template.selectOne("class.getShopSeq", aseq);
     }
-
 
     @Override
     public int addClass(ClassDTO dto) {
