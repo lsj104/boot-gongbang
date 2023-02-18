@@ -84,3 +84,22 @@ update tblClass set image='벨벳자이언트얀가방만들기.jpg' where seq =
 update tblClass set image='데일리유니크발찌원데이클래스.jpg' where seq = 51;
 update tblClass set image='반짝반짝주얼리와함께하는나만의힐링데이.jpg' where seq = 48;
 update TBLClass set image='레이어드 실반지.jpg' where seq = 44;
+
+--뷰 생성
+create or replace view vwClass
+as
+select *
+from (select tc.seq,
+             tc.name,
+             tc.price,
+             tc.image,
+             tc.cseq,
+             ts.nickname,
+             ts.address
+      from tblClass tc
+          inner join tblShop ts on tc.sseq = ts.seq);
+
+commit;
+
+select * from vwClass;
+

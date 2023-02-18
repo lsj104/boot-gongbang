@@ -1,9 +1,7 @@
 package com.test.gongbang.sclass.model;
 
-import com.test.gongbang.member.service.MemberDTO;
 import com.test.gongbang.sclass.service.CategoryDTO;
 import com.test.gongbang.sclass.service.ClassDTO;
-import com.test.gongbang.shared.service.Paging;
 import com.test.gongbang.shop.service.ShopDTO;
 
 import java.util.HashMap;
@@ -31,5 +29,5 @@ public interface ClassDAO {
 
     int addClass(ClassDTO dto);
 
-
+    List<ClassDTO> newClass();
 }

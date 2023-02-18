@@ -1,11 +1,9 @@
 package com.test.gongbang.sclass.service;
 
-import com.test.gongbang.member.service.MemberDTO;
 import com.test.gongbang.shared.service.Paging;
 import com.test.gongbang.shop.service.ShopDTO;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -27,5 +25,5 @@ public interface ClassService {
 
     int addClass(MultipartHttpServletRequest multireq);
 
-
+    List<ClassDTO> newClass();
 }

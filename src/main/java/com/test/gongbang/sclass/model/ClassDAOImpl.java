@@ -1,6 +1,5 @@
 package com.test.gongbang.sclass.model;
 
-import com.test.gongbang.member.service.MemberDTO;
 import com.test.gongbang.sclass.service.CategoryDTO;
 import com.test.gongbang.sclass.service.ClassDTO;
 import com.test.gongbang.shop.service.ShopDTO;
@@ -27,6 +26,7 @@ public class ClassDAOImpl implements ClassDAO {
             return template.selectList("class.alllist", map);
         } else {
             if(map.get("searchType").equals("category")) return template.selectList("class.searchcategory", map);
+            else if (map.get("searchType").equals("shop")) return template.selectList("class.searchshop", map);
             else if (map.get("searchType").equals("class")) return template.selectList("class.searchclass", map);
             else if (map.get("searchType").equals("region")) return template.selectList("class.searchregion", map);
             else return template.selectList("class.alllist", map);
@@ -40,19 +40,13 @@ public class ClassDAOImpl implements ClassDAO {
 
     @Override
     public int getSearchTotalCount(HashMap<String, String> searchMap) {
-        System.out.println(searchMap.toString());
-        System.out.println(searchMap.get("searchType"));
-        if (searchMap.get("searchType").equals("category")) {
-            return template.selectOne("class.searchcategorycount", searchMap);
-        } else if (searchMap.get("searchType").equals("shop")) {
-            return template.selectOne("class.searchshopcount", searchMap);
-        } else if (searchMap.get("searchType").equals("class")) {
-            return template.selectOne("class.searchclasscount", searchMap);
-        } else if (searchMap.get("searchType").equals("region")) {
-            return template.selectOne("class.searchregioncount", searchMap);
-        } else {
-            return template.selectOne("class.totalcount");
-        }
+
+        if (searchMap.get("searchType").equals("category")) return template.selectOne("class.searchcategorycount", searchMap);
+        else if (searchMap.get("searchType").equals("shop")) return template.selectOne("class.searchshopcount", searchMap);
+        else if (searchMap.get("searchType").equals("class")) return template.selectOne("class.searchclasscount", searchMap);
+        else if (searchMap.get("searchType").equals("region")) return template.selectOne("class.searchregioncount", searchMap);
+        else return template.selectOne("class.totalcount");
+
     }
 
     @Override
@@ -85,5 +79,9 @@ public class ClassDAOImpl implements ClassDAO {
         return template.insert("class.add",dto);
     }
 
+    @Override
+    public List<ClassDTO> newClass() {
+        return template.selectList("class.newClass");
+    }
 
 }
