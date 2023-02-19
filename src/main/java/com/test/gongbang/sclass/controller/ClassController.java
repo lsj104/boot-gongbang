@@ -69,7 +69,7 @@ public class ClassController {
     }
 
     @PostMapping ("/class/classreservationOk")
-    public String reservationOk(String cseq, String rmembercnt, HttpSession session, HttpServletResponse response) throws IOException {
+    public void reservationOk(String cseq, String rmembercnt, HttpSession session, HttpServletResponse response) throws IOException {
 
         int result = service.reservation(cseq, rmembercnt, session);
 
@@ -79,12 +79,10 @@ public class ClassController {
         if (result != 1) {
             out.println("<script>alert('예약을 실패하였습니다. 다시 시도해주세요.'); history.back();</script>");
         } else {
-            out.println("<script>alert('예약이 완료되었습니다.');</script>");
+            out.println("<script>alert('예약이 완료되었습니다.'); location.href='/class'</script>");
         }
 
         out.flush();
-
-       return "redirect:/class";
     }
 
     @PostMapping("/class/classadd")
@@ -100,7 +98,7 @@ public class ClassController {
     }
 
     @PostMapping("/class/classaddok")
-    public String addOk(HttpSession session, MultipartHttpServletRequest multiReq, HttpServletResponse response) throws IOException {
+    public void addOk(HttpSession session, MultipartHttpServletRequest multiReq, HttpServletResponse response) throws IOException {
 
         int result = service.addClass(multiReq);
 
@@ -110,12 +108,10 @@ public class ClassController {
         if (result != 1) {
             out.println("<script>alert('예약을 실패하였습니다. 다시 시도해주세요.'); history.back();</script>");
         } else {
-            out.println("<script>alert('예약이 완료되었습니다.');");
+            out.println("<script>alert('예약이 완료되었습니다.'); location.href='/class'");
         }
 
         out.flush();
-
-        return "redirect:/class";
 
     }
 
