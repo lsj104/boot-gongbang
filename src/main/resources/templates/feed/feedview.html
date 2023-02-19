@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-md-4" style="position: relative;">
                             <div>
-                                <a th:href="@{/feed/profile(seq=${feedview.aseq})}" th:text="${feedview.nickname}"></a>
+                                <a th:href="@{/feed/profile(aseq=${feedview.aseq})}" th:text="${feedview.nickname}"></a>
                             </div>
 
                             <div class="card-header bg-white ">
@@ -57,9 +57,9 @@
                                 <span style="font-size:100%" class="card-text" th:text="${feedview.content}"></span><br/>
 
                                 <!-- 해시태그 -->
-                                <p th:each="hashtag : ${hashtag}" class="card-body">
+                                <!--<p th:each="hashtag : ${hashtag}" class="card-body">
                                     <input name="tags" readonly th:value="|# ${hashtag.hashtag}|">
-                                </p>
+                                </p>-->
 
                                 <!--댓글 -->
                                 <p class="mb-0" th:each="comment : ${feedcomment}">

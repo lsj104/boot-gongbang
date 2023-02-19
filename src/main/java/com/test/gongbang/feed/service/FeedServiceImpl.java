@@ -10,6 +10,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -28,6 +31,14 @@ public class FeedServiceImpl implements FeedService{
 
         FeedDTO dto = dao.feedview(seq);
 
+        /*List<String> hlist = new ArrayList<>();
+        hlist.add(dao.hlist(seq).get(1));
+
+        System.out.println("아무거나");
+        System.out.print(hlist.toString());
+
+        dto.setHashtag(hlist);*/
+
         return dto;
     }
 
@@ -44,18 +55,13 @@ public class FeedServiceImpl implements FeedService{
     }
 
     @Override
-    public List<FeedDTO> hashtag(String seq) {
-        return dao.hashtag(seq);
-    }
-
-    @Override
     public int feedupdate(MultipartHttpServletRequest mreq, HttpSession session) {
 
         FeedDTO dto = new FeedDTO();
 
         dto.setSeq(mreq.getParameter("seq"));
         dto.setContent(mreq.getParameter("content"));
-        dto.setHashtag(mreq.getParameter("hashtag"));
+        /*dto.setHashtag(mreq.getParameter("hashtag");*/
 
         System.out.print(dto);
 
@@ -87,6 +93,14 @@ public class FeedServiceImpl implements FeedService{
     @Override
     public List<FeedDTO> feedprofile(String aseq) {
         return dao.feedprofile(aseq);
+    }
+
+    @Override
+    public FeedDTO feedmember(String aseq) {
+
+        FeedDTO feedmember = dao.feedmember(aseq);
+
+        return feedmember;
     }
 
     private String getFileName(String path, String filename) {

@@ -43,14 +43,11 @@ public class FeedController {
 
         List<FeedCommentDTO> clist = service.feedcomment(seq);
 
-        List<FeedDTO> hlist = service.hashtag(seq);
-
 
         model.addAttribute("feedview", dto);
         model.addAttribute("aseq", aseq);
 
         model.addAttribute("feedcomment", clist);
-        model.addAttribute("hashtag", hlist);
 
 
         return "feed/feedview";
@@ -104,7 +101,11 @@ public class FeedController {
 
         List<FeedDTO> dto = service.feedprofile(aseq);
 
+        FeedDTO mdto = service.feedmember(aseq);
+
         model.addAttribute("feedprofile", dto);
+
+        model.addAttribute("feedmember", mdto);
 
         return "feed/profile";
 

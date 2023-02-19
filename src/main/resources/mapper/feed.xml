@@ -6,7 +6,7 @@
         select * from tblFeed order by seq desc
     </select>
 
-    <select id="hashtag" resultType="com.test.gongbang.feed.service.FeedDTO" parameterType="String">
+    <select id="hashtag" resultType="java.util.ArrayList" parameterType="String">
         select
             h.name as hashtag
         from tblFeed f
@@ -64,16 +64,21 @@
 
     <select id="feedprofile" resultType="com.test.gongbang.feed.service.FeedDTO" parameterType="String">
         select
-            f.*,
-            m.nickname as nickname,
-            m.image as pimage
+            f.*
         from tblFeed f
                  inner join tblAccount a
                             on f.aseq = a.seq
-                 inner join tblMember m
-                            on a.seq = m.aseq
         where f.aseq = #{aseq}
         order by f.seq desc
+    </select>
+
+    <select id="feedmember" resultType="com.test.gongbang.feed.service.FeedDTO" parameterType="String">
+        select
+            nickname,
+            image as pimage
+        from tblMember
+        where aseq = #{aseq}
+        order by seq desc
     </select>
 
 

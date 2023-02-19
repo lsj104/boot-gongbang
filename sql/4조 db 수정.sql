@@ -11,6 +11,8 @@ alter table tblShop drop column tel;
 alter table tblShop add tel varchar2(200) null;
 ALTER table tblMember add NAME varchar2(200);
 ALTER table tblMember add TEL varchar2(200);
+alter table tblMemberClass drop column tel;
+alter table tblMemberClass drop column name;
 
 select * from TBLACCOUNT;
 select * from TBLMEMBER;

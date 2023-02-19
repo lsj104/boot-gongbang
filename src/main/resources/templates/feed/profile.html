@@ -4,6 +4,23 @@
       layout:decorate="~{common/base}"
       layout:fragment="content">
 
+<style>
+
+    img{
+        object-fit: cover;
+
+    }
+    .card-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 70%;
+        margin-top: 10px;
+        margin-right: 5px;
+    }
+
+</style>
+
+
 <body class="bg-light">
 <div class="headerimage">
     <div class="headercontent">
@@ -25,11 +42,21 @@
 <div class="mt-4 pt-5 "> <!-- 본문-->
     <div class="container">
 
-        <h3 th:text="${feedprofile.nickname}"></h3>
+        <div>
+        <th:block th:if="${#strings.substring(session.user.image, 0, 5) == 'http:'}">
+            <img class="card-img"
+                 th:src="@{${session.user.image}}">
+        </th:block>
+        <th:block th:if="${#strings.substring(session.user.image, 0, 5) != 'http:'}">
+            <img class="card-img"
+                 th:src="@{/profile/} + ${session.user.image}">
+        </th:block>
+
+        <h1 th:text="${feedmember.nickname}"></h1>
+        </div>
         <!--<a   th:if="${aseq == feedview.aseq}" th:href="@{/mypage}" >내 정보 보기</a>-->
 
         <!--<h5><span th:text="${feedprofile.nickname}"></span></h5>-->
-        <img th:src="@{session.user.iamge}" th:width="200px" class="card-img">
 
         <h6>게시물 수 : <span th:text="${#lists.size(feedprofile)}"></span></h6>
          <!--팔로워 :<span th:text="${followers}"></span> 팔로잉:<span th:text="${followings}"></span> </h6>-->
@@ -42,12 +69,12 @@
         <div class="row justify-content-center">
 
             <!-- postList 하나씩 보여줌 -->
-            <!--<div class="card mb-5 " style="width: 300px;" th:each="post : ${postList}">
+            <div class="card mb-5 " style="width: 300px; margin-bottom: 10px;" th:each="feedprofile : ${feedprofile}">
                 &lt;!&ndash; 이미지&ndash;&gt;
-                <a  th:href="'/detail/'+${post.id}" >
-                    <img th:src="${post.image}" class="card-img-top" alt="...">
+                <a  th:href="@{/feed/feedview(seq=${feedprofile.seq})}" >
+                    <img th:src="'/feed/'+${feedprofile.image}" class="card-img-top" alt="...">
                 </a>
-            </div>-->
+            </div>
 
 
         </div>
