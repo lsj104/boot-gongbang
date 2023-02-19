@@ -55,4 +55,25 @@
         insert into TBLMAINBOARDANSWER
         values (seqMainBoardAnswer.nextval, #{comment}, sysdate, #{aseq}, #{seq})
     </insert>
+
+    <delete id="deletePostComment" parameterType="String">
+        delete
+        from TBLMAINBOARDANSWER
+        where BSEQ = #{seq}
+    </delete>
+
+    <delete id="deletePost" parameterType="String">
+        delete
+        from TBLMAINBOARD
+        where SEQ = #{seq}
+    </delete>
+
+    <update id="updatePost" parameterType="com.test.gongbang.qna.service.QnaDTO">
+        update TBLMAINBOARD
+        set TITLE   = #{title, jdbcType=VARCHAR},
+            CONTENT = #{content, jdbcType=VARCHAR},
+            REGDATE = default
+        where SEQ = #{seq}
+    </update>
+
 </mapper>

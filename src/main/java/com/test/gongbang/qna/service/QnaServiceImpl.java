@@ -48,4 +48,23 @@ public class QnaServiceImpl implements QnaService {
         qnaDAO.insertComment(dto);
     }
 
+    // Qna 글 삭제
+    @Override
+    public void deletePost(String seq) {
+        qnaDAO.deletePost(seq);
+    }
+
+    // Qna 글 삭제 + 댓글
+    @Override
+    public void deletePostComment(String seq) {
+        qnaDAO.deletePostComment(seq);
+    }
+
+    // Qna 글 수정
+    @Override
+    public void updatePost(QnaDTO dto) throws Exception {
+        qnaDAO.updatePost(dto);
+    }
+
+
 }

@@ -12,4 +12,11 @@ public interface QnaService {
     List<QnaDTO> comment(String seq);
 
     void insertComment(QnaDTO dto) throws Exception;
+
+    void deletePost(String seq);
+
+    void deletePostComment(String seq);
+
+    void updatePost(QnaDTO dto) throws Exception;
+
 }

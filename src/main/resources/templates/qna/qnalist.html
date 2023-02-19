@@ -55,7 +55,7 @@
                 <td th:text="${lists.seq}"></td>
                 <td>
                     <p>
-                        <a th:text= "${lists.title}" th:href="@{/qna/content(seq=${lists.seq})}"></a>
+                        <a th:text="${lists.title}" th:href="@{/qna/content(seq=${lists.seq})}"></a>
                     </p>
                 </td>
                 <td th:text="${lists.regdate}"></td>

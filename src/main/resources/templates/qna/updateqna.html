@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
       layout:decorate="~{common/base}"
       layout:fragment="content">
 <head>
@@ -321,102 +321,49 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="well form-horizontal" id="contact_form"
-         style="margin-top: 50px; margin-bottom: 50px;">
-        <fieldset>
-            <!-- Form Name -->
-            <legend>QnA</legend>
-            <!-- 제목 조회 -->
-            <div class="form-group" style="margin-right: 400px;">
-                <label class="col-md-4 control-label">Title</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
+<form class="well form-horizontal" action="/qna/updatepage" method="post">
+    <div class="container">
+        <div class="well form-horizontal" id="contact_form"
+             style="margin-top: 50px; margin-bottom: 50px;">
+            <fieldset>
+                <!-- Form Name -->
+                <legend>QnA</legend>
+                <!-- 제목 조회 -->
+                <div class="form-group" style="margin-right: 400px;">
+                    <label class="col-md-4 control-label">Title</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
                         <textarea id="title" name="title"
                                   style="width: 700px; height: 40px; border: none; resize: none; font-size: 13px;"
-                                  th:text="${read.title}" readonly></textarea>
+                                  th:text="${read.title}"></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- 내용 조회 -->
-            <div class="form-group" style="margin-right: 400px;">
-                <label class="col-md-4 control-label">Content</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
+                <!-- 내용 조회 -->
+                <div class="form-group" style="margin-right: 400px;">
+                    <label class="col-md-4 control-label">Content</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
                         <textarea id="content" name="content"
                                   style="width: 700px; height: 400px; border: none; resize: none; font-size: 13px"
-                                  th:text="${read.content}" readonly></textarea>
+                                  th:text="${read.content}"></textarea>
+                        </div>
                     </div>
+                    <input type="hidden" name="seq" th:value="${read.seq}">
                 </div>
-            </div>
 
+                <button type="submit" style="margin-left: 870px; font-size: 13px" onclick="updateCheck()"
+                        class="btn btn-default">수정하기
+                </button>
 
-            <div style="display: flex">
-                <button type="button" style="margin-left: 840px; font-size: 13px;"
-                        class="btn btn-default"><a th:href="@{/qna/updatepage(seq=${read.seq})}">수정</a></button>
-
-                <button onclick="removeCheck()" type="button" style=" margin-left: 5px; font-size: 13px;"
-                        class="btn btn-default"><a th:href="@{/qna/delete(seq=${read.seq})}">삭제</a></button>
-            </div>
-            <hr>
-            <!-- 댓글 조회 -->
-            <div class="comments-container">
-                <ul id="comments-list" class="comments-list">
-                    <li th:each="lists: ${comment}">
-                        <div class="comment-main-level">
-                            <!-- Avatar -->
-                            <div class="comment-avatar"><img src="/image/default.jpg"></div>
-                            <!-- Contenedor del Comentario -->
-                            <div class="comment-box">
-                                <div class="comment-head">
-                                    <h6 style="font-size: 13px" class="comment-name" th:text="${lists.nickname}"></h6>
-                                    <span style="margin-top: 5px" th:text="${lists.regdate}"></span>
-                                </div>
-                                <div style="font-size: 13px" class="comment-content" th:text="${lists.content}">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <hr>
-            <!--  댓글 쓰기 -->
-            <!-- Text area -->
-            <form action="/qna/content" method="post" id="addcomment"
-                  style="margin-top: 50px; margin-bottom: 50px;">
-                <fieldset>
-                    <div class="form-group" style="margin-right: 350px;">
-                        <label class="col-md-4 control-label">Add Comment</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <div class="input-group">
-                        <textarea id="comment" name="comment"
-                                  style="width: 680px; height: 70px; border: none; resize: none; font-size: 13px"></textarea>
-                                <input type="hidden" name="seq" th:value="${read.seq}">
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label"></label>
-                        <div class="col-md-4">
-                            <button id="commentwrite_submit" style="margin-left: 440px;" type="submit"
-                                    class="btn btn-warning">
-                                Add
-                                Comment
-                            </button>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-        </fieldset>
+            </fieldset>
+        </div>
     </div>
-</div>
+</form>
 <script>
-    function removeCheck() {
+    function updateCheck() {
 
-        if (confirm("정말 삭제하시겠습니까?") == true) {
+        if (confirm("정말 수정하시겠습니까?") == true) {
             document.removefrm.submit();
         } else {
             return false;
