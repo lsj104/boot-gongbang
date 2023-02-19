@@ -25,4 +25,11 @@ public interface QnaDAO {
     // Qna 댓글 작성
     void insertComment(QnaDTO dto) throws Exception;
 
+    void deletePost(String seq);
+
+    // Qna 글 삭제 + 댓글
+    void deletePostComment(String seq);
+
+    // Qna 글 수정
+    void updatePost(QnaDTO dto) throws Exception;
 }

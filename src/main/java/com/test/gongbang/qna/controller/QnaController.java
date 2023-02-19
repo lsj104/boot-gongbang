@@ -49,7 +49,6 @@ public class QnaController {
     // Qna 글쓰기
     @PostMapping("/insertqna")
     public String insertQna(@ModelAttribute QnaDTO dto, HttpSession session, Model model) throws Exception {
-        System.out.println("ㅠㅠ");
         KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
         long aseq = kdto.getSeq();
         dto.setAseq(aseq);
@@ -94,4 +93,41 @@ public class QnaController {
         return "redirect:/qna/content?seq=" + seq;
     }
 
+    // Qna 글 삭제
+    @GetMapping("/delete")
+    public String deletePost(String seq, Model model) {
+
+        qnaService.deletePostComment(seq);
+        qnaService.deletePost(seq);
+        model.addAttribute("deleteresult", "게시글이 삭제되었습니다.");
+        return "redirect:/qna/list";
+    }
+
+
+    // Qna 글 수정
+    @GetMapping("/updatepage")
+    public ModelAndView updateview(@RequestParam String seq, Model model, HttpSession session) throws Exception {
+        QnaDTO dto = qnaService.read(seq);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("qna/updateqna");
+        mav.addObject("dto", qnaService.read(seq));
+        model.addAttribute("read", dto);
+
+        return mav;
+    }
+
+    // Qna 글 수정
+    @PostMapping("/updatepage")
+    public String update(@ModelAttribute QnaDTO dto, HttpSession session, HttpServletRequest request, Model model) throws Exception {
+        KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
+        long aseq = kdto.getSeq();
+        dto.setAseq(aseq);
+
+        qnaService.updatePost(dto);
+        String seq = request.getParameter("seq");
+
+        dto.setSeq(seq);
+        System.out.println("qna 수정: " + dto);
+        return "redirect:/qna/list";
+    }
 }
