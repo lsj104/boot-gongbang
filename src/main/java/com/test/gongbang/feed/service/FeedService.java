@@ -18,11 +18,11 @@ public interface FeedService {
 
     int feeddel(String seq);
 
-    List<FeedDTO> hashtag(String seq);
-
     int feedupdate(MultipartHttpServletRequest mreq, HttpSession session);
 
     List<FeedDTO> feedprofile(String aseq);
+
+    FeedDTO feedmember(String aseq);
 }
 
 

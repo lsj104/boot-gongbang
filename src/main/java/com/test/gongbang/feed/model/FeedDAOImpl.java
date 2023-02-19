@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -35,10 +36,6 @@ public class FeedDAOImpl implements  FeedDAO{
         return template.delete("feed.feeddel", seq);
     }
 
-    @Override
-    public List<FeedDTO> hashtag(String seq) {
-        return template.selectList("feed.hashtag", seq);
-    }
 
     @Override
     public int feedupdate(FeedDTO dto) {
@@ -47,6 +44,16 @@ public class FeedDAOImpl implements  FeedDAO{
 
     @Override
     public List<FeedDTO> feedprofile(String aseq) {
-        return template.selectList("feedprofile",aseq);
+        return template.selectList("feed.feedprofile",aseq);
+    }
+
+    @Override
+    public FeedDTO feedmember(String aseq) {
+        return template.selectOne("feed.feedmember",aseq);
+    }
+
+    @Override
+    public List<String> hlist(String seq) {
+        return template.selectList("feed.hashtag", seq);
     }
 }

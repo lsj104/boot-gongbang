@@ -2,6 +2,9 @@ package com.test.gongbang.feed.service;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class FeedDTO {
 
@@ -13,5 +16,5 @@ public class FeedDTO {
     private String nickname;
     private String pimage;
     private String likes;
-    private String hashtag;
+    private List<String> hashtag;
 }
