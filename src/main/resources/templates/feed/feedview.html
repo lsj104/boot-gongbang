@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/base}"
       layout:fragment="content">
+<link rel="stylesheet" href="/css/tagify.css">
 
 <body class="bg-light">
 <div class="boxedlayout">
@@ -57,9 +58,9 @@
                                 <span style="font-size:100%" class="card-text" th:text="${feedview.content}"></span><br/>
 
                                 <!-- 해시태그 -->
-                                <!--<p th:each="hashtag : ${hashtag}" class="card-body">
-                                    <input name="tags" readonly th:value="|# ${hashtag.hashtag}|">
-                                </p>-->
+                                <p class="card-body">
+                                    <input type="text" name="tags" readonly id="hashtag">
+                                </p>
 
                                 <!--댓글 -->
                                 <p class="mb-0" th:each="comment : ${feedcomment}">
@@ -143,11 +144,22 @@
     </div>
 
 
-<script>
-    var input = document.querySelector('input[name=tags]')
-    new Tagify(input)
-</script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="/js/jQuery.tagify.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let taglist = '';
+    let hashtag = '';
+    /*[# th:each="hashtag : ${feedview.hashtag}"]*/
+    hashtag = [[${hashtag}]];
+    taglist += hashtag+',';
+    /*[/]*/
+    $('#hashtag').val(taglist);
 
+    /*]]>*/
+    $('#hashtag').tagify();
+
+</script>
 </body>
 </html>
 

@@ -6,7 +6,7 @@
         select * from tblFeed order by seq desc
     </select>
 
-    <select id="hashtag" resultType="java.util.ArrayList" parameterType="String">
+    <select id="hashtag" resultType="String" parameterType="String">
         select
             h.name as hashtag
         from tblFeed f
