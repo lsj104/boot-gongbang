@@ -51,8 +51,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="lists : ${list}">
-                <td th:text="${lists.seq}"></td>
+            <tr th:each="lists, listStat : ${list}">
+                <td th:text="${listStat.index} + 1"></td>
+
                 <td>
                     <p>
                         <a th:text="${lists.title}" th:href="@{/qna/content(seq=${lists.seq})}"></a>
