@@ -26,23 +26,37 @@
     </insert>
 
     <select id="read" resultType="com.test.gongbang.qna.service.QnaDTO">
-        select *
-        from TBLMAINBOARD
-        where seq = #{seq}
-    </select>
-
-    <select id="comment" resultType="com.test.gongbang.qna.service.QnaDTO">
-        select TBLMAINBOARDANSWER.content,
-               case
-                   when ta.LV = 1 then tm.IMAGE
-                   when ta.LV = 2 then ts.IMAGE
-                   when ta.LV = 3 then tm.IMAGE
-                   end as image,
+        select TBLMAINBOARD.TITLE,
+               TBLMAINBOARD.CONTENT,
+               SUBSTR(TBLMAINBOARD.REGDATE, 1, 10) as regdate,
+               TBLMAINBOARD.seq,
                case
                    when ta.LV = 1 then tm.NICKNAME
                    when ta.LV = 2 then ts.nickname
                    when ta.LV = 3 then tm.NICKNAME
-                   end as nickname,
+                   end                             as nickname
+        from TBLMAINBOARD
+                 inner join TBLACCOUNT ta on TBLMAINBOARD.ASEQ = ta.SEQ
+                 left outer join TBLMEMBER tm on TBLMAINBOARD.ASEQ = tm.aseq
+                 left outer join TBLSHOP ts on TBLMAINBOARD.ASEQ = ts.ASEQ
+        where TBLMAINBOARD.SEQ = #{seq}
+        order by TBLMAINBOARD.SEQ
+    </select>
+
+    <select id="comment" resultType="com.test.gongbang.qna.service.QnaDTO">
+        select TBLMAINBOARDANSWER.content,
+               TBLMAINBOARDANSWER.seq as cseq,
+               TBLMAINBOARDANSWER.aseq,
+               case
+                   when ta.LV = 1 then tm.IMAGE
+                   when ta.LV = 2 then ts.IMAGE
+                   when ta.LV = 3 then tm.IMAGE
+                   end                as image,
+               case
+                   when ta.LV = 1 then tm.NICKNAME
+                   when ta.LV = 2 then ts.nickname
+                   when ta.LV = 3 then tm.NICKNAME
+                   end                as nickname,
                TBLMAINBOARDANSWER.REGDATE
         from TBLMAINBOARDANSWER
                  inner join TBLACCOUNT ta on TBLMAINBOARDANSWER.ASEQ = ta.SEQ
@@ -75,5 +89,17 @@
             REGDATE = default
         where SEQ = #{seq}
     </update>
+
+    <delete id="deleteComment" parameterType="String">
+        delete
+        from TBLMAINBOARDANSWER
+        where seq = #{cseq, jdbcType=VARCHAR}
+    </delete>
+
+    <select id="oneComment" resultType="com.test.gongbang.qna.service.QnaDTO">
+        select *
+        from TBLMAINBOARDANSWER
+        where SEQ = #{cseq, jdbcType=VARCHAR}
+    </select>
 
 </mapper>

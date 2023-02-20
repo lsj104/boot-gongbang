@@ -351,7 +351,7 @@
             </div>
 
 
-            <div style="display: flex">
+            <div th:if="${session.user.nickname == read.nickname}" style="display: flex">
                 <button type="button" style="margin-left: 840px; font-size: 13px;"
                         class="btn btn-default"><a th:href="@{/qna/updatepage(seq=${read.seq})}">수정</a></button>
 
@@ -363,6 +363,7 @@
             <div class="comments-container">
                 <ul id="comments-list" class="comments-list">
                     <li th:each="lists: ${comment}">
+                        <input type="hidden" name="cseq" th:value="${lists.cseq}">
                         <div class="comment-main-level">
                             <!-- Avatar -->
                             <div class="comment-avatar"><img src="/image/default.jpg"></div>
@@ -371,6 +372,19 @@
                                 <div class="comment-head">
                                     <h6 style="font-size: 13px" class="comment-name" th:text="${lists.nickname}"></h6>
                                     <span style="margin-top: 5px" th:text="${lists.regdate}"></span>
+
+
+                                    <div class="btn-group btn-group-xs" role="group"
+                                         aria-label="Extra-small button group">
+                                        <button th:if="${session.user.nickname == lists.nickname}"
+                                                onclick="removeCheck()"
+                                                style="color: #777; margin-top: 5px; margin-left: 5px;" type="button"
+                                                class="btn btn-default"><a
+                                                th:href="@{/qna/deletecomment(cseq=${lists.cseq})}">삭제</a>
+                                        </button>
+
+                                    </div>
+
                                 </div>
                                 <div style="font-size: 13px" class="comment-content" th:text="${lists.content}">
                                 </div>
@@ -390,21 +404,24 @@
                         <label class="col-md-4 control-label">Add Comment</label>
                         <div class="col-md-4 inputGroupContainer">
                             <div class="input-group">
-                        <textarea id="comment" name="comment"
-                                  style="width: 680px; height: 70px; border: none; resize: none; font-size: 13px"></textarea>
+                                <textarea th:if="${session.user == null}" id="nullcomment" name="comment"
+                                          style="width: 680px; height: 70px; border: none; resize: none; font-size: 13px; background: white"
+                                          readonly>로그인 후 이용해주세요.</textarea>
+                                <textarea th:if="${session.user != null}" id="comment" name="comment"
+                                          style="width: 680px; height: 70px; border: none; resize: none; font-size: 13px"></textarea>
                                 <input type="hidden" name="seq" th:value="${read.seq}">
 
                             </div>
                         </div>
                     </div>
-                    <!-- Button -->
+
                     <div class="form-group">
                         <label class="col-md-4 control-label"></label>
                         <div class="col-md-4">
-                            <button id="commentwrite_submit" style="margin-left: 440px;" type="submit"
+                            <button th:if="${session.user != null}" id="commentwrite_submit" style="margin-left: 440px;"
+                                    type="submit"
                                     class="btn btn-warning">
-                                Add
-                                Comment
+                                Add Comment
                             </button>
                         </div>
                     </div>
@@ -423,5 +440,6 @@
         }
     }
 </script>
+
 </body>
 </html>

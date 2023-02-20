@@ -19,4 +19,6 @@ public interface QnaService {
 
     void updatePost(QnaDTO dto) throws Exception;
 
+    void deleteComment(String cseq);
+
 }

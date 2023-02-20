@@ -12,4 +12,5 @@ public class QnaDTO {
     private long aseq; // account seq
     private String comment; // 댓글
     private String image;
+    private String cseq; // 댓글seq
 }

@@ -99,7 +99,6 @@ public class KaKaoController {
     // 카카오 로그인 -> 이름, 번호 입력
     @PostMapping(value = "/kakaoinfo")
     public void kakaoinfo(KakaoDTO dto, HttpServletResponse response) throws IOException {
-//        System.out.println(111);
         System.out.println("kakaoinfo: " + dto);
         ks.kakaoinfo(dto);
 

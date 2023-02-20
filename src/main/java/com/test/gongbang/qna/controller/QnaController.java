@@ -71,22 +71,27 @@ public class QnaController {
         List<QnaDTO> comment = qnaService.comment(seq);
         model.addAttribute("comment", comment);
 
+
         return mav;
     }
 
     // Qna 댓글 작성
     @PostMapping("/content")
     public String insertComment(HttpServletRequest request, HttpSession session, Model model) throws Exception {
+
         KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
         long aseq = kdto.getSeq();
 
         String seq = request.getParameter("seq");
+        String cseq = request.getParameter("cseq");
 
         QnaDTO dto = new QnaDTO();
+
         dto.setComment(request.getParameter("comment"));
 
         dto.setAseq(aseq);
         dto.setSeq(seq);
+        dto.setCseq(cseq);
 
         qnaService.insertComment(dto);
 
@@ -97,9 +102,10 @@ public class QnaController {
     @GetMapping("/delete")
     public String deletePost(String seq, Model model) {
 
+
         qnaService.deletePostComment(seq);
         qnaService.deletePost(seq);
-        model.addAttribute("deleteresult", "게시글이 삭제되었습니다.");
+
         return "redirect:/qna/list";
     }
 
@@ -128,6 +134,19 @@ public class QnaController {
 
         dto.setSeq(seq);
         System.out.println("qna 수정: " + dto);
-        return "redirect:/qna/list";
+        return "redirect:/qna/content?seq=" + seq;
+
     }
+
+    // Qna 댓글 삭제
+    @GetMapping("/deletecomment")
+    public String deleteComment(String cseq, HttpServletRequest request) {
+
+        qnaService.deleteComment(cseq);
+        String referer = request.getHeader("Referer"); // 헤더에서 이전 페이지를 읽음
+        return "redirect:" + referer; // 이전 페이지로 리다이렉트
+
+    }
+
+
 }

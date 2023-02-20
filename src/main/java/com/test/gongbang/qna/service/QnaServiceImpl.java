@@ -66,5 +66,11 @@ public class QnaServiceImpl implements QnaService {
         qnaDAO.updatePost(dto);
     }
 
+    // Qna 댓글 삭제
+    @Override
+    public void deleteComment(String cseq) {
+        qnaDAO.deleteComment(cseq);
+    }
+
 
 }

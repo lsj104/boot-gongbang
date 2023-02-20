@@ -32,4 +32,9 @@ public interface QnaDAO {
 
     // Qna 글 수정
     void updatePost(QnaDTO dto) throws Exception;
+
+    // Qna 댓글 삭제
+    void deleteComment(String cseq);
+
+
 }
