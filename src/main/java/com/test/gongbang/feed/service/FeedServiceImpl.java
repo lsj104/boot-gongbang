@@ -31,20 +31,15 @@ public class FeedServiceImpl implements FeedService{
 
         FeedDTO dto = dao.feedview(seq);
 
-        /*List<String> hlist = new ArrayList<>();
-        hlist.add(dao.hlist(seq).get(1));
+        List<String> hlist = dao.hlist(seq);
 
-        System.out.println("아무거나");
-        System.out.print(hlist.toString());
-
-        dto.setHashtag(hlist);*/
+        dto.setHashtag(hlist);
 
         return dto;
     }
 
     @Override
     public List<FeedCommentDTO> feedcomment(String seq) {
-
 
         return dao.feedcomment(seq);
     }

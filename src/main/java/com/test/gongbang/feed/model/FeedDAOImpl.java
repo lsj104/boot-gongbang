@@ -54,6 +54,7 @@ public class FeedDAOImpl implements  FeedDAO{
 
     @Override
     public List<String> hlist(String seq) {
+
         return template.selectList("feed.hashtag", seq);
     }
 }
