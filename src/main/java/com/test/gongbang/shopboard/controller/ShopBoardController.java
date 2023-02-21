@@ -1,7 +1,5 @@
 package com.test.gongbang.shopboard.controller;
 
-import com.test.gongbang.member.login.kakao.service.KakaoDTO;
-import com.test.gongbang.qna.service.QnaDTO;
 import com.test.gongbang.shopboard.service.ShopBoardDTO;
 import com.test.gongbang.shopboard.service.ShopBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +21,23 @@ public class ShopBoardController {
 
 
     @GetMapping(value = "/list")
-    public String board(Model model, @RequestParam String seq, @RequestParam String shopnickname) {
+    public String board(Model model, @RequestParam String seq, @RequestParam String shopnickname, @RequestParam(value = "searchWord", required = false) String searchWord, @RequestParam(value = "searchType", required = false) String searchType) {
 
-        List<ShopBoardDTO> list = service.list(seq);
+        List<ShopBoardDTO> list = service.list(seq, searchType, searchWord);
 
         model.addAttribute("list", list);
         model.addAttribute("shopnickname", shopnickname);
+        model.addAttribute("seq", seq);
+
+        System.out.println(searchType);
+        System.out.println(searchWord);
+        System.out.println(shopnickname);
+        System.out.println(seq);
 
         return "shopboard/shopboard";
     }
 
+/*
     @GetMapping("/insert")
     public String openShopWrite(HttpSession session, Model model, HttpServletResponse response) throws Exception {
 
@@ -44,18 +49,8 @@ public class ShopBoardController {
         }
         return "/shopboard/insert";
     }
+*/
 
-    /*@PostMapping("/insert")
-    public String insertQna(@ModelAttribute ShopBoardDTO dto, HttpSession session, Model model) throws Exception {
-
-        KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
-        long aseq = kdto.getSeq();
-        dto.setAseq(aseq);
-
-        service.insertBoard(dto);
-
-        return "redirect:/shopboard/list";
-    }*/
 
 
 

@@ -23,4 +23,5 @@
         from tblShop
         where address like '%'||#{searchWord}||'%'
     </select>
+
 </mapper>

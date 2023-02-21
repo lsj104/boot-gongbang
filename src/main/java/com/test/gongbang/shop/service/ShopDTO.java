@@ -23,3 +23,4 @@ public class ShopDTO {
     private String cimage;
     private String category;
 }
+

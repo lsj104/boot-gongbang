@@ -102,4 +102,3 @@ from (select tc.seq,
 commit;
 
 select * from vwClass;
-
