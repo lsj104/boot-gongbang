@@ -3,7 +3,24 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/base}"
       layout:fragment="content">
+<style>
+    .table td:nth-child(1) {
+        width: 72px;
+    }
 
+    .table td:nth-child(2) {
+        width: 487px;
+    }
+
+    .table td:nth-child(3) {
+        width: 213px;
+    }
+
+    .table td:nth-child(4) {
+        width: auto;
+    }
+
+</style>
 <body>
 
 <!-- TITLE BEGINS -->
@@ -24,19 +41,23 @@
     </div>
 </div>
 <div class="clear text-center intersectionalities" style="margin-top: 30px; margin-bottom: 30px;">
-    <form class="form-inline" id="shopSearch" data-example-id="input-group-with-button" method="get" action="/shop" style="margin-left: 1000px;">
+    <form class="form-inline" id="shopboardSearch" data-example-id="input-group-with-button" method="get" action="/shopboard/list" style="margin-left: 850px;">
         <div class="form-group">
             <div class="input-group">
+                <div class="input-group-btn">
+                    <select name="searchType" form="shopboardSearch" class="form-select" style="width:100px; height: 34px; border-color: #eee; margin-right: 10px;">
+                        <option value="1">전체</option>
+                        <option value="2">제목</option>
+                        <option value="3">작성자</option>
+                    </select>
+                </div>
                 <input class="form-control" name="searchWord" placeholder="Search for..." type="text">
                 <div class="input-group-btn" style="vertical-align: top;">
                     <button class="btn btn-default" type="submit" style="margin-right: 20px;">
                         <i class="fa  fa-search"></i>
                     </button>
-                </div>
-                <div class="input-group-btn">
-                    <button style="margin-right: 200px; color: #777" type="button" class="btn btn-default"
-                            onclick="location.href='http://localhost:8090/shopboard/insert'"><i class="fa fa-pencil"></i> write
-                    </button>
+                    <input name="seq" type="hidden" th:value="${seq}">
+                    <input name="shopnickname" type="hidden" th:value="${shopnickname}">
                 </div>
             </div>
         </div>
@@ -61,6 +82,9 @@
                 </tr>
             </tbody>
         </table>
+        <button style="color: #777; float: right;" type="button" class="btn btn-default"
+                onclick="location.href='http://localhost:8090/shopboard/insert'"><i class="fa fa-pencil"></i> write
+        </button>
     </div>
 </div>
 </body>

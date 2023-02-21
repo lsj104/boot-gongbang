@@ -21,6 +21,63 @@
         order by b.SEQ desc
     </select>
 
+    <select id="searchAll" parameterType="hashmap" resultType="com.test.gongbang.shopboard.service.ShopBoardDTO">
+        select
+            b.SEQ as seq,
+            TITLE,
+            CONTENT,
+            REGDATE,
+            s.IMAGE as shopimage,
+            s.NICKNAME as shopnickname,
+            T2.NICKNAME as membernickname,
+            b.IMAGE as borderimage
+        from TBLSHOPBOARD b
+                 inner join tblshop s
+                            on b.SSEQ = s.SEQ
+                 inner join TBLACCOUNT T on T.SEQ = b.ASEQ
+                 left join TBLMEMBER T2 on T.SEQ = T2.ASEQ
+        where b.SSEQ = #{seq} and (TITLE like '%'||#{searchWord}||'%' or T2.NICKNAME like '%'||#{searchWord}||'%' or s.NICKNAME like '%'||#{searchWord}||'%')
+        order by b.SEQ desc
+    </select>
+
+    <select id="searchTitle" parameterType="hashmap" resultType="com.test.gongbang.shopboard.service.ShopBoardDTO">
+        select
+            b.SEQ as seq,
+            TITLE,
+            CONTENT,
+            REGDATE,
+            s.IMAGE as shopimage,
+            s.NICKNAME as shopnickname,
+            T2.NICKNAME as membernickname,
+            b.IMAGE as borderimage
+        from TBLSHOPBOARD b
+                 inner join tblshop s
+                            on b.SSEQ = s.SEQ
+                 inner join TBLACCOUNT T on T.SEQ = b.ASEQ
+                 left join TBLMEMBER T2 on T.SEQ = T2.ASEQ
+        where b.SSEQ = #{seq} and (TITLE like '%'||#{searchWord}||'%')
+        order by b.SEQ desc
+    </select>
+
+    <select id="searchWriter" parameterType="hashmap" resultType="com.test.gongbang.shopboard.service.ShopBoardDTO">
+        select
+            b.SEQ as seq,
+            TITLE,
+            CONTENT,
+            REGDATE,
+            s.IMAGE as shopimage,
+            s.NICKNAME as shopnickname,
+            T2.NICKNAME as membernickname,
+            b.IMAGE as borderimage
+        from TBLSHOPBOARD b
+                 inner join tblshop s
+                            on b.SSEQ = s.SEQ
+                 inner join TBLACCOUNT T on T.SEQ = b.ASEQ
+                 left join TBLMEMBER T2 on T.SEQ = T2.ASEQ
+        where b.SSEQ = #{seq} and (T2.NICKNAME like '%'||#{searchWord}||'%' or s.NICKNAME like '%'||#{searchWord}||'%')
+        order by b.SEQ desc
+    </select>
+
 </mapper>
 
 <!--
