@@ -59,7 +59,9 @@
 
 
     <delete id="feeddel" parameterType="String">
-        delete from tblFeed where seq = #{seq}
+
+    delete from tblFeed where seq = #{seq}
+
     </delete>
 
     <select id="feedprofile" resultType="com.test.gongbang.feed.service.FeedDTO" parameterType="String">
@@ -80,6 +82,16 @@
         where aseq = #{aseq}
         order by seq desc
     </select>
+
+
+    <insert id="commentadd" parameterType="com.test.gongbang.feed.service.FeedCommentDTO">
+        insert into tblFeedComment values
+        (seqFeedComment.nextVal, #{content},sysdate, #{fseq}, #{aseq})
+    </insert>
+
+    <delete id="commentdel" parameterType="String">
+        delete from tblFeedComment where seq = #{seq}
+    </delete>
 
 
 </mapper>

@@ -45,11 +45,11 @@
         <div>
         <th:block th:if="${#strings.substring(session.user.image, 0, 5) == 'http:'}">
             <img class="card-img"
-                 th:src="@{${session.user.image}}">
+                 th:src="@{${feedmember.pimage}}">
         </th:block>
         <th:block th:if="${#strings.substring(session.user.image, 0, 5) != 'http:'}">
             <img class="card-img"
-                 th:src="@{/profile/} + ${session.user.image}">
+                 th:src="@{/image/member/} + ${feedmember.pimage}">
         </th:block>
 
         <h1 th:text="${feedmember.nickname}"></h1>

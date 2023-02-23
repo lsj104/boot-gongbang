@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -58,9 +59,14 @@ public class FeedController {
     @GetMapping("feed/insert")
     public String feedinsert(){
 
-
-
         return "feed/insert";
+
+    }
+
+    @PostMapping("feed/insertok")
+    public String feedinsertok(){
+
+        return "feed/feed";
 
     }
 
@@ -81,7 +87,7 @@ public class FeedController {
         int result = service.feedupdate(mreq, session);
 
         if (result == 1) {
-            return "redirect:/feed/feedview";
+            return "redirect:/feed/feedview?seq=" + mreq.getParameter("seq");
         } else {
             return "feed/feed";
         }
@@ -108,6 +114,27 @@ public class FeedController {
         model.addAttribute("feedmember", mdto);
 
         return "feed/profile";
+
+    }
+
+    @PostMapping("feed/commentaddok")
+    public String commentaddeok(HttpServletRequest req) {
+
+        int commentaddresult = service.commentadd(req);
+
+        System.out.print("시스데이트");
+
+        return "redirect:/feed/feedview?seq=" + req.getParameter("feedseq");
+
+    }
+
+
+    @GetMapping("feed/commentdel")
+    public String commentdel(@RequestParam String seq, @RequestParam String fseq){
+
+        int commentdel = service.commentdel(seq);
+
+        return "redirect:/feed/feedview?seq=" + fseq;
 
     }
 
