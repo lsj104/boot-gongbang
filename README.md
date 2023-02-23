@@ -20,10 +20,10 @@
 ### 1. 카카오 로그인
 <img width="1188" alt="스크린샷 2023-02-23 오후 6 17 53" src="https://user-images.githubusercontent.com/75536654/220866801-443f78ef-7e4c-439e-99a2-02f051a6f3eb.png">
 
-### 메인 화면
+### 2. 메인 화면
 <img width="610" alt="스크린샷 2023-02-23 오후 6 37 09" src="https://user-images.githubusercontent.com/75536654/220870340-93f76c23-2dce-4fe3-afb2-aad5a176c83c.png">
 
-### 2. QnA 
+### 3. QnA 
 - ##### QnA 게시판  조회
 <img width="1188" alt="스크린샷 2023-02-23 오후 6 18 25" src="https://user-images.githubusercontent.com/75536654/220866751-9fb57be9-404d-4458-8f55-ef636f4e97ab.png">
 
@@ -36,7 +36,7 @@
 - ##### QnA 글 수정, 삭제
 <img width="1262" src="https://user-images.githubusercontent.com/75536654/220869018-c5c7ae45-6e0d-449a-8a0a-3bafcf772189.gif"/>
 
-### 3. 클래스
+### 4. 클래스
 - ##### 클래스 조회
 <img width="938" alt="image" src="https://user-images.githubusercontent.com/75536654/220870891-b37f8dc9-73e4-414b-b5e8-592950e96205.png">
 
@@ -46,7 +46,7 @@
 - ##### 클래스 예약
 <img width="955" alt="스크린샷 2023-02-23 오후 6 40 48" src="https://user-images.githubusercontent.com/75536654/220871104-67da15c6-1cd3-4bdd-b5c0-350507f8237a.png">
 
-### 4. MyPage
+### 5. MyPage
 <img width="955" alt="스크린샷 2023-02-23 오후 6 41 22" src="https://user-images.githubusercontent.com/75536654/220871337-082c6ad8-ea52-49de-b292-a31e67180fd4.png">
 
 - ##### 개인정보 수정
