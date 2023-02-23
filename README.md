@@ -1,5 +1,5 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=90EE90&fontAlign=50&fontAlignY=30&text=만지작'作'%20공예%20멀티%20플랫폼&descAlign=70&descAlignY=55&height=200&fontSize=40&fontColor=ffffff)
-# 만지작 '作' 공예 멀티 플랫폼
+
 ## 1. 기획 목적 🔥
 - 단순 판매 커뮤니티가 아닌 공예품에 관심있는 모든 사람들의 커뮤니티로서 회원간 소통과 클래스 예약을 동시에 할 수 있는 멀티 플랫폼
 
