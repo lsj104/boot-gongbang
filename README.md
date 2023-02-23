@@ -12,10 +12,10 @@
 ## 4. 데이터 구조 👩‍💻
 ![4조 Spring ERD](https://user-images.githubusercontent.com/75536654/220865097-f39821d3-63b8-4b01-8fb9-087eb953a81e.png)
 
-## 3. 팀원 소개 및 업무 분담 👨‍👨‍👧‍👦
+## 5. 팀원 소개 및 업무 분담 👨‍👨‍👧‍👦
 
 
-## 5. 주요 기능 📚
+## 6. 주요 기능 📚
 ### 카카오 로그인
 <img width="1188" alt="스크린샷 2023-02-23 오후 6 17 53" src="https://user-images.githubusercontent.com/75536654/220866801-443f78ef-7e4c-439e-99a2-02f051a6f3eb.png">
 
