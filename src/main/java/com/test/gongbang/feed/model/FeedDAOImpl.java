@@ -57,4 +57,16 @@ public class FeedDAOImpl implements  FeedDAO{
 
         return template.selectList("feed.hashtag", seq);
     }
+
+    @Override
+    public int commentadd(FeedCommentDTO commentDTO) {
+
+        return template.insert("feed.commentadd", commentDTO);
+    }
+
+    @Override
+    public int commentdel(String seq) {
+
+        return template.delete("feed.commentdel", seq);
+    }
 }

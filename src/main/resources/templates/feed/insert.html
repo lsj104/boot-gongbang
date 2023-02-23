@@ -39,7 +39,9 @@
                                     <div class="col-md-8" style="margin: 0 auto;">
                                         <span class="smalltitle">피드 추가</span>
                                         <div id="edd_checkout_form_wrap" class="edd_clearfix">
-                                            <form id="edd_purchase_form" class="edd_form" action="/mypage/gongbang/editok" method="POST" enctype="multipart/form-data">
+                                            <form id="edd_purchase_form" class="edd_form"
+                                                  action="/mypage/gongbang/editok" method="POST"
+                                                  enctype="multipart/form-data">
                                                 <fieldset id="edd_checkout_user_info">
                                                     <div style="margin: 60px; auto">
                                                         <input type="file" name="image" style="margin: 0 auto;">
@@ -81,13 +83,13 @@
     </div>
 </div>
 <script src="https://unpkg.com/@yaireo/tagify"></script>
-<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css"/>
 
 <script>
     var input = document.querySelector('input[name=tag]')
     var tagify = new Tagify(input);
 
-    tagify.on('add', function() {
+    tagify.on('add', function () {
         console.log(tagify.value);
     })
 </script>

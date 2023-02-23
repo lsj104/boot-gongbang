@@ -22,4 +22,8 @@ public interface FeedDAO {
     FeedDTO feedmember(String aseq);
 
     List<String> hlist(String seq);
+
+    int commentadd(FeedCommentDTO commentDTO);
+
+    int commentdel(String seq);
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
@@ -56,9 +57,9 @@ public class FeedServiceImpl implements FeedService{
 
         dto.setSeq(mreq.getParameter("seq"));
         dto.setContent(mreq.getParameter("content"));
-        /*dto.setHashtag(mreq.getParameter("hashtag");*/
+        /*dto.setHashtag(mreq.getParameter("tag"));*/
 
-        System.out.print(dto);
+        System.out.print(mreq.getParameter("tag"));
 
 
         MultipartFile file = mreq.getFile("image");
@@ -96,6 +97,29 @@ public class FeedServiceImpl implements FeedService{
         FeedDTO feedmember = dao.feedmember(aseq);
 
         return feedmember;
+    }
+
+    @Override
+    public int commentadd(HttpServletRequest req) {
+
+        FeedCommentDTO commentDTO = new FeedCommentDTO();
+
+        commentDTO.setAseq(req.getParameter("commentaseq"));
+        commentDTO.setFseq(req.getParameter("feedseq"));
+        commentDTO.setContent(req.getParameter("content"));
+
+
+
+        int commentaddresult = dao.commentadd(commentDTO);
+
+        return 0;
+    }
+
+    @Override
+    public int commentdel(String seq) {
+
+
+        return dao.commentdel(seq);
     }
 
     private String getFileName(String path, String filename) {
