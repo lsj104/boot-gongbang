@@ -49,7 +49,7 @@
 <img width="955" alt="스크린샷 2023-02-23 오후 6 41 22" src="https://user-images.githubusercontent.com/75536654/220871337-082c6ad8-ea52-49de-b292-a31e67180fd4.png">
 
 ##### 개인정보 수정
-<img width="588" alt="스크린샷 2023-02-23 오후 6 42 38" src="https://user-images.githubusercontent.com/75536654/220871558-a329f2cd-e8b8-4e92-a29a-5c4a3407a44e.png">
+<img width="588" alt="스크린샷 2023-02-23 오후 6 42 38" src="https://user-images.githubusercontent.com/75536654/220873361-6327dcd7-f31d-4a02-a2c1-bcd944f0dd9a.png">
 
 ##### 예약 내역
 <img width="1169" alt="스크린샷 2023-02-23 오후 6 44 05" src="https://user-images.githubusercontent.com/75536654/220871862-052463bd-cd12-40be-9295-f05d625d6b54.png">
