@@ -13,6 +13,12 @@
     button[type=submit]:hover {
         background-color: #333;
     }
+
+
+    .pagination>li>a {
+        line-height: 26px;
+    }
+
 </style>
 <body>
 
@@ -130,7 +136,7 @@
                                                 <input type="hidden" name="seq" th:value="${dto.seq}">
                                             </form>
                                         </th:block>
-                                        <th:block th:if="${session.user} == null">
+                                        <th:block th:if="${session.user} == null or ${session.user.lv} != 1">
                                             <button type="button" onclick="loginRequest()">
                                                 <i class="fa fa-shopping-cart"></i>
                                                 <span>예약하기</span>
@@ -147,7 +153,7 @@
                     <!-- .wowitembox-->
                 </div>
                 <div class="clear"></div>
-                <nav th:utext="${paging.pageBar}"></nav>
+                <nav th:utext="${paging.pageBar}" class="text-center"></nav>
                 <div class="clear"></div>
             </div>
             <!-- MAIN CONTENT ENDS -->
@@ -222,8 +228,7 @@
 </div>
 <script>
     function loginRequest() {
-        alert('로그인 후 이용하세요.');
-        location.href = '/member/login';
+        alert('일반 회원 로그인 후 이용하세요.');
     }
 </script>
 </body>
