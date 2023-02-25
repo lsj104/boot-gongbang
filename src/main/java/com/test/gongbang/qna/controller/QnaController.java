@@ -3,6 +3,8 @@ package com.test.gongbang.qna.controller;
 import com.test.gongbang.member.login.kakao.service.KakaoDTO;
 import com.test.gongbang.qna.service.QnaDTO;
 import com.test.gongbang.qna.service.QnaServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.List;
 
+@Api(tags = "Qna 게시판")
 @Controller
 @RequestMapping("/qna")
 public class QnaController {
@@ -26,7 +29,7 @@ public class QnaController {
         this.qnaService = qnaService;
     }
 
-    // Qna 전체 목록 조회
+    @ApiOperation(value = "qna 전체 목록 조회")
     @GetMapping("/list")
     public String boardlist(Model model) {
         List<QnaDTO> selectQna = qnaService.selectQna();
@@ -34,7 +37,7 @@ public class QnaController {
         return "/qna/qnalist";
     }
 
-    // Qna 글쓰기
+    @ApiOperation(value = "qna 글쓰기 페이지")
     @GetMapping("/insertqna")
     public String openQnaWrite(HttpSession session, Model model, HttpServletResponse response) throws Exception {
         if (session.getAttribute("user") == null) {
@@ -46,7 +49,7 @@ public class QnaController {
         return "/qna/insertqna";
     }
 
-    // Qna 글쓰기
+    @ApiOperation(value = "qna 글쓰기")
     @PostMapping("/insertqna")
     public String insertQna(@ModelAttribute QnaDTO dto, HttpSession session, Model model) throws Exception {
         KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
@@ -58,7 +61,7 @@ public class QnaController {
         return "redirect:/qna/list";
     }
 
-    // Qna 게시글 상세 페이지
+    @ApiOperation(value = "qna 게시글 상세 페이지")
     @GetMapping("/content")
     public ModelAndView view(@RequestParam String seq, Model model, HttpSession session) throws Exception {
         QnaDTO dto = qnaService.read(seq);
@@ -71,11 +74,10 @@ public class QnaController {
         List<QnaDTO> comment = qnaService.comment(seq);
         model.addAttribute("comment", comment);
 
-
         return mav;
     }
 
-    // Qna 댓글 작성
+    @ApiOperation(value = "qna 댓글 작성")
     @PostMapping("/content")
     public String insertComment(HttpServletRequest request, HttpSession session, Model model) throws Exception {
 
@@ -98,7 +100,7 @@ public class QnaController {
         return "redirect:/qna/content?seq=" + seq;
     }
 
-    // Qna 글 삭제
+    @ApiOperation(value = "qna 글 삭제")
     @GetMapping("/delete")
     public String deletePost(String seq, Model model) {
 
@@ -109,8 +111,7 @@ public class QnaController {
         return "redirect:/qna/list";
     }
 
-
-    // Qna 글 수정
+    @ApiOperation(value = "qna 글 수정 페이지")
     @GetMapping("/updatepage")
     public ModelAndView updateview(@RequestParam String seq, Model model, HttpSession session) throws Exception {
         QnaDTO dto = qnaService.read(seq);
@@ -122,7 +123,7 @@ public class QnaController {
         return mav;
     }
 
-    // Qna 글 수정
+    @ApiOperation(value = "qna 글 수정")
     @PostMapping("/updatepage")
     public String update(@ModelAttribute QnaDTO dto, HttpSession session, HttpServletRequest request, Model model) throws Exception {
         KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
@@ -138,7 +139,7 @@ public class QnaController {
 
     }
 
-    // Qna 댓글 삭제
+    @ApiOperation(value = "qna 댓글 삭제")
     @GetMapping("/deletecomment")
     public String deleteComment(String cseq, HttpServletRequest request) {
 
@@ -147,6 +148,5 @@ public class QnaController {
         return "redirect:" + referer; // 이전 페이지로 리다이렉트
 
     }
-
 
 }
