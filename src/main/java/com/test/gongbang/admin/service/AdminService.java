@@ -36,5 +36,5 @@ public interface AdminService {
 
     List<QnaDTO> getRequestCommentQnA();
 
-    List<NoticeDTO> getNoticeShow();
+    List<NoticeDTO> getNoticeView();
 }

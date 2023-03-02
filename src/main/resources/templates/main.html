@@ -37,8 +37,9 @@
 </div>
 <!-- TITLE ENDS -->
 
+<!-- noticeModal toggle btn -->
 <button type="button" class="btn btn-primary" id="notice-btn" data-toggle="modal" data-target="#noticeModal"></button>
-<!-- del-notice confirm modal -->
+<!-- noticeModal -->
 <div class="modal" id="noticeModal" aria-hidden="true" role="dialog" aria-labelledby="noticeLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -49,7 +50,7 @@
             </div>
             <div class="modal-body" style="height: auto;">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-default" th:each="list: ${noticeShowList}">
+                    <div class="panel panel-default" th:each="list: ${noticeViewList}">
                         <div class="panel-heading" role="tab" th:id="|heading${list.seq}|">
                             <h4 class="panel-title">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" th:href="|#collapse${list.seq}|"
@@ -342,7 +343,12 @@
 
     $('#notice-btn').hide();
     window.onload = function () {
+
+        //list가 비어있지 않을 경우 modal toggle 버튼 클릭하는 트리거
+        /*[# th:if="${!#lists.isEmpty(noticeViewList)}"]*/
         $('#notice-btn').trigger('click');
+        /*[/]*/
+
     }
 
 </script>

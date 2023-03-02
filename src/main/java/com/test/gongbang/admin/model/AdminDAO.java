@@ -41,5 +41,5 @@ public interface AdminDAO {
 
     List<QnaDTO> getRequestCommentQnA();
 
-    List<NoticeDTO> getNoticeShow();
+    List<NoticeDTO> getNoticeView();
 }

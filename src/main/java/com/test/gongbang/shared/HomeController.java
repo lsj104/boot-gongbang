@@ -29,10 +29,10 @@ public class HomeController {
     public String home(Model model) {
 
         List<ClassDTO> newClass = service.newClass();
-        List<NoticeDTO> noticeShowList = adminService.getNoticeShow();
+        List<NoticeDTO> noticeViewList = adminService.getNoticeView();
 
         model.addAttribute("newClass", newClass);
-        model.addAttribute("noticeShowList", noticeShowList);
+        model.addAttribute("noticeViewList", noticeViewList);
 
         return "main";
     }

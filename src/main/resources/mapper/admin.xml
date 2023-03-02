@@ -223,7 +223,7 @@
         where tba.aseq not in 1
         order by tb.seq
     </select>
-    <select id="noticeShowList" resultType="com.test.gongbang.admin.service.NoticeDTO">
+    <select id="noticeViewList" resultType="com.test.gongbang.admin.service.NoticeDTO">
         select
             tn.*,
             case

@@ -105,8 +105,8 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public List<NoticeDTO> getNoticeShow() {
-        return template.selectList("admin.noticeShowList");
+    public List<NoticeDTO> getNoticeView() {
+        return template.selectList("admin.noticeViewList");
     }
 
 }

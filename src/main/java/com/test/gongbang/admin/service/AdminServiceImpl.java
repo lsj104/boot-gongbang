@@ -215,16 +215,16 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<NoticeDTO> getNoticeShow() {
+    public List<NoticeDTO> getNoticeView() {
 
-        List<NoticeDTO> noticeShowList = dao.getNoticeShow();
+        List<NoticeDTO> noticeViewList = dao.getNoticeView();
 
-        for (int i=0; i < noticeShowList.toArray().length; i++) {
+        for (int i=0; i < noticeViewList.toArray().length; i++) {
 
-            noticeShowList.get(i).setContent(noticeShowList.get(i).getContent().replace("\n", "<br/>"));
-            noticeShowList.get(i).setRegdate(noticeShowList.get(i).getRegdate().substring(0,10));
+            noticeViewList.get(i).setContent(noticeViewList.get(i).getContent().replace("\n", "<br/>"));
+            noticeViewList.get(i).setRegdate(noticeViewList.get(i).getRegdate().substring(0,10));
         }
 
-        return noticeShowList;
+        return noticeViewList;
     }
 }
