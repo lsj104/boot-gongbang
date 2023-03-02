@@ -9,8 +9,229 @@
             inner join tblMember m on a.seq = m.aseq
         where id = #{id} and active = 'y'
     </select>
+    <select id="accountCnt" resultType="com.test.gongbang.admin.service.ChartDTO">
+        select
+            case
+                when lv = 1 then 'member'
+                when lv = 2 then 'shop'
+                end as lv,
+            sum(case when active='y' then 1 end) activecnt,
+            sum(case when active='y' or active='n' then 1 end) joincnt
+        from tblAccount
+            group by lv having lv &lt; 3
+        order by lv asc
+    </select>
+    <select id="reservationCnt" resultType="com.test.gongbang.admin.service.ChartDTO">
+        select
+            to_char(to_date(rdate), 'YYYY-MM-dd') as rdate,
+            count(*) as  reservationcnt
+        from tblMemberClass
+            group by to_char(to_date(rdate), 'YYYY-MM-dd')
+        order by rdate asc
+    </select>
+    <select id="createClassCnt" resultType="com.test.gongbang.admin.service.ChartDTO">
+        select
+            duedate,
+            count(duedate) as createcnt
+        from tblClass
+            group by duedate
+        order by duedate asc
+    </select>
+    <select id="reservationByCategory" resultType="com.test.gongbang.admin.service.ChartDTO">
+        select
+            tca.name as category,
+            count(tca.name) as reservationcnt
+        from tblMemberclass tmc
+            inner join tblClass tc on tc.seq = tmc.cseq
+            inner join tblCategory tca on tc.cseq = tca.seq
+        group by tca.name,tca.seq
+        order by tca.seq asc
+    </select>
+    <select id="createByCategory" resultType="com.test.gongbang.admin.service.ChartDTO">
+        select
+            tca.name as category,
+            count(tc.name) as createcnt
+        from tblClass tc
+            inner join tblCategory tca on tca.seq = tc.cseq
+        group by tca.name, tca.seq
+        order by tca.seq asc
+    </select>
+    <select id="allList" parameterType="hashmap" resultType="com.test.gongbang.admin.service.NoticeDTO">
+        select *
+        from (select
+                  rownum as rnum,
+                  n.*
+              from (select
+                        tn.*,
+                        case
+                            when ta.lv = 3 then ta.id||'('||'관리자'||')'
+                        end as nickname
+                    from tblNotice tn
+                        inner join tblAccount ta on ta.seq = tn.aseq
+                    order by tn.seq desc) n )
+        where rnum between #{startRow} and #{endRow}
+        order by rnum asc
+    </select>
+    <select id="searchAll" parameterType="hashmap" resultType="com.test.gongbang.admin.service.NoticeDTO">
+        select *
+        from (select
+                  rownum as rnum,
+                  n.*
+              from (select
+                        tn.*,
+                        case
+                            when ta.lv = 3 then ta.id||'('||'관리자'||')'
+                        end as nickname
+                    from tblNotice tn
+                        inner join tblAccount ta on ta.seq = tn.aseq
+                    where (tn.title like '%'||#{searchWord}||'%')
+                        or (tn.content like '%'||#{searchWord}||'%')
+                        or (ta.id like '%'||#{searchWord}||'%')
+                    order by tn.seq desc) n )
+        where rnum between #{startRow} and #{endRow}
+        order by rnum asc
+    </select>
+    <select id="searchTitle" parameterType="hashmap" resultType="com.test.gongbang.admin.service.NoticeDTO">
+        select *
+        from (select
+                  rownum as rnum,
+                  n.*
+              from (select
+                        tn.*,
+                        case
+                            when ta.lv = 3 then ta.id||'('||'관리자'||')'
+                        end as nickname
+                    from tblNotice tn
+                        inner join tblAccount ta on ta.seq = tn.aseq
+                    where tn.title like '%'||#{searchWord}||'%'
+                    order by tn.seq desc) n )
+        where rnum between #{startRow} and #{endRow}
+        order by rnum asc
+    </select>
+    <select id="searchContent" parameterType="hashmap" resultType="com.test.gongbang.admin.service.NoticeDTO">
+        select *
+        from (select
+                  rownum as rnum,
+                  n.*
+              from (select
+                        tn.*,
+                        case
+                            when ta.lv = 3 then ta.id||'('||'관리자'||')'
+                        end as nickname
+                    from tblNotice tn
+                             inner join tblAccount ta on ta.seq = tn.aseq
+                    where tn.content like '%'||#{searchWord}||'%'
+                    order by tn.seq desc) n )
+        where rnum between #{startRow} and #{endRow}
+        order by rnum asc
+    </select>
+    <select id="searchWriter" parameterType="hashmap" resultType="com.test.gongbang.admin.service.NoticeDTO">
+        select *
+        from (select
+                  rownum as rnum,
+                  n.*
+              from (select
+                        tn.*,
+                        case
+                            when ta.lv = 3 then ta.id||'('||'관리자'||')'
+                        end as nickname
+                    from tblNotice tn
+                             inner join tblAccount ta on ta.seq = tn.aseq
+                    where tn.id like '%'||#{searchWord}||'%'
+                    order by tn.seq desc) n )
+        where rnum between #{startRow} and #{endRow}
+        order by rnum asc
+    </select>
+    <select id="getNotice" parameterType="String" resultType="com.test.gongbang.admin.service.NoticeDTO">
+        select
+            *
+        from tblNotice
+            where seq = #{seq}
+    </select>
+    <update id="updateActive" parameterType="hashmap">
+        update tblNotice
+            set active = #{active}
+        where seq = #{seq}
+    </update>
+    <select id="noticeTotalCount" resultType="Integer">
+        select
+            count(*)
+        from tblNotice
+    </select>
+    <select id="searchAllCount" resultType="Integer">
+        select
+            count(*)
+        from tblNotice tn
+                 inner join tblAccount ta on ta.seq = tn.aseq
+        where (tn.title like '%'||#{searchWord}||'%')
+           or (tn.content like '%'||#{searchWord}||'%')
+           or (ta.id like '%'||#{searchWord}||'%')
+    </select>
+    <select id="searchTitleCount" resultType="Integer">
+        select
+            count(*)
+        from tblNotice tn
+                 inner join tblAccount ta on ta.seq = tn.aseq
+        where tn.title like '%'||#{searchWord}||'%'
+    </select>
+    <select id="searchContentCount" resultType="Integer">
+        select
+            count(*)
+        from tblNotice tn
+                 inner join tblAccount ta on ta.seq = tn.aseq
+        where tn.contnet like '%'||#{searchWord}||'%'
+    </select>
+    <select id="searchWriterCnt" resultType="Integer">
+        select
+            count(*)
+        from tblNotice tn
+                 inner join tblAccount ta on ta.seq = tn.aseq
+        where ta.id like '%'||#{searchWord}||'%'
+    </select>
+    <insert id="insertNotice" parameterType="com.test.gongbang.admin.service.NoticeDTO">
+        insert into tblNotice (seq, title, content, regdate, aseq, active)
+            values (seqNotice.nextVal, #{title}, #{content}, sysdate, #{aseq}, 'y')
+    </insert>
+    <delete id="deleteNotice" parameterType="String">
+        delete from tblNotice
+            where seq = #{seq}
+    </delete>
+    <update id="updateNotice" parameterType="hashmap">
+        update tblNotice
+        set
+            title = #{title},
+            content = #{content}
+        where
+            seq = #{seq}
+    </update>
+    <select id="requestCommentQnA" resultType="com.test.gongbang.qna.service.QnaDTO">
+        select
+            tb.seq,
+            tb.title,
+            tb.content,
+            tb.regdate,
+            case
+                when ta.lv = 1 then tm.nickname
+                when ta.lv = 2 then ts.nickname
+                when ta.lv = 3 then '관리자'
+            end  as nickname
+        from tblMainBoard tb
+            inner join tblAccount ta on tb.aseq = ta.seq
+            left outer join tblMember tm on tb.aseq = tm.aseq
+            left outer join tblShop ts on tb.aseq = ts.aseq
+            left outer join tblMainBoardAnswer tba on tba.bseq = tb.seq
+        where tba.aseq not in 1
+        order by tb.seq
+    </select>
+    <select id="noticeShowList" resultType="com.test.gongbang.admin.service.NoticeDTO">
+        select
+            tn.*,
+            case
+                when ta.lv = 3 then '관리자'
+            end as nickname
+        from tblNotice tn
+            inner join tblAccount ta on ta.seq = tn.aseq
+        where tn.active = 'y'
+        order by tn.seq desc
+    </select>
 </mapper>
-
-
-
-

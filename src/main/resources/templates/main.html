@@ -1,286 +1,351 @@
 <!DOCTYPE html>
-<html xmlns:th="https://thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	layout:decorate="~{common/base}"
-	layout:fragment="content">
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
 <style>
-	button {
-		background-color: #555;
-		color: #fff;
-		border-radius: 5px;
-	}
-	button:hover {
-		background-color: #333;
-	}
+    button {
+        background-color: #555;
+        color: #fff;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background-color: #333;
+    }
 </style>
 <body>
 
-		<!-- PAGE CONTENT
-		================================================== -->
-		
-		<!-- TITLE BEGINS -->
-		<div class="headerimage homeimg text-center" style="background-image: url(http://www.themepush.com/demo-kailo/wp-content/uploads/sites/6/2015/03/homebanner.jpg);">
-		<div class="headercontent home">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<h1 data-scrollreveal="enter top over 1.9s after 0.2s">만지작 &#39;作&#39;</h1>
-						<p class="lead" data-scrollreveal="enter bottom over 1.9s after 0.4s">
-							공예 멀티 플랫폼
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- TITLE ENDS -->
-	
-	<!-- MAIN CONTENT BEGINS -->
-	<div id="homepagetemplate" class="container padtop10 padbot40">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="clear text-center sectionlatestitems">
-					<h2 class="maintitle">BEST 클래스</h2>
-					<div class="separatr">
-						<span style="font-size: 0.77em;text-transform:uppercase;"><i class="fa fa-star"></i>&nbsp; OUR FAVOURITE CLASS &nbsp; <i class="fa fa-star"></i></span>
-					</div>
-				</div>
-				<div class="wowitemboxlist sectionlatestitems clear">
-				
-					<div class="wowitembox">
-						<div class="wowitemboxinner">
-							<div class="imagearea">
-								<img width="555" height="370" src="/image/01.jpg"/>
-								<div class="caption">
-									<div class="blur">
-									</div>
-									<div class="caption-text">
-										<div class="captionbuttons">
-											<a href="productsingle.html" class="captiondetails"><i class="fa fa-link"></i> VIEW DETAILS</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="notesarea">
-								<a href="productsingle.html">
-								<h2>ㅋ</h2>
-								</a>
-								<div class="description">
-									<p>
-									 Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel com.
-									</p>
-								</div>
-								<div class="notesbottom">
-									<div class="price fleft">
-										$19.00
-									</div>
-									<div class="cart fright">
-										<a href="#" class="edd-add-to-cart">
-											<span class="edd-add-to-cart-label">예약하기</span>
-										</a>
-									</div>
-									<div class="clearfix">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- .wowitemboxinner-->
-					</div>
-					<!-- .wowitembox-->
+<!-- PAGE CONTENT
+================================================== -->
 
-					<div class="wowitembox">
-						<div class="wowitemboxinner">
-							<div class="imagearea">
-								<img width="555" height="370" src="/image/01.jpg"/>
-								<div class="caption">
-									<div class="blur">
-									</div>
-									<div class="caption-text">
-										<div class="captionbuttons">
-											<a href="productsingle.html" class="captiondetails"><i class="fa fa-link"></i> VIEW DETAILS</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="notesarea">
-								<a href="productsingle.html">
-								<h2>Winter Feel</h2>
-								</a>
-								<div class="description">
-									<p>
-									 Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel com.
-									</p>
-								</div>
-								<div class="notesbottom">
-									<div class="price fleft">
-										$3.00
-									</div>
-									<div class="cart fright">
-										<a href="#" class="edd-add-to-cart">
-											<span class="edd-add-to-cart-label">예약하기</span>
-										</a>
-									</div>
-									<div class="clearfix">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- .wowitemboxinner-->
-					</div>
-					<!-- .wowitembox-->
+<!-- TITLE BEGINS -->
+<div class="headerimage homeimg text-center"
+>
+    <div class="headercontent home">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 data-scrollreveal="enter top over 1.9s after 0.2s">만지작 &#39;作&#39;</h1>
+                    <p class="lead" data-scrollreveal="enter bottom over 1.9s after 0.4s">
+                        공예 멀티 플랫폼
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TITLE ENDS -->
 
-					<div class="wowitembox">
-						<div class="wowitemboxinner">
-							<div class="imagearea">
-								<img width="555" height="370" src="/image/01.jpg"/>
-								<div class="caption">
-									<div class="blur">
-									</div>
-									<div class="caption-text">
-										<div class="captionbuttons">
-											<a href="productsingle.html" class="captiondetails"><i class="fa fa-link"></i> VIEW DETAILS</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="notesarea">
-								<a href="productsingle.html">
-								<h2>Eyes Wide Shut</h2>
-								</a>
-								<div class="description">
-									<p>
-									 Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel com.
-									</p>
-								</div>
-								<div class="notesbottom">
-									<div class="price fleft">
-										$7.00
-									</div>
-									<div class="cart fright">
-										<a href="#" class="edd-add-to-cart">
-											<span class="edd-add-to-cart-label">예약하기</span>
-										</a>
-									</div>
-									<div class="clearfix">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- .wowitemboxinner-->
-					</div>
-					<!-- .wowitembox-->
+<button type="button" class="btn btn-primary" id="notice-btn" data-toggle="modal" data-target="#noticeModal"></button>
+<!-- del-notice confirm modal -->
+<div class="modal" id="noticeModal" aria-hidden="true" role="dialog" aria-labelledby="noticeLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">공지사항</h5>
+            </div>
+            <div class="modal-body" style="height: auto;">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default" th:each="list: ${noticeShowList}">
+                        <div class="panel-heading" role="tab" th:id="|heading${list.seq}|">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" th:href="|#collapse${list.seq}|"
+                                   aria-expanded="false" th:aria-controls="|collapse${list.seq}|" style="font-size: 1.5rem; font-weight: 600;">
+                                    <div th:text="${list.title}"></div>
+                                    <div class="fright" th:text="${list.regdate}" style="font-size:small; font-weight: normal;"></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                            </h4>
+                        </div>
+                        <div th:id="|collapse${list.seq}|" class="panel-collapse collapse" role="tabpanel"
+                             th:aria-labelledby="|heading${list.seq}|">
+                            <div class="panel-body">
+                                <th:block th:utext="${list.content}"></th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MAIN CONTENT BEGINS -->
+<div id="homepagetemplate" class="container padtop10 padbot40">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="clear text-center sectionlatestitems">
+                <h2 class="maintitle">BEST 클래스</h2>
+                <div class="separatr">
+                    <span style="font-size: 0.77em;text-transform:uppercase;"><i class="fa fa-star"></i>&nbsp; OUR FAVOURITE CLASS &nbsp; <i
+                            class="fa fa-star"></i></span>
+                </div>
+            </div>
+            <div class="wowitemboxlist sectionlatestitems clear">
 
-					<div class="wowitembox">
-						<div class="wowitemboxinner">
-							<div class="imagearea">
-								<img width="555" height="370" src="/image/01.jpg"/>
-								<div class="caption">
-									<div class="blur">
-									</div>
-									<div class="caption-text">
-										<div class="captionbuttons">
-											<a href="productsingle.html" class="captiondetails"><i class="fa fa-link"></i> VIEW DETAILS</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="notesarea">
-								<a href="productsingle.html">
-								<h2>Bananas</h2>
-								</a>
-								<div class="description">
-									<p>
-									 Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel com.
-									</p>
-								</div>
-								<div class="notesbottom">
-									<div class="price fleft">
-										$6.50
-									</div>
-									<div class="cart fright">
-										<a href="#" class="edd-add-to-cart">
-											<span class="edd-add-to-cart-label">예약하기</span>
-										</a>
-									</div>
-									<div class="clearfix">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- .wowitemboxinner-->
-					</div>
-					<!-- .wowitembox-->
+                <div class="wowitembox">
+                    <div class="wowitemboxinner">
+                        <div class="imagearea">
+                            <img width="555" height="370" src="/image/01.jpg"/>
+                            <div class="caption">
+                                <div class="blur">
+                                </div>
+                                <div class="caption-text">
+                                    <div class="captionbuttons">
+                                        <a href="productsingle.html" class="captiondetails"><i
+                                                class="fa fa-link"></i>
+                                            VIEW DETAILS</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notesarea">
+                            <a href="productsingle.html">
+                                <h2>ㅋ</h2>
+                            </a>
+                            <div class="description">
+                                <p>
+                                    Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel
+                                    com.
+                                </p>
+                            </div>
+                            <div class="notesbottom">
+                                <div class="price fleft">
+                                    $19.00
+                                </div>
+                                <div class="cart fright">
+                                    <a href="#" class="edd-add-to-cart">
+                                        <span class="edd-add-to-cart-label">예약하기</span>
+                                    </a>
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .wowitemboxinner-->
+                </div>
+                <!-- .wowitembox-->
 
-				</div>
-				<!-- .wowitemboxlist-->
-				
-				<div class="clear">
-				</div>
-				<div class="divider1">
-				</div>
-	
-				
-				<div class="clear text-center sectionbestseller">
-					<h2 class="maintitle">NEW 클래스</h2>
-					<div class="separatr">
-						<span style="font-size: 0.77em;text-transform:uppercase;"><i class="fa fa-star"></i>&nbsp; NEW One-day CLASS &nbsp; <i class="fa fa-star"></i></span>
-					</div>
-				</div>
-				<div class="wowitemboxlist sectionbestseller clear">
+                <div class="wowitembox">
+                    <div class="wowitemboxinner">
+                        <div class="imagearea">
+                            <img width="555" height="370" src="/image/01.jpg"/>
+                            <div class="caption">
+                                <div class="blur">
+                                </div>
+                                <div class="caption-text">
+                                    <div class="captionbuttons">
+                                        <a href="productsingle.html" class="captiondetails"><i
+                                                class="fa fa-link"></i>
+                                            VIEW DETAILS</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notesarea">
+                            <a href="productsingle.html">
+                                <h2>Winter Feel</h2>
+                            </a>
+                            <div class="description">
+                                <p>
+                                    Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel
+                                    com.
+                                </p>
+                            </div>
+                            <div class="notesbottom">
+                                <div class="price fleft">
+                                    $3.00
+                                </div>
+                                <div class="cart fright">
+                                    <a href="#" class="edd-add-to-cart">
+                                        <span class="edd-add-to-cart-label">예약하기</span>
+                                    </a>
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .wowitemboxinner-->
+                </div>
+                <!-- .wowitembox-->
 
-					<div class="wowitembox"  th:each="dto : ${newClass}">
-						<div class="wowitemboxinner">
-							<div class="imagearea">
-								<img style="height: 200px; object-fit: cover;"
-									 th:src="@{'/image/class/' + ${dto.image}}"/>
-								<div class="caption">
-									<div class="blur">
-									</div>
-									<div class="caption-text">
-										<div class="captionbuttons">
-											<a th:href="@{/class/classviewdetails(seq=${dto.seq})}"
-											   class="captiondetails"><i class="fa fa-link"></i> View Details</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="notesarea">
-								<div class="title" style="height: 40px; overflow: hidden;">
-									<a th:href="@{class/classviewdetails(seq=${dto.seq})}">
-										<h2 th:text="${dto.name}"></h2>
-									</a>
-								</div>
-								<div class="description" style="height: 70px; overflow: hidden">
-									<div th:text="${dto.nickname}" style="font-weight: bold; margin-bottom: 2px;"></div>
-									<div th:text="${dto.address}"></div>
-								</div>
-								<div class="notesbottom">
-									<div class="price fleft"
-										 th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></div>
-									<div class="cart fright">
-										<form method="GET" action="/class/classviewdetails">
-											<button type="submit">
-												<i class="fa-solid fa-magnifying-glass"></i>
-												<span>상세보기</span>
-											</button>
-											<input type="hidden" name="seq" th:value="${dto.seq}">
-										</form>
-									</div>
-									<div class="clearfix">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- .wowitemboxinner-->
-					</div>
-					<!-- .wowitembox-->
+                <div class="wowitembox">
+                    <div class="wowitemboxinner">
+                        <div class="imagearea">
+                            <img width="555" height="370" src="/image/01.jpg"/>
+                            <div class="caption">
+                                <div class="blur">
+                                </div>
+                                <div class="caption-text">
+                                    <div class="captionbuttons">
+                                        <a href="productsingle.html" class="captiondetails"><i
+                                                class="fa fa-link"></i>
+                                            VIEW DETAILS</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notesarea">
+                            <a href="productsingle.html">
+                                <h2>Eyes Wide Shut</h2>
+                            </a>
+                            <div class="description">
+                                <p>
+                                    Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel
+                                    com.
+                                </p>
+                            </div>
+                            <div class="notesbottom">
+                                <div class="price fleft">
+                                    $7.00
+                                </div>
+                                <div class="cart fright">
+                                    <a href="#" class="edd-add-to-cart">
+                                        <span class="edd-add-to-cart-label">예약하기</span>
+                                    </a>
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .wowitemboxinner-->
+                </div>
+                <!-- .wowitembox-->
 
-				</div>
-				<!-- .wowitemboxlist-->
-			</div>
-		</div>
-	</div>
-	<!-- MAIN CONTENT ENDS -->
+                <div class="wowitembox">
+                    <div class="wowitemboxinner">
+                        <div class="imagearea">
+                            <img width="555" height="370" src="/image/01.jpg"/>
+                            <div class="caption">
+                                <div class="blur">
+                                </div>
+                                <div class="caption-text">
+                                    <div class="captionbuttons">
+                                        <a href="productsingle.html" class="captiondetails"><i
+                                                class="fa fa-link"></i>
+                                            VIEW DETAILS</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notesarea">
+                            <a href="productsingle.html">
+                                <h2>Bananas</h2>
+                            </a>
+                            <div class="description">
+                                <p>
+                                    Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel
+                                    com.
+                                </p>
+                            </div>
+                            <div class="notesbottom">
+                                <div class="price fleft">
+                                    $6.50
+                                </div>
+                                <div class="cart fright">
+                                    <a href="#" class="edd-add-to-cart">
+                                        <span class="edd-add-to-cart-label">예약하기</span>
+                                    </a>
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .wowitemboxinner-->
+                </div>
+                <!-- .wowitembox-->
+
+            </div>
+            <!-- .wowitemboxlist-->
+
+            <div class="clear">
+            </div>
+            <div class="divider1">
+            </div>
+
+
+            <div class="clear text-center sectionbestseller">
+                <h2 class="maintitle">NEW 클래스</h2>
+                <div class="separatr">
+                    <span style="font-size: 0.77em;text-transform:uppercase;"><i class="fa fa-star"></i>&nbsp; NEW One-day CLASS &nbsp; <i
+                            class="fa fa-star"></i></span>
+                </div>
+            </div>
+            <div class="wowitemboxlist sectionbestseller clear">
+
+                <div class="wowitembox" th:each="dto : ${newClass}">
+                    <div class="wowitemboxinner">
+                        <div class="imagearea">
+                            <img style="height: 200px; object-fit: cover;"
+                                 th:src="@{'/image/class/' + ${dto.image}}"/>
+                            <div class="caption">
+                                <div class="blur">
+                                </div>
+                                <div class="caption-text">
+                                    <div class="captionbuttons">
+                                        <a th:href="@{/class/classviewdetails(seq=${dto.seq})}"
+                                           class="captiondetails"><i class="fa fa-link"></i> View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notesarea">
+                            <div class="title" style="height: 40px; overflow: hidden;">
+                                <a th:href="@{class/classviewdetails(seq=${dto.seq})}">
+                                    <h2 th:text="${dto.name}"></h2>
+                                </a>
+                            </div>
+                            <div class="description" style="height: 70px; overflow: hidden">
+                                <div th:text="${dto.nickname}" style="font-weight: bold; margin-bottom: 2px;"></div>
+                                <div th:text="${dto.address}"></div>
+                            </div>
+                            <div class="notesbottom">
+                                <div class="price fleft"
+                                     th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></div>
+                                <div class="cart fright">
+                                    <form method="GET" action="/class/classviewdetails">
+                                        <button type="submit">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                            <span>상세보기</span>
+                                        </button>
+                                        <input type="hidden" name="seq" th:value="${dto.seq}">
+                                    </form>
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .wowitemboxinner-->
+                </div>
+                <!-- .wowitembox-->
+
+            </div>
+            <!-- .wowitemboxlist-->
+        </div>
+    </div>
+</div>
+<!-- MAIN CONTENT ENDS -->
+
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script th:inline="javascript">
+
+    $('#notice-btn').hide();
+    window.onload = function () {
+        $('#notice-btn').trigger('click');
+    }
+
+</script>
 
 </body>
 </html>

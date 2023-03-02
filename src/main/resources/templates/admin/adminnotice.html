@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+<link rel='stylesheet' href='/css/admin.css'>
+<style>
+
+    #searchtype-sel {
+        box-shadow: none;
+        border-right: 0;
+        border-color: #eee;
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+    }
+
+    #items {
+        margin: 10px 0 20px 0;
+    }
+
+    #searchbar .btn {
+        height: 34px;
+    }
+
+    .table > thead:first-child > tr:first-child > th:nth-child(2) {
+        width: 500px;
+    }
+
+    #search-null td {
+        font-size: 1.5rem;
+        height: 100px;
+        vertical-align: middle;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table > tbody > tr > td:nth-child(2) {
+        text-align: left;
+    }
+
+    .table > tbody > tr > td {
+        cursor: default;
+    }
+
+    .table > tbody > tr > td:nth-child(2):hover {
+        cursor: pointer;
+        color: #3a97b1;
+    }
+
+    #view-notice form .form-group.fleft.col-md-6:nth-child(3) {
+        padding-left: 0;
+        padding-right: 10px;
+    }
+
+    #view-notice form .form-group.fleft.col-md-6:nth-child(4) {
+        padding-left: 10px;
+        padding-right: 0;
+    }
+
+
+</style>
+<body>
+<div class="boxedlayout">
+
+    <!-- TITLE BEGINS -->
+    <div class="headerimage">
+        <div class="headercontent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fleft">
+                            <h1>Admin Page</h1>
+                        </div>
+                        <div class="fright breadc">
+                            <a href="/main">Home</a> / Admin Page
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TITLE ENDS -->
+
+    <!-- Alert Zone -->
+    <div class="alert alert-message"></div>
+
+    <!-- Admin wrap -->
+    <div class="container" id="admin-wrap">
+        <div id="wrapper" class="container-fluid">
+            <div class="row">
+                <!-- Sidebar-wrapper -->
+                <div id="sidebar-wrapper" class="col-md-2">
+                    <div id="sidebar">
+                        <ul class="list-unstyled component">
+                            <li>
+                                <a href="/admin/adminpage"><i class="fa-solid fa-chart-line"></i> Chart</a>
+                            </li>
+                            <li class="active">
+                                <a href="/admin/adminpage/notice"><i class="fa-solid fa-bullhorn"></i> Notice</a>
+                            </li>
+                            <li>
+                                <a href="/admin/adminpage/adminqna"><i class="fa fa-comments-o"></i> QnA</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /Sidebar-wrapper -->
+                <!-- Page Content -->
+                <div id="page-content-wrapper" class="col-md-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa-solid fa-bullhorn"> </i>Notice
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="row col-md-12" id="items">
+                                <div class="col-md-5">
+                                    <th:block
+                                            th:if="${!#strings.isEmpty(searchWord)} and ${!#lists.isEmpty(noticeList)}">
+                                        <span class="pagesit" th:text="|&quot;${searchWord}&quot;로 검색한 결과입니다.|"
+                                              style="font-weight: bold;"></span>
+                                    </th:block>
+                                </div>
+
+                                <!-- SEARCH BAR -->
+                                <form action="/admin/adminpage/notice" method="get">
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <!-- input-group -->
+                                        <div class="input-group" id="searchbar">
+                                                <span style="display: table-cell">
+                                                    <select name="searchType" class="form-control" id="searchtype-sel">
+                                                        <option value="all">전체</option>
+                                                        <option value="title">제목</option>
+                                                        <option value="content">내용</option>
+                                                        <option value="id">작성자(ID)</option>
+                                                    </select>
+                                                </span>
+                                            <input type="text" class="form-control" placeholder="Search for..."
+                                                   id="searchWord" name="searchWord">
+                                            <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="submit">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </span>
+                                        </div>
+                                        <!-- /input-group -->
+                                    </div>
+                                </form>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#add-notice">
+                                        <i class="fa fa-plus"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <table class="table table-hover">
+                                <!--Table head-->
+                                <thead>
+                                <tr class="active">
+                                    <th scope="row">#</th>
+                                    <th class="text-center">제목</th>
+                                    <th class="text-center">작성자</th>
+                                    <th class="text-center">작성일</th>
+                                    <th class="text-center">공지</th>
+                                </tr>
+                                </thead>
+                                <!--/Table head-->
+                                <!--Table body-->
+                                <tbody>
+                                <th:block th:if="${!#lists.isEmpty(noticeList)}">
+                                    <tr th:each="list : ${noticeList}">
+                                        <th scope="row" th:text="${list.seq}"></th>
+                                        <td th:text="${list.title}" onclick="viewNotice()" data-toggle="modal" data-target="#view-notice"
+                                            th:data-seq="${list.seq}" th:data-title="${list.title}" th:data-content="${list.content}" th:data-nickname="${list.nickname}" th:data-regdate="${list.regdate}" th:data-aseq="${list.aseq}"></td>
+                                        <td th:text="${list.nickname}"></td>
+                                        <td th:text="${#strings.substring(list.regdate, 0, 10)}"></td>
+                                        <td>
+                                            <label class="radio-label" th:for="|activeY${list.seq}|" th:id="|Y${list.seq}|">ON</label>
+                                            <input type="radio" th:id="|activeY${list.seq}|"
+                                                   th:name="|active${list.seq}|" value="y" onchange="active();"
+                                                   th:data-seq="${list.seq}">/
+                                            <label class="radio-label" th:for="|activeN${list.seq}|" th:id="|N${list.seq}|">OFF</label>
+                                            <input type="radio" th:id="|activeN${list.seq}|"
+                                                   th:name="|active${list.seq}|" value="n" onchange="active();"
+                                                   th:data-seq="${list.seq}">
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                <th:block th:if="${#lists.isEmpty(noticeList)}">
+                                    <tr id="search-null">
+                                        <td colspan="5">
+                                            <i class="fa-solid fa-quote-left"></i>
+                                            <span th:text="${searchWord}"></span>
+                                            <i class="fa-solid fa-quote-right"></i>
+                                            에 대한 검색 결과가 없습니다.
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                                <!--/Table body-->
+                            </table>
+
+                            <!--Pagination -->
+                            <nav th:utext="${paging.pageBar}" class="text-center"></nav>
+                            <!--/Pagination -->
+                        </div>
+                        <div class="card-footer small text-muted"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /Admin wrap -->
+
+    <!-- MODAL -->
+    <!--  add-notice modal  -->
+    <div class="modal" id="add-notice" tabindex="-1" role="dialog" aria-labelledby="add-noticeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add notice</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="title">제목</label>
+                            <input type="text" class="form-control" id="title" placeholder="title..."
+                                   required="required">
+                        </div>
+                        <div class="form-group">
+                            <label for="content">공지 내용</label>
+                            <textarea class="form-control" id="content" placeholder="content..."
+                                      required="required"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" onclick="addOk();" >Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--  view-notice modal  -->
+    <div class="modal" id="view-notice" tabindex="-1" role="dialog" aria-labelledby="view-noticeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">공지사항</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="view-title">제목</label>
+                            <input type="text" class="form-control view-title" id="view-title" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="view-content">공지내용</label>
+                            <textarea class="form-control view-content" id="view-content" readonly></textarea>
+                        </div>
+                        <div class="form-group fleft col-md-6">
+                            <label for="view-regdate">등록일</label>
+                            <input type="text" class="form-control" id="view-regdate" readonly>
+                        </div>
+                        <div class="form-group fleft col-md-6">
+                            <label for="view-writer">작성자</label>
+                            <input type="text" class="form-control" id="view-writer" readonly>
+                        </div>
+                        <div class="clearfix"></div>
+                        <input type="hidden" id="notice-seq">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div id="btns">
+                        <button type="button" id="edit-btn" class="btn btn-warning" onclick="edit();" data-target="#edit-notice" data-toggle="modal" data-dismiss="modal">Edit</button>
+                        <button type="button" id="del-btn" class="btn btn-danger" data-target="#del-notice" data-toggle="modal" data-dismiss="modal">Delete</button>
+                    </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- edit-notice modal -->
+    <div class="modal" id="edit-notice" tabindex="-1" role="dialog" aria-labelledby="edit-noticeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">공지사항 수정</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="view-title">제목</label>
+                            <input type="text" class="form-control" id="edit-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="view-content">공지내용</label>
+                            <textarea class="form-control" id="edit-content" required></textarea>
+                        </div>
+                        <div class="form-group fleft col-md-6">
+                            <label for="view-regdate">등록일</label>
+                            <input type="text" class="form-control" id="regdate" readonly>
+                        </div>
+                        <div class="form-group fleft col-md-6">
+                            <label for="view-writer">작성자</label>
+                            <input type="text" class="form-control" id="writer" readonly>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="editOk-btn"class="btn btn-warning" onclick="editOk();">Sumbit</button>
+                    <button type="button" id="cancel-btn"class="btn btn-default" data-target="#view-notice" data-toggle="modal" data-dismiss="modal">Cancel</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- del-notice confirm modal -->
+    <div class="modal fade" id="del-notice" aria-hidden="true" role="dialog" aria-labelledby="del-noticeLabel" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h5 class="modal-title">공지사항 삭제</h5>
+                </div>
+                <div class="modal-body">
+                    <p>삭제시 복원할 수 없습니다.</p>
+                    <p>삭제하시겠습니까?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" onclick="del();" >Delete</button>
+                    <button class="btn btn-default" data-target="#view-notice" data-toggle="modal" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script th:inline="javascript">
+
+    window.onload = function () {
+
+        /*[# th:each=" list : ${noticeList}" th:if="${list.active == 'y'}"]*/
+        document.getElementsByName('active[(${list.seq})]')[0].setAttribute('checked', 'checked');
+        document.getElementById('Y[(${list.seq})]').style.color = "#3a97b1";
+        /*[/]*/
+        /*[# th:each=" list : ${noticeList}" th:if="${list.active == 'n'}"]*/
+        document.getElementsByName('active[(${list.seq})]')[1].setAttribute('checked', 'checked');
+        document.getElementById('N[(${list.seq})]').style.color = "#3a97b1";
+        /*[/]*/
+
+        var now = new Date();
+        var updateTime = now.toDateString() + ' ' + now.toLocaleTimeString()
+        $('.card-footer').text('Updated ' + updateTime);
+
+    }
+
+    //Alert 메시지
+    var addAlert = `<div class="alert alert-success fade in">
+        <p class="container"><strong>Success!</strong> 공지사항이 추가되었습니다.</p>
+    </div>`;
+    var updateAlert = `<div class="alert alert-success fade in">
+        <p class="container"><strong>Success!</strong> 공지사항의 활성 상태가 변경되었습니다.</p>
+    </div>`;
+    var delAlert = `<div class="alert alert-success fade in">
+        <p class="container"><strong>Success!</strong> 공지사항이 삭제되었습니다.</p>
+    </div>`;
+    var dangerAlert = `<div class="alert alert-danger fade in">
+        <p class="container"><strong>Danger!</strong> 실패하였습니다.</p>
+    </div>`;
+    var infoAlert = `<div class="alert alert-info fade in">
+        <p class="container"><strong>Info!</strong> 수정 전 내용과 일치합니다.</p>
+    </div>`;
+
+    function active() {
+
+        var seq = $(event.target).data('seq');
+        var active = $(event.target).val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/adminpage/activeupdate',
+            dataType: 'json',
+            data: 'seq=' + seq + '&active=' + active,
+            success: function (result) {
+
+                if (result == 1) {
+
+                    $(".alert-message").prepend(updateAlert);
+
+                    var now = new Date();
+                    var updateTime = now.toDateString() + ' ' + now.toLocaleTimeString()
+                    $('.card-footer').text('Updated ' + updateTime);
+
+                }
+                if ((result == 1) && (active == 'y')) {
+                    document.getElementById('Y' + seq).style.color = "#3a97b1";
+                    document.getElementById('N' + seq).style.color = "#777777";
+                }
+                if ((result == 1) && (active == 'n')) {
+                    document.getElementById('Y' + seq).style.color = "#777777";
+                    document.getElementById('N' + seq).style.color = "#3a97b1";
+                }
+                if (result == 0) {
+                    $(".alert-message").prepend(dangerAlert);
+                }
+
+                $(".alert.fade.in").first().hide().fadeIn(200).delay(1000).fadeOut(1000, function () { $(this).remove(); });
+
+            },
+            error: function (a, b, c) {
+                console.log(a, b, c);
+            }
+        });
+
+    }
+
+    function addOk() {
+
+        var title = $('#title').val();
+        var content = $('#content').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/adminpage/noticeadd',
+            dataType: 'json',
+            data: 'title=' + title + '&content=' + content,
+            success: function (result) {
+
+                $('.close').trigger('click');
+
+                if (result == 1) {
+                    $(".alert-message").prepend(addAlert);
+                } else {
+                    $(".alert-message").prepend(dangerAlert);
+                }
+
+                $(".alert.fade.in").first().hide().fadeIn(200).delay(1000).fadeOut(1000, function () { $(this).remove(); location.reload(); });
+
+            },
+            error: function (a, b, c) {
+                console.log(a, b, c);
+            }
+        });
+
+    }
+
+    function viewNotice() {
+
+        var seq = $(event.target).data('seq');
+        var title = $(event.target).data('title');
+        var contnet = $(event.target).data('content');
+        var nickname = $(event.target).data('nickname');
+        var regdate = $(event.target).data('regdate');
+        var aseq = $(event.target).data('aseq');
+        var sessionAseq = [[${session.user.seq}]];
+
+        $('#view-title').val(title);
+        $('#view-content').val(contnet);
+        $('#view-writer').val(nickname);
+        $('#view-regdate').val(regdate);
+        $('#notice-seq').val(seq);
+
+        if (aseq == sessionAseq) {
+            $('#btns').show();
+        } else {
+            $('#btns').hide();
+        }
+
+    }
+
+    function del() {
+
+        var seq = $('#notice-seq').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/adminpage/noticedel',
+            dataType: 'json',
+            data: 'seq=' + seq,
+            success: function (result) {
+
+                $('.close').trigger('click');
+
+                if (result == 1) {
+                    $(".alert-message").prepend(delAlert);
+                } else {
+                    $(".alert-message").prepend(dangerAlert);
+                }
+
+                $(".alert.fade.in").first().hide().fadeIn(200).delay(1000).fadeOut(1000, function () { $(this).remove(); location.reload(); });
+
+            },
+            error: function (a, b, c) {
+                console.log(a, b, c);
+            }
+        });
+
+    }
+
+    function edit() {
+
+        $('#edit-title').val($('#view-title').val());
+        $('#edit-content').val($('#view-content').val());
+        $('#regdate').val($('#view-regdate').val());
+        $('#writer').val($('#view-writer').val());
+
+        $('#edit-content').focus();
+
+    }
+
+    function editOk() {
+
+        var seq = $('#notice-seq').val();
+        var title = $('#edit-title').val();
+        var content = $('#edit-content').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/adminpage/noticeupdate',
+            dataType: 'json',
+            data: 'seq=' + seq+ '&title=' + title + '&content=' + content,
+            success: function (result) {
+
+                $('.close').trigger('click');
+
+                if (result == 1) {
+                    $(".alert-message").prepend(updateAlert);
+                } else if (result == 2){
+                    $(".alert-message").prepend(infoAlert);
+                } else {
+                    $(".alert-message").prepend(dangerAlert);
+                }
+
+                $(".alert.fade.in").first().hide().fadeIn(200).delay(1000).fadeOut(1000, function () { $(this).remove(); location.reload(); });
+
+            },
+            error: function (a, b, c) {
+                console.log(a, b, c);
+            }
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
