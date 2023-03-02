@@ -1,5 +1,7 @@
 package com.test.gongbang.shared;
 
+import com.test.gongbang.admin.service.AdminService;
+import com.test.gongbang.admin.service.NoticeDTO;
 import com.test.gongbang.member.login.kakao.model.KakaoDAO;
 import com.test.gongbang.member.login.kakao.service.KakaoDTO;
 import com.test.gongbang.sclass.service.ClassDTO;
@@ -20,12 +22,17 @@ public class HomeController {
     @Autowired
     private ClassService service;
 
+    @Autowired
+    private AdminService adminService;
+
     @GetMapping("/main")
     public String home(Model model) {
 
         List<ClassDTO> newClass = service.newClass();
+        List<NoticeDTO> noticeShowList = adminService.getNoticeShow();
 
         model.addAttribute("newClass", newClass);
+        model.addAttribute("noticeShowList", noticeShowList);
 
         return "main";
     }

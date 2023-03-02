@@ -1,0 +1,167 @@
+body {
+    background-color: #FEFEFE;
+}
+
+/* main container */
+#admin-wrap {
+    margin: 80px auto;
+    border-radius: 10px;
+    padding: 0;
+    border: 1px solid #bbbbbb;
+    background: #2b2b2b;
+}
+
+/* side bar*/
+#sidebar-wrapper {
+    padding: 20px 0;
+    border-right: 1px solid #101010;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul li a {
+    color: #fff;
+    padding: 10px;
+    padding-left: 20px;
+    font-size: 2rem;
+    font-weight: 400;
+    display: block;
+}
+
+#sidebar ul li a:hover, #sidebar ul .active a {
+    color: #3a97b1;
+    font-weight: 500;
+    background: #202020;
+}
+
+
+/* page-content-wrapper */
+#page-content-wrapper {
+    background-color: #2e2e2e;
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+    padding-top: 20px;
+}
+
+
+/* card  */
+.card {
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    margin-bottom: 30px;
+}
+
+.card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.card-footer {
+    font-size: 80%;
+    font-weight: 400;
+    padding: 0.75rem 1.25rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    color: #6c757d !important;
+    border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-body #items {
+    margin: 10px 0 20px 0;
+}
+
+
+/* chart */
+.chart {
+
+    width: content-box;
+
+}
+
+/* modal */
+.modal textarea {
+    color: #777777;
+    margin-left: 0;
+    box-shadow: none;
+    border: 1px solid #eee;
+    min-height: 300px;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.modal {
+    text-align: center;
+    height: 100%;
+}
+
+.modal #btns {
+    display: inline-block;
+}
+
+.modal #btns .btn {
+    margin: 0;
+}
+
+
+/* alert */
+.alert-message {
+    margin: 0;
+    padding: 0;
+}
+
+.alert-message p {
+    font-size: 1.5rem;
+}
+
+.alert.fade.in {
+    margin-bottom: -52px;
+}
+
+
+/* radio box */
+input[type=radio] {
+    display: none;
+}
+
+.radio-label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.radio-label:hover {
+    cursor: pointer;
+}
+
+
+
+
+@media (min-width: 768px) {
+
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
+}

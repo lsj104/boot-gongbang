@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+<link rel='stylesheet' href='/css/admin.css'>
+<style>
+    .card-body {
+        max-height: 540px;
+        overflow: scroll;
+    }
+</style>
+<body>
+
+<div class="boxedlayout">
+
+    <!-- TITLE BEGINS -->
+    <div class="headerimage">
+        <div class="headercontent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fleft">
+                            <h1>Admin Page</h1>
+                        </div>
+                        <div class="fright breadc">
+                            <a href="/main">Home</a> / Admin Page
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TITLE ENDS -->
+
+    <!-- Admin wrap -->
+    <div class="container" id="admin-wrap">
+        <div id="wrapper" class="container-fluid">
+            <div class="row">
+                <!-- Sidebar-wrapper -->
+                <div id="sidebar-wrapper" class="col-md-2">
+                    <div id="sidebar">
+                        <ul class="list-unstyled component">
+                            <li>
+                                <a href="/admin/adminpage"><i class="fa-solid fa-chart-line"></i> Chart</a>
+                            </li>
+                            <li>
+                                <a href="/admin/adminpage/notice"><i class="fa-solid fa-bullhorn"></i> Notice</a>
+                            </li>
+                            <li class="active">
+                                <a href="/admin/adminpage/adminqna"><i class="fa fa-comments-o"></i> QnA</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /Sidebar-wrapper -->
+                <!-- Page Content -->
+                <div id="page-content-wrapper" class="col-md-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="fleft">
+                                <i class="fa fa-bell-o"></i> New QnA
+                            </div>
+                            <div class="fright">
+                                please comment....
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush small">
+                                <th:block th:each=" list: ${requestCommentQnAList}">
+                                    <a class="list-group-item list-group-item-action" th:href="@{/qna/content(seq=${list.seq})}">
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <p><strong th:text="${list.title}"></strong></p>
+                                                <p th:text="${list.content}"></p>
+                                                <div class="text-muted smaller">
+                                                    <span th:text="${list.nickname}"></span> <span th:text="${list.regdate}"> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th:block>
+                            </div>
+                        </div>
+                        <div class="card-footer small text-muted"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="fleft">
+                                <i class="fa fa-bell-o"></i> QnA List
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush small">
+                                <th:block th:each=" list: ${allQnAList}">
+                                    <a class="list-group-item list-group-item-action" th:href="@{/qna/content(seq=${list.seq})}">
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <p><strong th:text="${list.title}"></strong></p>
+                                                <p th:text="${list.content}"></p>
+                                                <div class="text-muted smaller">
+                                                    <span th:text="${list.nickname}"></span> <span th:text="${list.regdate}"> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th:block>
+                            </div>
+                        </div>
+                        <div class="card-footer small text-muted"></div>
+                    </div>
+                </div>
+                <!-- /Page Content -->
+            </div>
+        </div>
+    </div>
+    <!-- /Wrapper -->
+</div>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>

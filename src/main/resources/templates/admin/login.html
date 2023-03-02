@@ -5,12 +5,11 @@
       layout:fragment="content">
 
 <style>
-
     .main-content{
         width: 40%;
         border-radius: 20px;
         box-shadow: 0 5px 5px rgba(0,0,0,.4);
-        margin: 5em auto;
+        margin: 65px auto;
         display: flex;
     }
     .admin_login{
@@ -23,25 +22,24 @@
         color: #ffffff;
     }
     .fa-group{
-        font-size:5em;
+        font-size: 5em;
         color: #ffffff;
     }
 
     .admin_login h4 {
         color: #ffffff;
     }
-
     @media screen and (max-width: 640px) {
         .main-content{width: 90%;}
         .admin_login{
             display: none;
         }
         .login_form{
-            border-top-left-radius:20px;
-            border-bottom-left-radius:20px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
         }
     }
-    @media screen and (min-width: 642px) and (max-width:800px){
+    @media screen and (min-width: 642px) and (max-width: 800px){
         .main-content{width: 70%;}
     }
     .row > h2{
@@ -50,47 +48,45 @@
     }
     .login_form{
         background-color: #fff;
-        border-top-right-radius:20px;
-        border-bottom-right-radius:20px;
-        border-top:1px solid #ccc;
-        border-right:1px solid #ccc;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border-top: 1px solid #ccc;
+        border-right: 1px solid #ccc;
     }
     form{
         padding: 0 2em;
     }
-    input[type="text"] {
+    #account {
         width: 80%;
-        border:0px solid transparent;
-        border-radius: 0;
+        border: 0;
         border-bottom: 1px solid #aaa;
-        padding: 1em .5em .5em;
-        padding-left: 2em;
-        outline:none;
-        margin:1.5em auto;
-        transition: all .5s ease;
+        border-radius: 4px;
+        padding: 5px 20px;
+        outline: none;
+        margin: 25px auto;
+        font-size: 1.7rem;
+        font-weight: 500;
     }
     .form_input:focus{
         border-bottom-color: #008080;
         box-shadow: 0 0 5px rgba(0,80,80,.4);
         border-radius: 4px;
     }
-    input[type=submit]{
-        transition: all .5s ease;
+    .form-group #login{
         width: 70%;
         border-radius: 30px;
-        color:#ffffff;
+        color: #ffffff;
         font-weight: 600;
         background-color: #404040;
         border: 1px solid #008080;
-        margin-top: 1.5em;
-        margin-bottom: 1em;
+        margin-top: 20px;
+        margin-bottom: 15px;
     }
-    input[type=submit]:hover, input[type=submit]:focus{
+    .form-group #login:hover, .form-group:focus{
         background-color: #000000;
-        color:#fff;
+        color: #fff;
     }
-
-    .fail {
+    #fail {
         color: red;
     }
 </style>
@@ -111,7 +107,7 @@
                                 <h1>Admin Login</h1>
                             </div>
                             <div class="fright breadc">
-                                <a href="main">Home</a> /Admin Login
+                                <a href="/main">Home</a> /Admin Login
                             </div>
                         </div>
                     </div>
@@ -133,23 +129,18 @@
                                 <h2>Log In</h2>
                             </div>
                             <div class="row">
-                                <form action="/admin/loginok" method="post" class="form-group">
-
-                                    <div class="row fail" th:if="${session.login == 'fail'}">
-                                        <p>로그인에 실패하였습니다. 다시 시도하세요.</p>
-                                    </div>
+                                <div class="form-group">
+                                    <div class="row" id="fail"></div>
                                     <div class="row">
-                                        <input type="text" name="id" id="id" class="form_input"
-                                               placeholder="id">
+                                        <input type="password" id="account" class="form_input" placeholder="id" required>
                                     </div>
                                     <div class="row">
                                         <p>※관리자에게 부여된 계정을 입력하세요.※</p>
                                     </div>
                                     <div class="row">
-                                        <input type="hidden" name="">
-                                        <input type="submit" value="Submit" class="btn">
+                                        <button type="button" class="btn" id="login" onclick="login()">Login</button>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -159,8 +150,49 @@
         </div>
         <!-- MAIN CONTENT END -->
     </div>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script>
-    document.getElementById('id').focus();
+
+    $('#account').focus();
+
+    $('#account').keyup(function (keyNum) {
+        if (keyNum.keyCode == 13) {
+            $('#login').trigger('click');
+        }
+    });
+
+    $("#login").on("click", function login() {
+
+        var id = $('#account').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/loginok',
+            dataType: 'json',
+            data: 'id=' + id,
+            success: function (result) {
+
+                if (result == 1) {
+                    location.href = 'http: //localhost: 8090/main';
+                }
+                if (result == 0) {
+
+                    var failResult =  '로그인에 실패하였습니다. 다시 시도하세요.'
+
+                    $('#fail').text(failResult);
+                    $('#account').val('');
+                    $('#account').focus();
+                }
+
+            },
+            error: function (a, b, c) {
+                console.log(a, b, c);
+            }
+        });
+
+    });
+
 </script>
 </body>
 </html>
