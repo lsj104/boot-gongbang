@@ -14,7 +14,7 @@
 ![4조 Spring ERD](https://user-images.githubusercontent.com/75536654/220865097-f39821d3-63b8-4b01-8fb9-087eb953a81e.png)
 
 ## 5. 팀원 소개 및 업무 분담 👨‍👨‍👧‍👦
-<img width="1315" alt="스크린샷 2023-03-07 오전 12 40 07" src="https://user-images.githubusercontent.com/75536654/223158075-285d9649-54a6-4e9d-a3e7-755ee3b7a7ea.png">
+<img width="1002" alt="스크린샷 2023-03-07 오후 11 23 47" src="https://user-images.githubusercontent.com/75536654/223450403-54d345aa-8a62-45f1-815f-5f3b0136d39e.png">
 
 ## 6. 주요 기능 📚
 ### 1. 카카오 로그인
