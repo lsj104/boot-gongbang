@@ -13,29 +13,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Controller
 public class FeedController {
-    @Autowired private FeedService service;
+    @Autowired
+    private FeedService service;
 
     @GetMapping("feed/feed")
-    public String list(Model model, HttpSession session) {
+    public String list(Model model, HttpSession session, HttpServletResponse response) throws IOException {
+
+        if (session.getAttribute("user") == null) {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인 후 이용해 주세요.'); location.href='/member/login'</script>");
+            out.flush();
+        }
 
         List<FeedDTO> list = service.list();
 
         KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
         String aseq = kdto.getSeq() + "";
 
-        model.addAttribute("list",list);
+        model.addAttribute("list", list);
         model.addAttribute("aseq", aseq);
 
         return "feed/feed";
     }
 
     @GetMapping("feed/feedview")
-    public String feedview(@RequestParam String seq , Model model, HttpSession session){
+    public String feedview(@RequestParam String seq, Model model, HttpSession session) {
 
         FeedDTO dto = service.feedview(seq);
 
@@ -57,21 +68,21 @@ public class FeedController {
 
 
     @GetMapping("feed/insert")
-    public String feedinsert(){
+    public String feedinsert() {
 
         return "feed/insert";
 
     }
 
     @PostMapping("feed/insertok")
-    public String feedinsertok(){
+    public String feedinsertok() {
 
         return "feed/feed";
 
     }
 
     @GetMapping("feed/update")
-    public String feedupdate(@RequestParam String seq , Model model){
+    public String feedupdate(@RequestParam String seq, Model model) {
 
         FeedDTO dto = service.feedview(seq);
 
@@ -82,7 +93,7 @@ public class FeedController {
     }
 
     @PostMapping("feed/updateok")
-    public String feedupdateok(MultipartHttpServletRequest mreq, HttpSession session){
+    public String feedupdateok(MultipartHttpServletRequest mreq, HttpSession session) {
 
         int result = service.feedupdate(mreq, session);
 
@@ -94,7 +105,7 @@ public class FeedController {
     }
 
     @GetMapping("feed/delete")
-    public String feeddelete(@RequestParam String seq){
+    public String feeddelete(@RequestParam String seq) {
 
         int feeddel = service.feeddel(seq);
 
@@ -103,7 +114,7 @@ public class FeedController {
     }
 
     @GetMapping("feed/profile")
-    public String feedprofile(@RequestParam String aseq, Model model){
+    public String feedprofile(@RequestParam String aseq, Model model) {
 
         List<FeedDTO> dto = service.feedprofile(aseq);
 
@@ -130,14 +141,13 @@ public class FeedController {
 
 
     @GetMapping("feed/commentdel")
-    public String commentdel(@RequestParam String seq, @RequestParam String fseq){
+    public String commentdel(@RequestParam String seq, @RequestParam String fseq) {
 
         int commentdel = service.commentdel(seq);
 
         return "redirect:/feed/feedview?seq=" + fseq;
 
     }
-
 
 
 }
