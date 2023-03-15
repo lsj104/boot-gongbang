@@ -123,4 +123,5 @@ alter table tblFeedHashTag add constraint 제약조건명 foreign key (fseq) ref
 alter table tblFeedComment drop constraint 제약조건명;
 alter table tblFeedComment add constraint 제약조건명 foreign key (fseq) references tblFeed(seq) on delete cascade;
 
+
 commit;
