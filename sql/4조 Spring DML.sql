@@ -36,6 +36,7 @@ select * from TBLSBOARDCATEGORY;
 select * from TBLSHOP;
 select * from TBLSHOPBOARD;
 select * from TBLSHOPBOARDCOMMENT;
+select * from TBLNOTICE;
 
 create sequence seqAccount;
 create sequence seqShop;
@@ -54,7 +55,7 @@ create sequence seqFeedComment;
 create sequence seqFeedRecomment;
 create sequence seqFeedHashtag;
 create sequence seqHashtag;
-
+create sequence seqNotice;
 
 
 select * from tblAccount;
@@ -2289,3 +2290,72 @@ insert into tblFeedLike values (seqFeedLike.NextVal, 9, 11);
 insert into tblFeedLike values (seqFeedLike.NextVal, 10, 12);
 insert into tblFeedLike values (seqFeedLike.NextVal, 11, 13);
 insert into tblFeedLike values (seqFeedLike.NextVal, 11, 14);
+
+
+-- 공지사항
+
+insert into tblNotice values (seqNotice.nextVal, '핸드메이드어워드2022 올해를 빛낸 작가님을 소개합니다!', '핸드메이드어워드2022 올해를 빛낸 작가님을 소개합니다!
+
+순위 - 계정(ID) 형식으로 발표하겠습니다
+
+1등 - karkwright2
+2등 - screwdson7
+3등 - bfurmann', '2022-12-25', 1, 'n');
+
+insert into tblNotice values (seqNotice.nextVal, '누구나 작가가 될 수 있습니다.', '저희 만지작에서는
+누구든지 자신의 작품을
+마이피드를 통해 선보이실 수 있습니다.
+
+많은 활동 부탁드립니다.', '2023-01-09', 1, 'n');
+
+insert into tblNotice values (seqNotice.nextVal, '이용 중 발견하신 오류 또는 기능상의 불편, 건의사항을 알려주세요.', '고객님 안녕하세요
+만지작입니다.
+
+관심과 애정으로 만지작을 이용해 주시는 점, 깊이 감사드립니다.
+
+혹시 이용 중 기능의 오류 또는 불편사항을 발견하셨나요?
+
+원활하고 안정적인 서비스를 제공해 드리기 위하여
+밤낮을 가리지 않고 노력 중이나 다소 부족함이 있었던 것 같습니다.
+
+번거로우시겠지만 QnA 게시판에 오류 내용 또는 기능 개선 의견을 알려주시면
+꼼꼼히 확인하고 빠르게 개선해 나갈 수 있도록 노력하겠습니다.', '2023-01-10', 1, 'n');
+
+
+insert into tblNotice values (seqNotice.nextVal, ' 개인정보 유출 안내 및 사과의 말씀을 드립니다.', '안녕하세요. 만지작입니다.
+
+
+만지작을 신뢰하고 사랑해 주시는 고객님께
+일부 고객님의 개인정보 유출 사실을 알려드리며 깊은 사과의 말씀을 드립니다.
+
+고객님들의 소중한 개인정보보호와 관련해 심려를 끼쳐드린 점 대단히 죄송합니다.
+개인정보 노출이 우려되는 일부 고객님들에게는 개별 안내를 드리고 있습니다.
+
+앞으로 유사한 일이 발생하지 않도록 내부 보안시스템을 더욱 철저히 강화하고 관련 기관의 조사에 적극 협조하겠습니다.
+
+
+다시 한번 불편을 드려 진심으로 사과드립니다.
+고객님들이 안심하고 이용하실 수 있는 만지작이 되기 위해 최선을 다하겠습니다.', '2023-01-10', 1, 'n');
+
+
+insert into tblNotice values (seqNotice.nextVal, ' 1월의 피드왕 TOP 3를 발표합니다. ', '안녕하세요. 만지작입니다.
+
+10만원의 주인공! 1월의 피드왕 TOP 3를 발표합니다.
+
+순위 - 계정(ID) 형식으로 발표하겠습니다
+
+1등 - karkwright2
+2등 - screwdson7
+3등 - bfurmann', '2023-02-09', 1, 'n');
+
+
+insert into tblNotice values (seqNotice.nextVal, ' [Event] 2월의 피드왕 TOP3 이벤트를 시작합니다.', '안녕하세요. 만지작입니다.
+
+10만원의 주인공! 2월의 피드왕 TOP 3 이벤트 시작을 알려드립니다.
+
+2월 1일부터 2월 25일까지 등록한 마이피드 중
+
+좋아요를 가장 많이 받는 TOP3 피드왕에게
+
+10만원의 주인공이 되실 기회를 드립니다.', '2023-02-25', 1, 'y');
+

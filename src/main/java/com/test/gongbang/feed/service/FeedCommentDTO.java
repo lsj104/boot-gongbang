@@ -7,13 +7,17 @@ public class FeedCommentDTO {
 
     private String seq;
 
-    private String conent;
+    private String content;
 
     private  String regdate;
 
     private String fseq;
 
     private  String aseq;
+
+    private String nickname;
+
+    private String image;
 
 
 }

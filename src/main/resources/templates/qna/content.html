@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+<head>
+    <style>
+        #content {
+            display: block;
+            background: #fff;
+            padding: 13px 15px;
+            margin-left: 0px;
+            -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+            -moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+            min-height: 300px;
+        }
+
+        #title {
+            background: #fff;
+        }
+
+        #comment {
+            background: #fff;
+        }
+
+        /**
+ * Oscuro: #283035
+ * Azul: #03658c
+ * Detalle: #c7cacb
+ * Fondo: #dee1e3
+ ----------------------------------*/
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        a {
+            color: #03658c;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, Helvetica, Sans-serif, Verdana;
+            background: #dee1e3;
+        }
+
+        /** ====================
+         * Lista de Comentarios
+         =======================*/
+        .comments-container {
+            margin: 60px auto 15px;
+            /*width: 768px;*/
+            width: 768px;
+        }
+
+        .comments-container h1 {
+            font-size: 36px;
+            color: #283035;
+            font-weight: 400;
+        }
+
+        .comments-container h1 a {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .comments-list {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        /**
+         * Lineas / Detalles
+         -----------------------*/
+        .comments-list:before {
+            content: '';
+            width: 2px;
+            height: 100%;
+            background: #c7cacb;
+            position: absolute;
+            left: 32px;
+            top: 0;
+        }
+
+        .comments-list:after {
+            content: '';
+            position: absolute;
+            background: #c7cacb;
+            bottom: 0;
+            left: 27px;
+            width: 7px;
+            height: 7px;
+            border: 3px solid #dee1e3;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+        .reply-list:before, .reply-list:after {
+            display: none;
+        }
+
+        .reply-list li:before {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background: #c7cacb;
+            position: absolute;
+            top: 25px;
+            left: -55px;
+        }
+
+
+        .comments-list li {
+            margin-bottom: 15px;
+            display: block;
+            position: relative;
+        }
+
+        .comments-list li:after {
+            content: '';
+            display: block;
+            clear: both;
+            height: 0;
+            width: 0;
+        }
+
+        .reply-list {
+            padding-left: 88px;
+            clear: both;
+            margin-top: 15px;
+        }
+
+        /**
+         * Avatar
+         ---------------------------*/
+        .comments-list .comment-avatar {
+            width: 65px;
+            height: 65px;
+            position: relative;
+            z-index: 99;
+            float: left;
+            border: 3px solid #FFF;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .comments-list .comment-avatar img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .reply-list .comment-avatar {
+            width: 50px;
+            height: 50px;
+        }
+
+        .comment-main-level:after {
+            content: '';
+            width: 0;
+            height: 0;
+            display: block;
+            clear: both;
+        }
+
+        /**
+         * Caja del Comentario
+         ---------------------------*/
+        .comments-list .comment-box {
+            width: 680px;
+            float: right;
+            position: relative;
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+        }
+
+        .comments-list .comment-box:before, .comments-list .comment-box:after {
+            content: '';
+            height: 0;
+            width: 0;
+            position: absolute;
+            display: block;
+            border-width: 10px 12px 10px 0;
+            border-style: solid;
+            border-color: transparent #FCFCFC;
+            top: 8px;
+            left: -11px;
+        }
+
+        .comments-list .comment-box:before {
+            border-width: 11px 13px 11px 0;
+            border-color: transparent rgba(0, 0, 0, 0.05);
+            left: -12px;
+        }
+
+        .reply-list .comment-box {
+            width: 610px;
+        }
+
+        .comment-box .comment-head {
+            background: #FCFCFC;
+            padding: 10px 12px;
+            border-bottom: 1px solid #E5E5E5;
+            overflow: hidden;
+            -webkit-border-radius: 4px 4px 0 0;
+            -moz-border-radius: 4px 4px 0 0;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .comment-box .comment-head i {
+            float: right;
+            margin-left: 14px;
+            position: relative;
+            top: 2px;
+            color: #A6A6A6;
+            cursor: pointer;
+            -webkit-transition: color 0.3s ease;
+            -o-transition: color 0.3s ease;
+            transition: color 0.3s ease;
+        }
+
+        .comment-box .comment-head i:hover {
+            color: #03658c;
+        }
+
+        .comment-box .comment-name {
+            color: #283035;
+            font-size: 14px;
+            font-weight: 700;
+            float: left;
+            margin-right: 10px;
+        }
+
+        .comment-box .comment-name a {
+            color: #283035;
+        }
+
+        .comment-box .comment-head span {
+            float: left;
+            color: #999;
+            font-size: 13px;
+            position: relative;
+            top: 1px;
+        }
+
+        .comment-box .comment-content {
+            background: #FFF;
+            padding: 12px;
+            font-size: 15px;
+            color: #595959;
+            -webkit-border-radius: 0 0 4px 4px;
+            -moz-border-radius: 0 0 4px 4px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .comment-box .comment-name.by-author, .comment-box .comment-name.by-author a {
+            color: #03658c;
+        }
+
+        .comment-box .comment-name.by-author:after {
+            content: 'autor';
+            background: #03658c;
+            color: #FFF;
+            font-size: 12px;
+            padding: 3px 5px;
+            font-weight: 700;
+            margin-left: 10px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+
+        /** =====================
+         * Responsive
+         ========================*/
+        @media only screen and (max-width: 766px) {
+            .comments-container {
+                width: 480px;
+            }
+
+            .comments-list .comment-box {
+                width: 390px;
+            }
+
+            .reply-list .comment-box {
+                width: 320px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<!-- TITLE BEGINS -->
+<div class="headerimage">
+    <div class="headercontent">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="fleft">
+                        <h1>QnA</h1>
+                    </div>
+                    <div class="fright breadc">
+                        <a href="http://localhost:8090/main">Home</a> / QnA
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="well form-horizontal" id="contact_form"
+         style="margin-top: 50px; margin-bottom: 50px;">
+        <fieldset>
+            <!-- Form Name -->
+            <legend>QnA</legend>
+            <!-- 제목 조회 -->
+            <div class="form-group" style="margin-right: 400px;">
+                <label class="col-md-4 control-label">Title</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <textarea id="title" name="title"
+                                  style="width: 700px; height: 40px; border: none; resize: none; font-size: 13px;"
+                                  th:text="${read.title}" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- 내용 조회 -->
+            <div class="form-group" style="margin-right: 400px;">
+                <label class="col-md-4 control-label">Content</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <textarea id="content" name="content"
+                                  style="width: 700px; height: 400px; border: none; resize: none; font-size: 13px"
+                                  th:text="${read.content}" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+            <div th:if="${session.user.nickname == read.nickname}" style="display: flex">
+                <button type="button" style="margin-left: 840px; font-size: 13px;"
+                        class="btn btn-default"><a th:href="@{/qna/updatepage(seq=${read.seq})}">수정</a></button>
+
+                <button onclick="removeCheck()" type="button" style=" margin-left: 5px; font-size: 13px;"
+                        class="btn btn-default"><a th:href="@{/qna/delete(seq=${read.seq})}">삭제</a></button>
+            </div>
+            <hr>
+            <!-- 댓글 조회 -->
+            <div class="comments-container">
+                <ul id="comments-list" class="comments-list">
+                    <li th:each="lists: ${comment}">
+                        <input type="hidden" name="cseq" th:value="${lists.cseq}">
+                        <div class="comment-main-level">
+                            <!-- Avatar -->
+                            <div class="comment-avatar"><img src="/image/default.jpg"></div>
+                            <!-- Contenedor del Comentario -->
+                            <div class="comment-box">
+                                <div class="comment-head">
+                                    <h6 style="font-size: 13px" class="comment-name" th:text="${lists.nickname}"></h6>
+                                    <span style="margin-top: 5px" th:text="${lists.regdate}"></span>
+
+
+                                    <div class="btn-group btn-group-xs" role="group"
+                                         aria-label="Extra-small button group">
+                                        <button th:if="${session.user.nickname == lists.nickname}"
+                                                onclick="removeCheck()"
+                                                style="color: #777; margin-top: 5px; margin-left: 5px;" type="button"
+                                                class="btn btn-default"><a
+                                                th:href="@{/qna/deletecomment(cseq=${lists.cseq})}">삭제</a>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                                <div style="font-size: 13px" class="comment-content" th:text="${lists.content}">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <hr>
+            <!--  댓글 쓰기 -->
+            <!-- Text area -->
+            <form action="/qna/content" method="post" id="addcomment"
+                  style="margin-top: 50px; margin-bottom: 50px;">
+                <fieldset>
+                    <div class="form-group" style="margin-right: 350px;">
+                        <label class="col-md-4 control-label">Add Comment</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <textarea th:if="${session.user == null}" id="nullcomment" name="comment"
+                                          style="width: 680px; height: 70px; border: none; resize: none; font-size: 13px; background: white"
+                                          readonly>로그인 후 이용해주세요.</textarea>
+                                <textarea th:if="${session.user != null}" id="comment" name="comment"
+                                          style="width: 680px; height: 70px; border: none; resize: none; font-size: 13px"></textarea>
+                                <input type="hidden" name="seq" th:value="${read.seq}">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"></label>
+                        <div class="col-md-4">
+                            <button th:if="${session.user != null}" id="commentwrite_submit" style="margin-left: 440px;"
+                                    type="submit"
+                                    class="btn btn-warning">
+                                Add Comment
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </fieldset>
+    </div>
+</div>
+<script>
+    function removeCheck() {
+
+        if (confirm("정말 삭제하시겠습니까?") == true) {
+            document.removefrm.submit();
+        } else {
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html>

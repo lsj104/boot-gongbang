@@ -7,10 +7,99 @@
                TBLMAINBOARD.CONTENT,
                SUBSTR(TBLMAINBOARD.REGDATE, 1, 10) as regdate,
                TBLMAINBOARD.seq,
-               tm.NICKNAME
+               case
+                   when ta.LV = 1 then tm.NICKNAME
+                   when ta.LV = 2 then ts.nickname
+                   when ta.LV = 3 then tm.NICKNAME
+                   end                             as nickname
         from TBLMAINBOARD
-                 inner join TBLMEMBER tm on TBLMAINBOARD.ASEQ = tm.aseq
                  inner join TBLACCOUNT ta on TBLMAINBOARD.ASEQ = ta.SEQ
+                 left outer join TBLMEMBER tm on TBLMAINBOARD.ASEQ = tm.aseq
+                 left outer join TBLSHOP ts on TBLMAINBOARD.ASEQ = ts.ASEQ
         order by TBLMAINBOARD.SEQ
     </select>
+
+    <insert id="insertQna" parameterType="com.test.gongbang.qna.service.QnaDTO">
+        insert into TBLMAINBOARD
+        values (seqMainBoard.nextval, #{title, jdbcType=VARCHAR}, #{content, jdbcType=VARCHAR}, default, '',
+                #{aseq, jdbcType=INTEGER})
+    </insert>
+
+    <select id="read" resultType="com.test.gongbang.qna.service.QnaDTO">
+        select TBLMAINBOARD.TITLE,
+               TBLMAINBOARD.CONTENT,
+               SUBSTR(TBLMAINBOARD.REGDATE, 1, 10) as regdate,
+               TBLMAINBOARD.seq,
+               case
+                   when ta.LV = 1 then tm.NICKNAME
+                   when ta.LV = 2 then ts.nickname
+                   when ta.LV = 3 then tm.NICKNAME
+                   end                             as nickname
+        from TBLMAINBOARD
+                 inner join TBLACCOUNT ta on TBLMAINBOARD.ASEQ = ta.SEQ
+                 left outer join TBLMEMBER tm on TBLMAINBOARD.ASEQ = tm.aseq
+                 left outer join TBLSHOP ts on TBLMAINBOARD.ASEQ = ts.ASEQ
+        where TBLMAINBOARD.SEQ = #{seq}
+        order by TBLMAINBOARD.SEQ
+    </select>
+
+    <select id="comment" resultType="com.test.gongbang.qna.service.QnaDTO">
+        select TBLMAINBOARDANSWER.content,
+               TBLMAINBOARDANSWER.seq as cseq,
+               TBLMAINBOARDANSWER.aseq,
+               case
+                   when ta.LV = 1 then tm.IMAGE
+                   when ta.LV = 2 then ts.IMAGE
+                   when ta.LV = 3 then tm.IMAGE
+                   end                as image,
+               case
+                   when ta.LV = 1 then tm.NICKNAME
+                   when ta.LV = 2 then ts.nickname
+                   when ta.LV = 3 then tm.NICKNAME
+                   end                as nickname,
+               TBLMAINBOARDANSWER.REGDATE
+        from TBLMAINBOARDANSWER
+                 inner join TBLACCOUNT ta on TBLMAINBOARDANSWER.ASEQ = ta.SEQ
+                 left outer join TBLMEMBER tm on TBLMAINBOARDANSWER.ASEQ = tm.aseq
+                 left outer join TBLSHOP ts on TBLMAINBOARDANSWER.ASEQ = ts.ASEQ
+        where BSEQ = #{seq,jdbcType=VARCHAR }
+    </select>
+
+    <insert id="insertComment" parameterType="com.test.gongbang.qna.service.QnaDTO">
+        insert into TBLMAINBOARDANSWER
+        values (seqMainBoardAnswer.nextval, #{comment}, sysdate, #{aseq}, #{seq})
+    </insert>
+
+    <delete id="deletePostComment" parameterType="String">
+        delete
+        from TBLMAINBOARDANSWER
+        where BSEQ = #{seq}
+    </delete>
+
+    <delete id="deletePost" parameterType="String">
+        delete
+        from TBLMAINBOARD
+        where SEQ = #{seq}
+    </delete>
+
+    <update id="updatePost" parameterType="com.test.gongbang.qna.service.QnaDTO">
+        update TBLMAINBOARD
+        set TITLE   = #{title, jdbcType=VARCHAR},
+            CONTENT = #{content, jdbcType=VARCHAR},
+            REGDATE = default
+        where SEQ = #{seq}
+    </update>
+
+    <delete id="deleteComment" parameterType="String">
+        delete
+        from TBLMAINBOARDANSWER
+        where seq = #{cseq, jdbcType=VARCHAR}
+    </delete>
+
+    <select id="oneComment" resultType="com.test.gongbang.qna.service.QnaDTO">
+        select *
+        from TBLMAINBOARDANSWER
+        where SEQ = #{cseq, jdbcType=VARCHAR}
+    </select>
+
 </mapper>

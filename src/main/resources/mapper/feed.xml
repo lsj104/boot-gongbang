@@ -6,8 +6,26 @@
         select * from tblFeed order by seq desc
     </select>
 
+    <select id="hashtag" resultType="String" parameterType="String">
+        select
+            h.name as hashtag
+        from tblFeed f
+                 inner join tblFeedHashtag fh on f.seq = fh.fseq
+                 inner join tblHashtag h on fh.hseq = h.seq
+                    where f.seq = #{seq}
+    </select>
+
     <select id="feedview" resultType="com.test.gongbang.feed.service.FeedDTO" parameterType="String">
-        select * from tblFeed where seq = #{seq}
+        select
+            f.*,
+            m.nickname,
+            m.image as pimage,
+            l.likes
+        from tblFeed f
+                 left outer join (select fseq,count(fseq) as likes from tblFeedlike group by fseq) l on f.seq = l.fseq
+                 inner join tblAccount a on f.aseq = a.seq
+                 inner join tblMember m on  m.aseq = a.seq
+        where f.seq = #{seq}
     </select>
 
     <select id="feedcomment" resultType="com.test.gongbang.feed.service.FeedCommentDTO" parameterType="String">
@@ -27,6 +45,7 @@
                  left outer join tblShop s on s.aseq = a.seq
         where fseq = #{seq}
     </select>
+
 
     <insert id="feedadd" parameterType="com.test.gongbang.feed.service.FeedDTO">
         insert into TBLFEED values (seqFeed.nextval, #{content}, sysdate, #{image}, #{aseq})
@@ -55,6 +74,55 @@
     <insert id="addTagging" parameterType="java.util.HashMap">
         insert into TBLFEEDHASHTAG values (SEQFEEDHASHTAG.nextval, #{hseq}, #{bseq})
     </insert>
+
+
+
+    <update id="feedupdate" parameterType="com.test.gongbang.feed.service.FeedDTO" >
+        update tblfeed
+        <set>
+            <if test="image != null">image = #{image},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="hashtag != null">hashtag = #{hashtag},</if>
+        </set>
+        where seq = #{seq}
+    </update>
+
+
+    <delete id="feeddel" parameterType="String">
+
+    delete from tblFeed where seq = #{seq}
+
+    </delete>
+
+    <select id="feedprofile" resultType="com.test.gongbang.feed.service.FeedDTO" parameterType="String">
+        select
+            f.*
+        from tblFeed f
+                 inner join tblAccount a
+                            on f.aseq = a.seq
+        where f.aseq = #{aseq}
+        order by f.seq desc
+    </select>
+
+    <select id="feedmember" resultType="com.test.gongbang.feed.service.FeedDTO" parameterType="String">
+        select
+            nickname,
+            image as pimage
+        from tblMember
+        where aseq = #{aseq}
+        order by seq desc
+    </select>
+
+
+    <insert id="commentadd" parameterType="com.test.gongbang.feed.service.FeedCommentDTO">
+        insert into tblFeedComment values
+        (seqFeedComment.nextVal, #{content},sysdate, #{fseq}, #{aseq})
+    </insert>
+
+    <delete id="commentdel" parameterType="String">
+        delete from tblFeedComment where seq = #{seq}
+    </delete>
+
 
 </mapper>
 

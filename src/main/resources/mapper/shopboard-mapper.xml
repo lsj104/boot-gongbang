@@ -1,8 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.test.gongbang.qna.model.QnaDAO">
-    <select id="selectShopboard" resultType="com.test.gongbang.shopboard.service.ShopBoardDTO">
+<mapper namespace="shopboard">
+    <select id="list" resultType="com.test.gongbang.shopboard.service.ShopBoardDTO" parameterType="String">
+        select
+            b.SEQ as seq,
+            TITLE,
+            CONTENT,
+            REGDATE,
+            s.IMAGE as shopimage,
+            s.NICKNAME as shopnickname,
+            T2.NICKNAME as membernickname,
+            b.IMAGE as borderimage
+        from TBLSHOPBOARD b
+            inner join tblshop s
+                on b.SSEQ = s.SEQ
+                    inner join TBLACCOUNT T on T.SEQ = b.ASEQ
+                        left join TBLMEMBER T2 on T.SEQ = T2.ASEQ
+        where b.SSEQ = #{seq}
+        order by b.SEQ desc
+    </select>
+
+    <select id="searchAll" parameterType="hashmap" resultType="com.test.gongbang.shopboard.service.ShopBoardDTO">
+        select
+            b.SEQ as seq,
+            TITLE,
+            CONTENT,
+            REGDATE,
+            s.IMAGE as shopimage,
+            s.NICKNAME as shopnickname,
+            T2.NICKNAME as membernickname,
+            b.IMAGE as borderimage
+        from TBLSHOPBOARD b
+                 inner join tblshop s
+                            on b.SSEQ = s.SEQ
+                 inner join TBLACCOUNT T on T.SEQ = b.ASEQ
+                 left join TBLMEMBER T2 on T.SEQ = T2.ASEQ
+        where b.SSEQ = #{seq} and (TITLE like '%'||#{searchWord}||'%' or T2.NICKNAME like '%'||#{searchWord}||'%' or s.NICKNAME like '%'||#{searchWord}||'%')
+        order by b.SEQ desc
+    </select>
+
+    <select id="searchTitle" parameterType="hashmap" resultType="com.test.gongbang.shopboard.service.ShopBoardDTO">
+        select
+            b.SEQ as seq,
+            TITLE,
+            CONTENT,
+            REGDATE,
+            s.IMAGE as shopimage,
+            s.NICKNAME as shopnickname,
+            T2.NICKNAME as membernickname,
+            b.IMAGE as borderimage
+        from TBLSHOPBOARD b
+                 inner join tblshop s
+                            on b.SSEQ = s.SEQ
+                 inner join TBLACCOUNT T on T.SEQ = b.ASEQ
+                 left join TBLMEMBER T2 on T.SEQ = T2.ASEQ
+        where b.SSEQ = #{seq} and (TITLE like '%'||#{searchWord}||'%')
+        order by b.SEQ desc
+    </select>
+
+    <select id="searchWriter" parameterType="hashmap" resultType="com.test.gongbang.shopboard.service.ShopBoardDTO">
+        select
+            b.SEQ as seq,
+            TITLE,
+            CONTENT,
+            REGDATE,
+            s.IMAGE as shopimage,
+            s.NICKNAME as shopnickname,
+            T2.NICKNAME as membernickname,
+            b.IMAGE as borderimage
+        from TBLSHOPBOARD b
+                 inner join tblshop s
+                            on b.SSEQ = s.SEQ
+                 inner join TBLACCOUNT T on T.SEQ = b.ASEQ
+                 left join TBLMEMBER T2 on T.SEQ = T2.ASEQ
+        where b.SSEQ = #{seq} and (T2.NICKNAME like '%'||#{searchWord}||'%' or s.NICKNAME like '%'||#{searchWord}||'%')
+        order by b.SEQ desc
+    </select>
+
+</mapper>
+
+<!--
+
+/*
         select TBLMAINBOARD.TITLE,
                TBLMAINBOARD.CONTENT,
                SUBSTR(TBLMAINBOARD.REGDATE, 1, 10) as regdate,
@@ -11,6 +91,7 @@
         from TBLMAINBOARD
                  inner join TBLMEMBER tm on TBLMAINBOARD.ASEQ = tm.aseq
                  inner join TBLACCOUNT ta on TBLMAINBOARD.ASEQ = ta.SEQ
-        order by TBLMAINBOARD.SEQ
-    </select>
-</mapper>
+        order by TBLMAINBOARD.SEQ*/
+
+-->
+

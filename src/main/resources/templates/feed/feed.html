@@ -49,12 +49,19 @@
             <span class="input-group-btn">
 			    <button class="btn btn-default" type="button">Search</button>
 			</span>
+
             <button type="button" class="btn btn-secondary" href="/feed/insert">글쓰기</button>
+                <a href="/feed/insert" style="color:black;">
+                <i class="far fa-edit fa-2x m-2 mt-3 mb-1 "></i></a>
+                <a th:href="@{/feed/profile(aseq=${aseq})}" style="color: black;">
+                <i class="fa-user fa-2x m-2 mt-3 mb-1 "></i>
+                </a>
+
         </div>
         <div class="row">
             <div class="card-columns" style="column-gap: 5px;">
                 <div class="card card-pin" th:each="dto:${list}">
-                    <img class="card-img" th:src="'/image/feed/'+${dto.image}" alt="Feed image">
+                    <img class="card-img" th:src="'/feed/'+${dto.image}" alt="Feed image">
                     <div class="overlay">
                         <h2 class="card-title title" th:text="${dto.content}"></h2>
                         <div class="more">

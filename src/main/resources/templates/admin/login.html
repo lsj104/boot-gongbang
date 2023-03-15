@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+
+<style>
+    .main-content{
+        width: 40%;
+        border-radius: 20px;
+        box-shadow: 0 5px 5px rgba(0,0,0,.4);
+        margin: 65px auto;
+        display: flex;
+    }
+    .admin_login{
+        background-color: #404040;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #ffffff;
+    }
+    .fa-group{
+        font-size: 5em;
+        color: #ffffff;
+    }
+
+    .admin_login h4 {
+        color: #ffffff;
+    }
+    @media screen and (max-width: 640px) {
+        .main-content{width: 90%;}
+        .admin_login{
+            display: none;
+        }
+        .login_form{
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+    }
+    @media screen and (min-width: 642px) and (max-width: 800px){
+        .main-content{width: 70%;}
+    }
+    .row > h2{
+        color: #404040;
+        margin-bottom: 50px;
+    }
+    .login_form{
+        background-color: #fff;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border-top: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+    }
+    form{
+        padding: 0 2em;
+    }
+    #account {
+        width: 80%;
+        border: 0;
+        border-bottom: 1px solid #aaa;
+        border-radius: 4px;
+        padding: 5px 20px;
+        outline: none;
+        margin: 25px auto;
+        font-size: 1.7rem;
+        font-weight: 500;
+    }
+    .form_input:focus{
+        border-bottom-color: #008080;
+        box-shadow: 0 0 5px rgba(0,80,80,.4);
+        border-radius: 4px;
+    }
+    .form-group #login{
+        width: 70%;
+        border-radius: 30px;
+        color: #ffffff;
+        font-weight: 600;
+        background-color: #404040;
+        border: 1px solid #008080;
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+    .form-group #login:hover, .form-group:focus{
+        background-color: #000000;
+        color: #fff;
+    }
+    #fail {
+        color: red;
+    }
+</style>
+<body>
+<div class="boxedlayout">
+
+    <!-- PAGE CONTENT
+        ================================================== -->
+    <div class="templatemyaccount">
+
+        <!-- TITLE BEGINS -->
+        <div class="headerimage">
+            <div class="headercontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="fleft">
+                                <h1>Admin Login</h1>
+                            </div>
+                            <div class="fright breadc">
+                                <a href="/main">Home</a> /Admin Login
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TITLE ENDS -->
+
+        <!-- MAIN CONTENT -->
+            <div class="container-fluid padtop50 padbot50">
+                <div class="row main-content text-center">
+                    <div class="col-md-4 text-center admin_login">
+                        <i class="fa fa-group"></i>
+                        <h4>ADMIN LOGIN</h4>
+                    </div>
+                    <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+                        <div class="container-fluid padtop50 padbot20">
+                            <div class="row">
+                                <h2>Log In</h2>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="row" id="fail"></div>
+                                    <div class="row">
+                                        <input type="password" id="account" class="form_input" placeholder="id" required>
+                                    </div>
+                                    <div class="row">
+                                        <p>※관리자에게 부여된 계정을 입력하세요.※</p>
+                                    </div>
+                                    <div class="row">
+                                        <button type="button" class="btn" id="login" onclick="login()">Login</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- MAIN CONTENT END -->
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+
+    $('#account').focus();
+
+    $('#account').keyup(function (keyNum) {
+        if (keyNum.keyCode == 13) {
+            $('#login').trigger('click');
+        }
+    });
+
+    $("#login").on("click", function login() {
+
+        var id = $('#account').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/loginok',
+            dataType: 'json',
+            data: 'id=' + id,
+            success: function (result) {
+
+                if (result == 1) {
+                    location.href = 'http://localhost:8090/main';
+                }
+                if (result == 0) {
+
+                    var failResult =  '로그인에 실패하였습니다. 다시 시도하세요.'
+
+                    $('#fail').text(failResult);
+                    $('#account').val('');
+                    $('#account').focus();
+                }
+
+            },
+            error: function (a, b, c) {
+                console.log(a, b, c);
+            }
+        });
+
+    });
+
+</script>
+</body>
+</html>

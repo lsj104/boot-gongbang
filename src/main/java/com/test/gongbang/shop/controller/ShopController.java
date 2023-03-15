@@ -19,12 +19,12 @@ public class ShopController {
     @GetMapping (value = "/shop")
     public String board(Model model, @RequestParam(value = "searchWord", required = false) String searchWord, @RequestParam(value = "searchType", required = false) String searchType) {
 
-        List<ShopDTO> list = service.list();
+        List<ShopDTO> list = service.list(searchType, searchWord);
 
         model.addAttribute("list", list);
 
-        System.out.println(searchType);
-        System.out.println(searchWord);
+       /* System.out.println(searchType);
+        System.out.println(searchWord);*/
 
         return "shop/shop";
     }

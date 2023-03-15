@@ -3,6 +3,8 @@ package com.test.gongbang.member.login.kakao.controller;
 import com.test.gongbang.member.login.kakao.model.KakaoRepository;
 import com.test.gongbang.member.login.kakao.service.KakaoDTO;
 import com.test.gongbang.member.login.kakao.service.KakaoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@Api(tags = "카카오 로그인")
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/member")
@@ -32,8 +35,7 @@ public class KaKaoController {
         return "member/login/myaccount";
     }
 
-
-    // 일반 회원 - 회원가입
+    @ApiOperation(value = "일반회원 회원가입")
     @GetMapping("/kakao")
     public String getCI(@RequestParam String code, Model model, HttpSession session) throws IOException {
         System.out.println("code = " + code);
@@ -59,7 +61,7 @@ public class KaKaoController {
 
     }
 
-    // 공방 - 회원가입
+    @ApiOperation(value = "공방회원 회원가입")
     @GetMapping("/gongbang")
     public String getGbCI(@RequestParam String code, Model model, HttpSession session) throws IOException {
 
@@ -77,7 +79,7 @@ public class KaKaoController {
 
     }
 
-    // 회원 탈퇴
+    @ApiOperation(value = "회원 탈퇴 - 일반, 공방 공통")
     @RequestMapping(value = "/kakaounlink")
     public String unlink(HttpSession session) {
         ks.unlink((String) session.getAttribute("access_token"), ((KakaoDTO) session.getAttribute("user")).getId());
@@ -87,7 +89,7 @@ public class KaKaoController {
         return "redirect:/main";
     }
 
-    // 로그아웃
+    @ApiOperation(value = "로그아웃 - 일반, 공방 공통")
     @RequestMapping(value = "/kakaologout")
     public String logout(HttpSession session) {
         ks.logout((String) session.getAttribute("access_token"));
@@ -96,10 +98,9 @@ public class KaKaoController {
         return "redirect:/main";
     }
 
-    // 카카오 로그인 -> 이름, 번호 입력
+    @ApiOperation(value = "일반 회원 - 이름, 전화번호 입력 페이지")
     @PostMapping(value = "/kakaoinfo")
     public void kakaoinfo(KakaoDTO dto, HttpServletResponse response) throws IOException {
-//        System.out.println(111);
         System.out.println("kakaoinfo: " + dto);
         ks.kakaoinfo(dto);
 
@@ -110,7 +111,7 @@ public class KaKaoController {
 //        return "redirect:/main";
     }
 
-    // 카카오 로그인 -> 공방
+    @ApiOperation(value = "공방 회원 - 이름, 전화번호 입력 페이지")
     @PostMapping(value = "/gongkakaoinfo")
     public void gongkakaoinfo(KakaoDTO dto, HttpServletResponse response) throws IOException {
 //        System.out.println(111);
@@ -124,7 +125,7 @@ public class KaKaoController {
 //        return "redirect:/main";
     }
 
-    // 일반 회원 로그인
+    @ApiOperation(value = "일반 회원 - 로그인")
     @GetMapping("/kakaologin")
     public String kakaologin(@RequestParam String code, Model model, HttpSession session, HttpServletResponse response) throws IOException {
 
@@ -149,7 +150,7 @@ public class KaKaoController {
     }
 
 
-    // 공방 회원 로그인
+    @ApiOperation(value = "공방 회원 - 로그인")
     @GetMapping("/gongkakaologin")
     public String gongkakaologin(@RequestParam String code, Model model, HttpSession session) throws IOException {
 

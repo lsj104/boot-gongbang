@@ -22,16 +22,14 @@ public class ClassDAOImpl implements ClassDAO {
 
     @Override
     public List<ClassDTO> searchList(HashMap<String, Object> map) {
-        if (!map.isEmpty() && map.get("searchType").equals("category")) {
-            return template.selectList("class.searchcategory", map);
-        } else if (!map.isEmpty() && map.get("searchType").equals("shop")) {
-            return template.selectList("class.searchshop", map);
-        } else if (!map.isEmpty() && map.get("searchType").equals("class")) {
-            return template.selectList("class.searchclass", map);
-        } else if (!map.isEmpty() && map.get("searchType").equals("region")) {
-            return template.selectList("class.searchregion", map);
-        } else {
+        if (map.isEmpty()) {
             return template.selectList("class.alllist", map);
+        } else {
+            if(map.get("searchType").equals("category")) return template.selectList("class.searchcategory", map);
+            else if (map.get("searchType").equals("shop")) return template.selectList("class.searchshop", map);
+            else if (map.get("searchType").equals("class")) return template.selectList("class.searchclass", map);
+            else if (map.get("searchType").equals("region")) return template.selectList("class.searchregion", map);
+            else return template.selectList("class.alllist", map);
         }
     }
 
@@ -40,22 +38,20 @@ public class ClassDAOImpl implements ClassDAO {
         return template.selectOne("class.totalcount");
     }
 
-
     @Override
     public int getSearchTotalCount(HashMap<String, String> searchMap) {
-        System.out.println(searchMap.toString());
-        System.out.println(searchMap.get("searchType"));
-        if (searchMap.get("searchType").equals("category")) {
-            return template.selectOne("class.searchcategorycount", searchMap);
-        } else if (searchMap.get("searchType").equals("shop")) {
-            return template.selectOne("class.searchshopcount", searchMap);
-        } else if (searchMap.get("searchType").equals("class")) {
-            return template.selectOne("class.searchclasscount", searchMap);
-        } else if (searchMap.get("searchType").equals("region")) {
-            return template.selectOne("class.searchregioncount", searchMap);
-        } else {
-            return template.selectOne("class.totalcount");
-        }
+
+        if (searchMap.get("searchType").equals("category")) return template.selectOne("class.searchcategorycount", searchMap);
+        else if (searchMap.get("searchType").equals("shop")) return template.selectOne("class.searchshopcount", searchMap);
+        else if (searchMap.get("searchType").equals("class")) return template.selectOne("class.searchclasscount", searchMap);
+        else if (searchMap.get("searchType").equals("region")) return template.selectOne("class.searchregioncount", searchMap);
+        else return template.selectOne("class.totalcount");
+
+    }
+
+    @Override
+    public List<CategoryDTO> getCategory() {
+        return template.selectList("class.category");
     }
 
     @Override
@@ -69,8 +65,23 @@ public class ClassDAOImpl implements ClassDAO {
     }
 
     @Override
-    public List<CategoryDTO> getCategory() {
-        return template.selectList("class.category");
+    public int reservation(HashMap<String, String> reservationMap) {
+        return template.insert("class.reservation", reservationMap);
+    }
+
+    @Override
+    public String getShopSeq(String aseq) {
+        return template.selectOne("class.getShopSeq", aseq);
+    }
+
+    @Override
+    public int addClass(ClassDTO dto) {
+        return template.insert("class.add",dto);
+    }
+
+    @Override
+    public List<ClassDTO> newClass() {
+        return template.selectList("class.newClass");
     }
 
 }

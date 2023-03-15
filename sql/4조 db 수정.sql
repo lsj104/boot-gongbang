@@ -11,6 +11,8 @@ alter table tblShop drop column tel;
 alter table tblShop add tel varchar2(200) null;
 ALTER table tblMember add NAME varchar2(200);
 ALTER table tblMember add TEL varchar2(200);
+alter table tblMemberClass drop column tel;
+alter table tblMemberClass drop column name;
 
 select * from TBLACCOUNT;
 select * from TBLMEMBER;
@@ -84,3 +86,42 @@ update tblClass set image='벨벳자이언트얀가방만들기.jpg' where seq =
 update tblClass set image='데일리유니크발찌원데이클래스.jpg' where seq = 51;
 update tblClass set image='반짝반짝주얼리와함께하는나만의힐링데이.jpg' where seq = 48;
 update TBLClass set image='레이어드 실반지.jpg' where seq = 44;
+
+--뷰 생성
+create or replace view vwClass
+as
+select *
+from (select tc.seq,
+             tc.name,
+             tc.price,
+             tc.image,
+             tc.cseq,
+             ts.nickname,
+             ts.address
+      from tblClass tc
+          inner join tblShop ts on tc.sseq = ts.seq);
+
+commit;
+
+select * from vwClass;
+
+-- feed 삭제 관련 제약조건 조회, 삭제, 추가
+
+-- 해시태그에 걸려있는 제약조건 조회 테이블명은 무조건 대문자!!
+select * from user_constraints where table_name = 'TBLFEEDHASHTAG';
+-- 해시태그에 걸려있는 제약조건 조회 테이블명은 무조건 대문자!!
+select * from user_constraints where table_name = 'TBLFEEDCOMMENT';
+
+-- 조회시, 해당 다시 생성할 제약조건 [constraint_name]을 아래에 있는 제약 조건명에 사용 ex) SYS_C0010202
+-- 모르겠으면, [접속]에서 해당 테이블 클릭시, 상단에 [제약조건] 탭 선택하면 조회 가능
+-- [constraint_type]이 [Foreign_Key]인것 중에서 클릭했을 때, [column_name]이 제약 조건이 걸려있는 컬럼이 맞는지 확인 꼭 하기!!!!!!!
+
+-- 해시태그 fseq에 걸려있는 제약조건 삭제 후 추가
+alter table tblFeedHashTag drop constraint 제약조건명;
+alter table tblFeedHashTag add constraint 제약조건명 foreign key (fseq) references tblFeed(seq) on delete cascade;
+-- 댓글 fseq에 걸려있는 제약조건 삭제 후 추가
+alter table tblFeedComment drop constraint 제약조건명;
+alter table tblFeedComment add constraint 제약조건명 foreign key (fseq) references tblFeed(seq) on delete cascade;
+
+
+commit;

@@ -19,12 +19,10 @@
             <ul id="menu-top" class="nav navbar-nav navbar-right">
                 <li class="active"><a href="/main">Home</a></li>
                 <li><a href="http://localhost:8090/class">class</a></li>
-                <li><a href="#">Exhibition</a></li>
-                <li><a href="http://localhost:8090/board">Board</a></li>
+<!--                <li><a href="#">Exhibition</a></li>-->
                 <li><a href="http://localhost:8090/feed/feed">Feed</a></li>
                 <li><a href="http://localhost:8090/qna/list">QnA</a></li>
                 <li><a href="http://localhost:8090/shop">Shop</a></li>
-
                 <!-- 로그인 X -->
                 <li th:if="${session.user == null}"><a href="/member/login">Login</a></li>
 
@@ -32,10 +30,12 @@
                 <li th:if="${session.user != null}" class="dropdown" style="padding: 10px;">
                     <img src="/image/01.jpg" style="width: 30px; height: 30px; border-radius: 30px; margin-right: 5px;"><span th:text="|${session.user.name}님|"></span>
                         <ul class="dropdown-menu" style="width: 50px; margin-left: 50px;">
-                            <li><a href="http://localhost:8090/mypage">MyPage</a></li>
-                            <li><a href="member/kakaologout">Logout</a></li>
+                            <li th:if="${session.user.lv != '3'}"><a href="http://localhost:8090/mypage">MyPage</a></li>
+                            <li th:if="${session.user.lv != '3'}"><a href="http://localhost:8090/member/kakaologout">Logout</a></li>
+                            <li th:if="${session.user.lv == '3'}"><a href="http://localhost:8090/admin/adminpage">AdminPage</a></li>
+                            <li th:if="${session.user.lv == '3'}"><a href="http://localhost:8090/admin/logout">Logout</a></li>
                         </ul>
-                    </li>
+                </li>
             </ul>
         </div>
     </div>

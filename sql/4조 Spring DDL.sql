@@ -159,6 +159,14 @@ create table tblFeedRecomment (
     aseq number not null references tblAccount(seq)
 );
 
+create table tblNotice (
+   seq number not null primary key,
+   title varchar2(1000) not null,
+   content varchar2(4000) not null,
+   regdate date default sysdate not null,
+   aseq number not null references tblAccount(seq),
+   active char default 'y' not null
+);
 
 
 

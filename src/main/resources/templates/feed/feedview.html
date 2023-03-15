@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/base}"
       layout:fragment="content">
+<link rel="stylesheet" href="/css/tagify.css">
 
 <body class="bg-light">
 <div class="boxedlayout">
@@ -16,110 +17,173 @@
                             <h1>Feed</h1>
                         </div>
                         <div class="fright breadc">
-                            <a href="index.html"> Home </a> / <a href="feed.html">Feed</a>
+                            <a href="index.html"> Home </a> / <a href="/feed/feed">Feed</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-       <div class="mt-4 mb-5">
-           <!-- 본문-->
+    <div class="mt-4 mb-5">
+        <!-- 본문-->
         <div class="container" style="margin: 100px auto;">
-            <!--<nav th:replace="feed/header::feedheader"></nav>-->
-            <div class="row justify-content-center">
 
+            <div class="row justify-content-center">
 
                 <div class="card mb-3 " style="width: 935px;">
                     <div class="row no-gutters">
                         <div class="col-md-8">
-                            <img th:src="|/image/feed/${feedview.image}|" th:width="600px" class="card-img">
+                            <img th:src="|/feed/${feedview.image}|" th:width="600px" class="card-img">
                         </div>
                         <div class="col-md-4" style="position: relative;">
+                            <div>
+                                <a th:href="@{/feed/profile(aseq=${feedview.aseq})}" th:text="${feedview.nickname}"></a>
+                            </div>
+
                             <div class="card-header bg-white ">
                                 글번호
                                 <a class="text-body font-weight-bold text-monospace " style="height: 70px;"
                                    th:text="${feedview.seq}"></a>
-                                   <!--th:href="'/'+${mapList.get(post.author)}"-->
+
+                                <!--th:href="'/feed/profile'+ seq=${feedview.aseq}"-->
+                                <p th:text="${#strings.substring(feedview.regdate, 0, 10)}">
+                                    <!--th:href="'/detail/'+${post.id}" class="small mb-0 text-muted"-->
+                                </p>
                             </div>
 
-                            <div class="card-body border border-bottom border-gray overflow-auto" style="height: 420px;">
+                            <div class="card-body border border-bottom border-gray overflow-auto"
+                                 style="height: 420px;">
                                 <!--<a  th:href="'/'+${mapList.get(post.author)}" >
                                 <span style="font-size:90%" class="card-title font-weight-bold"
                                       th:text="${mapList.get(post.author)}"></span>
                                 </a>-->
                                 내용
-                                <span style="font-size:100%" class="card-text" th:text="${feedview.content}"></span><br/>
+                                <span style="font-size:100%" class="card-text"
+                                      th:text="${feedview.content}"></span><br/>
 
-                                <!--댓글 -->
-                                <!--<p class="mb-0" th:each="comment : ${comments.get(post.id)}">
-                                    <a  th:href="'/'+${mapList.get(comment.author)}" >
-                                        <span style="font-size:85%" class="card-title font-weight-bold"
-                                              th:text="${mapList.get(comment.author)}"></span>
-                                    </a>
-                                    <span style="font-size:75%" class="card-text" th:text="${comment.comment}"></span>
-                                    <button type="button" class="close " aria-label="Close" sec:authorize="isAuthenticated()" th:if="${comment.author.toString().equals(user.id.toString())}">
-                                        <a th:href="'/comments/detail/'+${post.id}+'/delete/'+${comment.id}"
-                                           aria-hidden="true" style="color:lightslategrey">&times;</a>
-                                    </button>
-                                    <br/>
-                                    <span class="mb-0 text-muted" style="font-size:75%;"
-                                          th:text="${#calendars.format(comment.regDate,'MM월 dd일 ')}"></span>
-                                </p>-->
+
                             </div>
-                            <div class="card-body"
-                                 style="position: absolute; bottom: 63px;width:100%; padding-bottom: 0px;">
-                        <span>
-                            <i class="far fa-heart fa-2x"></i>
+
+                            <!-- 해시태그 -->
+                            <p class="card-body">
+                                <input type="text" name="tags" readonly id="hashtag">
+                            </p>
+
                             <!-- 좋아요 -->
-                        </span>
-                                <!-- <a style="color:black"
-                                    th:href="'/detail/'+${post.id}">
-                                     <i class="far fa-comment fa-2x pl-2"></i>
-                                 </a>-->
-                                좋아요
-                                <p><a th:text="${#strings.substring(feedview.regdate, 0, 10)}">
-                                    <!--th:href="'/detail/'+${post.id}" class="small mb-0 text-muted"-->
-                                </a></p>
-                            </div>
+                            <!--<span>
+                            <i class="far fa-heart fa-2x"></i>
 
-                            <!--<form th:action="'/comments/detail/'+${post.id}" method="post"
-                                  style="position:absolute; bottom:0px;">
-                                <div class="form-row card-footer w-auto m-0">
+                            </span>-->
+                            <a style="color:black"
+                               onclick="commentadd()">
+                                <i class="far fa-comment fa-2x pl-2"></i>
+                            </a>
+
+                            <div id="feedcommentadd">
+                            <form action="/feed/commentaddok" method="post">
+                                <div th:if="${session.user != null}" class="form-row card-footer w-auto m-0">
                                     <div class="col d-none">
-                                        <input type="number" class="form-control" placeholder="작성자" id="comment_user_id"
-                                               name="author" th:value="${user.id}">
+                                        <p id="comment_user_id"
+                                           th:text="${session.user.nickname}"></p>
                                     </div>
-                                    <input type="hidden" id="comment_post_id" name="postId" th:value="${post.id}">
-                                    <div class="col-8">
-                                        <input type="text" class="form-control" id="comment_text" name="comment"
+                                    <input type="hidden" name="commentaseq" th:value="${aseq}">
+                                    <input type="hidden" id="comment_post_id" name="feedseq"
+                                           th:value="${feedview.seq}">
+
+                                    <div class="fleft" style="width: 75%;">
+                                        <input type="text" class="form-control" id="comment_text" name="content"
                                                placeholder="댓글 달기">
                                     </div>
-                                    <div class="col">
-                                        <button class="btn btn-outline-secondary" type="submit" id="comment_insert">작성
+                                    <div class="fright">
+                                        <button class="btn btn-outline-secondary" type="submit"
+                                                id="comment_insert">작성
                                         </button>
                                     </div>
+                                    <div style="clear: both;"></div>
                                 </div>
-                                <div sec:authorize="isAnonymous()" class="form-row card-footer w-auto m-0" >
+                                <div th:if="${session.user == null}" class="form-row card-footer w-auto m-0">
                                     로그인 후 댓글을 이용하실 수 있습니다
                                 </div>
+                            </form>
+                            </div>
 
-                            </form>-->
-                            댓글
+
+                            <!--댓글 -->
+                            <p class="mb-0" th:each="comment : ${feedcomment}">
+                                <a th:href="@{/feed/profile(aseq=${comment.aseq})}" th:text="${comment.nickname}">
+                                    <th:block th:if="${#strings.substring(comment.image, 0, 5) == 'http:'}">
+                                        <img width="40px" height="40px"
+                                             th:src="@{${comment.image}}"
+                                             style="border-radius: 70%;">
+                                    </th:block>
+
+                                    <th:block th:if="${#strings.substring(comment.image, 0, 5) != 'http:'}">
+                                        <img width="40px" height="40px" th:src="@{/profile/} + ${comment.image}"
+                                             style="border-radius: 70%;">
+                                    </th:block>
+                                    <span style="font-size:85%" class="card-title font-weight-bold"
+                                          th:text="${comment.nickname}"></span>
+                                </a>
+                                <span style="font-size:75%" class="card-text" th:text="${comment.content}"></span>
+
+                                <button type="button" class="close " aria-label="Close"
+                                        th:if="${comment.aseq == aseq}">
+                                    <a th:href="@{/feed/commentdel(seq=${comment.seq},fseq=${comment.fseq})}"
+                                       aria-hidden="true" style="color:lightslategrey">&times;</a>
+                                </button>
+                                <br/>
+                                <span class="mb-0 text-muted" style="font-size:75%;"
+                                      th:text="${#strings.substring(comment.regdate, 0, 10)}"></span>
+                            </p>
                         </div>
+                        <!--<div class="card-body"
+                             style="position: absolute; bottom: 63px;width:100%; padding-bottom: 0px;">
+
+
+                        </div>-->
                     </div>
                 </div>
 
 
                 <div>
-                    <a th:if="${aseq == feedview.aseq}" class="btn btn-success btn-block " th:href="'/feed/update/'+${feedview.seq}"  style="width: 935px;">수정</a>
+                    <a th:if="${aseq == feedview.aseq}" class="btn btn-success btn-block "
+                       th:href="@{/feed/update(seq=${feedview.seq})}" style="width: 935px;">수정</a>
 
-                    <a th:if="${aseq == feedview.aseq}" class="btn btn-info btn-block " th:href="'/feed/delete/'+${feedview.seq}"  style="width: 935px;">삭제</a>
+                    <a th:if="${aseq == feedview.aseq}" class="btn btn-info btn-block "
+                       th:href="@{/feed/delete(seq=${feedview.seq})}" style="width: 935px;">삭제</a>
                 </div>
             </div>
         </div>
-       </div>
     </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="/js/jQuery.tagify.min.js"></script>
+<script th:inline="javascript">
+
+    $('#feedcommentadd').hide();
+
+    function commentadd(){
+
+        $('#feedcommentadd').show();
+
+    };
+
+
+    /*<![CDATA[*/
+    let taglist = '';
+    let hashtag = '';
+    /*[# th:each="hashtag : ${feedview.hashtag}"]*/
+    hashtag = [[${hashtag}]];
+    taglist += hashtag + ',';
+    /*[/]*/
+    $('#hashtag').val(taglist);
+
+    /*]]>*/
+    $('#hashtag').tagify();
+
+</script>
 </body>
 </html>
 

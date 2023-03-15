@@ -39,6 +39,50 @@ public class Paging {
         this.totalPage = (int)Math.ceil((double)totalCount/pageSize);// Math.ceil() : 올림
     }
 
+
+    public void pageBarMaker (Paging paging, String url) {
+
+        int n = 0;			//출력될 페이지 번호
+        int loop = 0;		//루프 변수
+
+        String pageBar = "";
+
+        n = ((paging.getNowPage() -1)/paging.getBlockSize()) * paging.getBlockSize() + 1;
+        loop = 1;
+
+        pageBar += " <ul class='pagination'> ";
+
+            if (n == 1) {
+                pageBar += " <li class='disabled'><a href='#' aria-label='Previous'><span aria-hidden='true'>«</span></a></li> ";
+            } else {
+                pageBar += String.format(" <li><a href='%s?page=%d' aria-label='Previous'><span aria-hidden='true'>«</span></a></li> ", url, n - 1);
+            }
+
+            while (!(loop > paging.getBlockSize() || n > paging.getTotalPage())) {
+
+                if (paging.getNowPage() == paging.getBlockSize()) {
+                    pageBar += String.format(" <li class='active'><a href='#'>%d <span class='sr-only'>(current)</span></a></li> ",n);
+                } else {
+                    pageBar += String.format(" <li><a href='%s?page=%d'>%d</a></li> ", url,  n, n);
+                }
+
+                loop++;
+                n++;
+
+            }
+
+            if (n > paging.getTotalPage()) {
+                pageBar += " <li class='disabled'><a href='#' aria-label='Next'><span aria-hidden='true'>»</span></a></li> ";
+            } else {
+                pageBar += String.format(" <li><a href='%s?page=%d' aria-label='Next'><span aria-hidden='true'>»</span></a></li> ", url,  n);
+            }
+
+        pageBar += " </ul>";
+
+        this.pageBar = pageBar;
+
+    }
+
     public void pageBarMaker (Paging paging, String searchType, String searchWord, String url) {
 
         System.out.println("totalCount" + paging.getTotalCount());

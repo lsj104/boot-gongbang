@@ -5,4 +5,23 @@
     <select id="list" resultType="com.test.gongbang.shop.service.ShopDTO">
         select * from tblShop order by SEQ asc
     </select>
+    <select id="searchall" parameterType="hashmap" resultType="com.test.gongbang.shop.service.ShopDTO">
+        select
+            *
+        from tblShop
+            where nickname like '%'||#{searchWord}||'%' or address like '%'||#{searchWord}||'%'
+    </select>
+    <select id="searchshop" parameterType="hashmap" resultType="com.test.gongbang.shop.service.ShopDTO">
+        select
+            *
+        from tblShop
+        where nickname like '%'||#{searchWord}||'%'
+    </select>
+    <select id="searchaddress" parameterType="hashmap" resultType="com.test.gongbang.shop.service.ShopDTO">
+        select
+            *
+        from tblShop
+        where address like '%'||#{searchWord}||'%'
+    </select>
+
 </mapper>

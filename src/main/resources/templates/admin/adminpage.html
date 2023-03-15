@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+<link rel='stylesheet' href='/css/admin.css'>
+<body>
+<div class="boxedlayout">
+
+    <!-- TITLE BEGINS -->
+    <div class="headerimage">
+        <div class="headercontent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fleft">
+                            <h1>Admin Page</h1>
+                        </div>
+                        <div class="fright breadc">
+                            <a href="/main">Home</a> / Admin Page
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TITLE ENDS -->
+
+    <!-- Admin wrap -->
+    <div class="container" id="admin-wrap">
+        <div id="wrapper" class="container-fluid">
+            <div class="row">
+                <!-- Sidebar-wrapper -->
+                <div id="sidebar-wrapper" class="col-md-2">
+                    <div id="sidebar">
+                        <ul class="list-unstyled component">
+                            <li class="active">
+                                <a href="/admin/adminpage"><i class="fa-solid fa-chart-line"></i> Chart</a>
+                            </li>
+                            <li>
+                                <a href="/admin/adminpage/notice"><i class="fa-solid fa-bullhorn"></i> Notice</a>
+                            </li>
+                            <li>
+                                <a href="/admin/adminpage/adminqna"><i class="fa fa-comments-o"></i> QnA</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /Sidebar-wrapper -->
+                <!-- Page Content -->
+                <div id="page-content-wrapper" class="col-md-10 container-fluid">
+                    <!-- MAIN CONTENT -->
+                    <!-- Chart Card-->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-bar-chart"></i> Memeber Activity Status
+                        </div>
+                        <div class="card-body">
+                            <div id="accountChart" class="chart"></div>
+                        </div>
+                        <div class="card-footer small text-muted"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Chart Card-->
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fa fa-bar-chart"></i> Reservation Status
+                                </div>
+                                <div class="card-body">
+                                    <div id="reservationChart" class="chart"></div>
+                                </div>
+                                <div class="card-footer small text-muted"></div>
+                            </div>
+                            <!-- Chart Card-->
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fa fa-bar-chart"></i> Class Opening Status
+                                </div>
+                                <div class="card-body">
+                                    <div id="classChart" class="chart"></div>
+                                </div>
+                                <div class="card-footer small text-muted"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- Chart Card-->
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fa fa-pie-chart"></i> Reservation Status by Category
+                                </div>
+                                <div class="card-body">
+                                    <div id="reservationByCategoryChart" class="chart"></div>
+                                </div>
+                                <div class="card-footer small text-muted"></div>
+                            </div>
+                            <!-- Chart Card-->
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fa fa-pie-chart"></i> Class Opening Status by Category
+                                </div>
+                                <div class="card-body">
+                                    <div id="classByCategoryChart" class="chart"></div>
+                                </div>
+                                <div class="card-footer small text-muted"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script th:inline="javascript">
+
+        //화면 resize되면 차트 다시 그리기
+        $(window).resize(function() {
+            drawAccountChart();
+            drawReservationChart();
+            drawCreateClassChart();
+            drawReservationByCategoryChart();
+            drawClassByCategoryChart();
+        });
+
+        //footer에 update 시간 설정
+        var now = new Date();
+        var updateTime = now.toDateString()  + ' ' + now.toLocaleTimeString()
+        $('.card-footer').text('Updated ' + updateTime);
+
+        //google charts
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawAccountChart);
+        google.charts.setOnLoadCallback(drawReservationChart);
+        google.charts.setOnLoadCallback(drawCreateClassChart);
+        google.charts.setOnLoadCallback(drawReservationByCategoryChart);
+        google.charts.setOnLoadCallback(drawClassByCategoryChart);
+
+        function drawAccountChart() {
+
+            var data = new google.visualization.arrayToDataTable([
+                ['Lv', 'Join', 'Active'],
+
+                /*[# th:each=" list : ${accountList}"]*/
+                ['[(${list.Lv})]', [[${list.joincnt}]], [[${list.activecnt}]]],
+                /*[/]*/
+            ]);
+
+            var options = {
+                title: 'Member Activity Status',
+                chartArea: {width: '75%'},
+                colors: ['#e3dede', '#333030'],
+                hAxis: {
+                    title: 'count',
+                    minValue: 0
+                },
+                vAxis: {
+                    title: 'Level'
+                },
+                height: 300
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('accountChart'));
+            chart.draw(data, options);
+
+        }
+
+        function drawReservationChart() {
+
+
+            var jsondata = [[${reservationList}]];
+
+            var arr = new Array();
+            for (var i = 0; i < jsondata.length; i++) {
+                arr[i] = [new Date(jsondata[i].rdate.substring(0, 4), jsondata[i].rdate.substring(5, 7), jsondata[i].rdate.substring(8, 10)), jsondata[i].cnt];
+            }
+
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('date', 'rdate');
+            data.addColumn('number', 'cnt');
+            data.addRows(arr);
+
+            var options = {
+                title: 'Reservation Status',
+                colors: ['#F8A1A4'],
+                chartArea: { width: '90%' },
+                vAxis: { minValue: 5 },
+                height: 300
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('reservationChart'));
+            chart.draw(data, options);
+
+        }
+
+        function drawCreateClassChart() {
+
+            var jsondata = [[${createList}]];
+
+            var arr = new Array();
+            for (var i = 0; i < jsondata.length; i++) {
+                arr[i] = [new Date(jsondata[i].duedate.substring(0, 4), jsondata[i].duedate.substring(5, 7), jsondata[i].duedate.substring(8, 10)), jsondata[i].cnt];
+            }
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'duedate');
+            data.addColumn('number', 'cnt');
+            data.addRows(arr);
+
+            var options = {
+                title: 'Class Opening Status',
+                colors: ['#AACD6E'],
+                chartArea: {width: '90%'},
+                vAxis: { minValue: 5 },
+                height: 300
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('classChart'));
+            chart.draw(data, options);
+
+        }
+
+        function drawReservationByCategoryChart() {
+
+            var data = new google.visualization.arrayToDataTable([
+                [{label: 'category', type: 'string'}, {label: 'cnt', type: 'number'}],
+                /*[# th:each=" list : ${reservationCategoryList}"]*/
+                ['[(${list.category})]', [[${list.reservationcnt}]]],
+                /*[/]*/
+            ]);
+
+            var options = {
+                title: 'Reservation Status by Category',
+                colors: ['#9baec8'],
+                chartArea: { width: '90%'},
+                height: 300,
+                hAxis: {
+                    textStyle: { fontSize: 10}
+                }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('reservationByCategoryChart'));
+            chart.draw(data, options);
+
+        }
+
+
+        function drawClassByCategoryChart() {
+
+            var data = new google.visualization.arrayToDataTable([
+                [{label: 'category', type: 'string'}, {label: 'cnt', type: 'number'}],
+                /*[# th:each=" list : ${createClassCategoryList}"]*/
+                ['[(${list.category})]', [[${list.createcnt}]]],
+                /*[/]*/
+            ]);
+
+            var options = {
+                title: 'Class Opening Status by Category',
+                colors: ['#AAABD3'],
+                chartArea: { width: '90%'},
+                height: 300,
+                hAxis: {
+                    textStyle: { fontSize: 10}
+                }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('classByCategoryChart'));
+            chart.draw(data, options);
+
+        }
+
+    </script>
+</body>
+</html>

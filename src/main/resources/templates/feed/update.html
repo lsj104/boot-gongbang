@@ -1,36 +1,103 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/base}"
-      layout:fragment="content">
+      layout:decorate="~{common/base}" layout:fragment="content">
+<style>
+    textarea {
+        resize: none;
+        height: 300px;
+    }
+</style>
+<body>
+<div class="boxedlayout">
+    <div class="singledownloadphp">
+        <div class="headerimage">
+            <div class="headercontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="fleft">
+                                <h1>Edit Feed</h1>
+                            </div>
+                            <div class="fright breadc">
+                                <a href="/main"> Home </a> / <a href="/feed/feed">Feed</a> / <a
+                                    href="/feed/update">Edit Feed</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="container padtop50 padbot50">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="primary" class="content-area">
+                        <main id="main" class="site-main" role="main">
+                            <article class="contentdownloadphp">
+                                <div class="row">
+                                    <div class="col-md-8" style="margin: 0 auto;">
+                                        <span class="smalltitle">피드 추가</span>
+                                        <div id="edd_checkout_form_wrap" class="edd_clearfix">
 
-</head>
-<body class="bg-light">
+                                            <form id="edd_purchase_form" class="edd_form" action="/feed/updateok" method="POST" enctype="multipart/form-data">
+                                                <input type="hidden" name="seq" th:value="${feedview.seq}">
+                                                <fieldset id="edd_checkout_user_info">
+                                                    <div style="margin: 60px auto;">
+                                                        <img style="width:300px; height: 300px; display:block; margin: 10px auto;"
+                                                                th:src="@{/image/feed/} + ${feedview.image}">
+                                                        <input type="file" name="image" style="margin: 0 auto;">
+                                                    </div>
 
-<div class="mt-5 pt-5 "> <!-- 본문-->
-    <div class="container">
-        <div style="text-align: center">수정하기</div>
-        <div class="row justify-content-center">
+                                                    <p id="edd-last-name-wrap">
+                                                        <label class="edd-label" for="edd-last">
+                                                            내용
+                                                        </label>
+                                                        <span class="edd-description">Content</span>
+                                                        <textarea class="edd-input" name="content"
+                                                                  id="edd-last" placeholder="Content"
+                                                                    th:text="${feedview.content}">
 
-            <form th:action="'/update/'+${post.id}" method="POST" enctype="multipart/form-data">
-                <table>
-                    <tr>
-                        <th>사진</th>
-                        <td><input id="post_image" name="file" type="file" placeholder="사진파일" th:value="${post.image}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>내용</th>
-                        <td><input id="post_content" name="content" type="textarea" th:value="${post.content}"></td>
-                    </tr>
-                </table>
-                <a href="/">목록으로</a>
-                <button type="submit" id="update">수정</button>
-            </form>
+                                                        </textarea>
+                                                    </p>
+                                                    <p id="edd-last-name-wrap">
+                                                        <label class="edd-label" for="edd-last">
+                                                            해시태그 </label>
+                                                        <span class="edd-description">HashTag</span>
+                                                        <input class="edd-input" type="text" name="tag"
+                                                               id="edd-last" placeholder="#"/>
+                                                    </p>
+                                                    <p id="edd_profile_submit_wrap">
+                                                        <input name="edd_profile_editor_submit"
+                                                               id="edd_profile_editor_submit" type="submit"
+                                                               class="edd_submit" value="수정하기"/>
+                                                        <a href="/feed/feed" style="margin-left: 20px;">목록보기</a>
+                                                    </p>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </main>
+                    </div>
+                </div>
+                <!-- MAIN CONTENT ENDS -->
+            </div>
         </div>
     </div>
 </div>
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+<script>
+    var input = document.querySelector('input[name=tag]')
+    var tagify = new Tagify(input);
+
+    tagify.on('add', function() {
+        console.log(tagify.value);
+    })
+</script>
 
 </body>
 </html>

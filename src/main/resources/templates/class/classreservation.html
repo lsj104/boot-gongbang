@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+<style>
+    form .reserve {
+        background-color: #555;
+        color: #fff;
+        border-radius: 5px;
+        margin: 10px;
+        height: 38px;
+    }
+    form .reserve:hover {
+        background-color: #333;
+    }
+</style>
+
+<body>
+<div class="boxedlayout">
+
+    <!-- TITLE BEGINS -->
+    <div class="headerimage"
+         style="background-image: url(http://www.themepush.com/demo-kailo/wp-content/uploads/sites/6/2015/03/header.jpg);">
+        <div class="headercontent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="fleft">
+                            <h1>Reservation</h1>
+                        </div>
+                        <div class="fright breadc">
+                            <a href="/main"> Home </a> / <a href="/class">class</a> / reservation
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TITLE ENDS -->
+
+    <div class="container padtop50 padbot50">
+        <div class="row">
+
+            <!-- MAIN CONTENT BEGINS -->
+            <div class="col-md-12">
+                <div id="primary" class="content-area">
+                    <main id="main" class="site-main" role="main">
+                        <div class="row">
+                            <div class="col-md-8" style="border: 1px solid #eee; padding: 30px">
+                                <h2 style="margin: 20px 0;">예약 정보</h2>
+                                <div id="reservation-info">
+                                    <img th:src="@{'/image/class/' + ${dto.image}}" th:alt="${dto.image}" class="img-thumbnail fleft" style="width: 140px; height: 140px;" />
+                                    <div id="class-info" class="fleft" style="padding: 20px 0 20px 20px;">
+                                        <p th:text="${dto.name}" style="font-size: large; font-weight: bold;"></p>
+                                        <p>일정&nbsp;&nbsp;<span th:text="|${#strings.substring(dto.duedate, 0, 10)} ${dto.duetime}|" style="font-weight: bold;"></span></p>
+                                        <p>모집 인원&nbsp;&nbsp;<span th:text="|${dto.membercnt} 명|" style="font-weight: bold;"></span></p>
+                                    </div>
+                                </div>
+                                <div style="clear: both"></div>
+                                <hr>
+                                <h2 style="margin: 40px 0 20px 0;">예약자 정보</h2>
+                                <div id="member-info">
+                                    <label for="memberName">Name</label>
+                                    <input type="text" id="memberName" placeholder="name" th:value="${session.user.name}" readonly>
+                                    <label for="memberTel">Tel</label>
+                                    <input type="text" id="memberTel" placeholder="ex)010-1234-5678" th:value="${session.user.tel}" readonly>
+                                </div>
+                            </div>
+
+                            <!-- SIDEBAR BEGINS -->
+                            <div class="col-md-4">
+                                <div class="widget-area" id="secondary" role="complementary">
+                                    <aside class="widget widget_text" id="text-2">
+                                        <div class="textwidget">
+                                            <h2 class="post-title" style="line-height: 1.5;">최종 금액</h2>
+                                            <div id="price-per-piece" style="font-size: 1.5rem">
+                                                <p class="fleft">가격</p>
+                                                <p class="fright" th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')} 원|" style="font-weight: bold;" id="price"></p>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                            <form id="reservation" action="/class/classreservationOk" method="post">
+                                                <div id="reservationCnt" style="font-size: 1.5rem; height: 34px; line-height: 34px">
+                                                    <p class="fleft">인원</p>
+                                                    <div class="fright" style="font-weight: bold">
+                                                        <select class="form-control fleft" style="width:80px;" form="reservation" id="cnt" name="rmembercnt" onchange="total()">
+                                                            <option th:each="num, numStat: ${#numbers.sequence(1,(dto.membercnt))}" th:value="${numStat.count}" th:text="${numStat.count}"></option>
+                                                        </select>
+                                                        <p class="fright">&nbsp;명</p>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                                <div style="clear: both"></div>
+                                                <hr style="margin: 10px 0;">
+                                                <div id="sum" style="font-size: 1.5rem; margin-bottom: 50px;">
+                                                    <p class="fleft">최종 금액</p>
+                                                    <div class="fright" style="font-weight: bold;">
+                                                        <p id="totalPrice" class="fleft" th:text="${#numbers.formatInteger(dto.price, 0, 'COMMA')}"></p>&nbsp;원
+                                                    </div>
+                                                </div>
+                                                <input type="button" class="reserve" value="Reservation" style="width: 300px;  margin: 10px auto; display: block;" onclick="check()">
+                                                <p class="text-center">※ 모든 결제는 현장 결제로 이루어집니다. ※</p>
+                                                <p id="confirm" style="white-space: pre; color: #ec615a; font-weight: bold; margin: 20px 0;"></p>
+                                                <div id="btn" style="text-align: center;">
+                                                    <input type="submit" class="reserve" value="O K" style="width: 130px;" >
+                                                    <input type="button" value="Cancle" style="width: 130px; height: 38px; border-radius: 5px;" onclick="history.back()">
+                                                </div>
+                                                <input type="hidden" name="cseq" th:value="${dto.seq}">
+                                            </form>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- SIDEBAR ENDS -->
+
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script th:inline="javascript">
+
+    $('#btn').hide();
+
+    function total() {
+        /*<![CDATA[*/
+        var price = parseInt([[${dto.price}]]);
+        /*]]>*/
+
+        var cnt = parseInt($('#cnt').val());
+        var total = (price * cnt + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+        $('#totalPrice').text(total);
+    }
+
+    function check() {
+    var notification = `            예약이 완료된 후에는 수정할 수 없고,
+            삭제 후 다시 예약하기만 가능합니다.
+
+            삭제는 마이페이지에서 가능합니다.
+
+            다시 한번 학인하시고
+            예약 하시려면 'OK' 버튼을
+            취소 하시려면 'Cancle' 버튼을 눌려주세요.`;
+
+        $('#confirm').text(notification);
+        $('#btn').show();
+    }
+</script>
+</body>
+</html>

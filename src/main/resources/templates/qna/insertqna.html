@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/base}"
+      layout:fragment="content">
+<head>
+    <style>
+        #content {
+            display: block;
+            background: #fff;
+            padding: 13px 15px;
+            margin-left: 0px;
+            -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+            -moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+            min-height: 300px;
+        }
+
+        #title {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<!-- TITLE BEGINS -->
+<div class="headerimage">
+    <div class="headercontent">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="fleft">
+                        <h1>QnA</h1>
+                    </div>
+                    <div class="fright breadc">
+                        <a href="http://localhost:8090/main">Home</a> / QnA
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <form class="well form-horizontal" action="/qna/insertqna" method="post" id="contact_form"
+          style="margin-top: 50px; margin-bottom: 50px;">
+        <fieldset>
+            <!-- Form Name -->
+            <legend>QnA</legend>
+            <!-- Text area -->
+            <div class="form-group" style="margin-right: 100px;">
+                <label class="col-md-4 control-label">Title</label>
+                <div class="col-md-4 inputGroupContainer" style="margin-right: 50px;">
+                    <div class="input-group">
+                        <textarea id="title" name="title"
+                                  style="width: 500px; height: 40px; border: none; resize: none;" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- Text area -->
+            <div class="form-group" style="margin-right: 100px;">
+                <label class="col-md-4 control-label">Content</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <textarea id="content" name="content"
+                                  style="width: 500px; height: 400px; border: none; resize: none;" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button id="qnawrite_submit" style="margin-left: 400px" type="submit" class="btn btn-warning"> Write
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

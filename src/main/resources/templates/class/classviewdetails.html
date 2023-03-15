@@ -6,15 +6,73 @@
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8973e5377ee3ffb3240c68f087f56fe4&libraries=services,clusterer" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <style>
-	.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;}
-	.wrap .info {width: 286px;height: 120px;border-radius: 5px;overflow: hidden;background: #fff;}
-	.info .title {padding: 5px 0 0 10px;height: 30px;background: #262626;font-weight: bold; color: #eee;}
-	.info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-	.info .close:hover {cursor: pointer;}
-	.info .body {display: flex; justify-content: left; padding: 5px;}
-	.desc .ellipsis {white-space: normal;}
-	.info .img {margin-right: 5px; width: 73px;height: 71px;}
-	.info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+	button {
+		background-color: #555;
+		color: #fff;
+		font-size: 1.5rem;
+		font-weight: bold;
+		border-radius: 5px;
+	}
+	button:hover {
+		background-color: #333;
+	}
+	.wrap {
+		position: absolute;
+		left: 0;
+		bottom: 40px;
+		width: 288px;
+		height: 132px;
+		margin-left: -144px;
+	}
+	.wrap .info {
+		width: 286px;
+		height: 120px;
+		border-radius: 5px;
+		overflow: hidden;
+		background: #fff;
+	}
+	.info .title {
+		padding: 5px 0 0 10px;
+		height: 30px;
+		background: #262626;
+		font-weight: bold;
+		color: #eee;
+	}
+	.info .close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		color: #888;
+		width: 17px;
+		height: 17px;
+		background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+	}
+	.info .close:hover {
+		cursor: pointer;
+	}
+	.info .body {
+		display: flex;
+		justify-content: left;
+		padding: 5px;
+	}
+	.desc .ellipsis {
+		white-space: normal;
+	}
+	.info .img {
+		margin-right: 5px;
+		width: 73px;
+		height: 71px;
+	}
+	.info:after {
+		content: '';
+		position: absolute;
+		margin-left: -12px;
+		left: 50%;
+		bottom: 0;
+		width: 22px;
+		height: 12px;
+		background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
+	}
 </style>
 <body>
 <!-- PAGE CONTENT
@@ -64,7 +122,6 @@
 										<div th:utext="${dto.course}"></div>
 									</div>
 
-
 									<h2>위치</h2>
 									<div class="wowmetaposts entry-meta">
 										<div th:text="${sdto.address}"></div>
@@ -91,6 +148,21 @@
 							<p th:text="|소요시간 : ${dto.time}|"></p>
 							<p style="font-size: large; font-weight: bold;" th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></p>
 						</div>
+						<form method="post" action="/class/classreservation" style="text-align: center;">
+							<th:block th:if="${session.user} != null and ${session.user.lv} == 1">
+								<button type="submit" class="btn-block">
+									<i class="fa fa-shopping-cart"></i>
+									<span>&nbsp;예약하기</span>
+								</button>
+							</th:block>
+							<th:block th:if="${session.user} == null or ${session.user.lv} != 1">
+								<button type="button" class="btn-block" onclick="loginRequest()">
+									<i class="fa fa-shopping-cart"></i>
+									<span>예약하기</span>
+								</button>
+							</th:block>
+							<input type="hidden" name="seq" th:value="${dto.seq}">
+						</form>
 					</div>
 				</aside>
 				</div>
@@ -177,6 +249,10 @@
 	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
 	function closeOverlay() {
 		overlay.setMap(null);
+	}
+
+	function loginRequest() {
+		alert('일반회원 로그인 후 이용하세요.');
 	}
 
 	/*]]>*/

@@ -38,8 +38,8 @@
                     <ul class="footermenu fright">
                         <li><a href="http://localhost:8090/main">Home</a></li>
                         <li><a href="shop.html">Shop</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="myaccount.html">My Account</a></li>
+                        <li><a href="class.html">Blog</a></li>
+                        <li th:if="${session.user == null}"><a href="http://localhost:8090/admin/login">admin</a></li>
                     </ul>
                 </div>
                 <div class="clear"></div>
