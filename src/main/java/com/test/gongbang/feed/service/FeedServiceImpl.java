@@ -158,36 +158,6 @@ public class FeedServiceImpl implements FeedService{
     }
 
 
-
-                    // 해시태그 추가
-                    String hseq = "";
-                    if (dao.existHashTag(tagName)) {
-
-                        hseq = dao.getRHseq(tagName); // 기존 태그 번호
-
-                    } else {
-
-                        dao.addHashTag(tagName); // 새로운 태그 추가
-
-                        // 게시판 - 해시태그 연결 추가
-                        hseq = dao.getHseq(); // 새로운 태그 번호
-
-                    }
-                    map.put("bseq", bseq);
-                    map.put("hseq", hseq);
-
-                    dao.addTagging(map); // 연결
-
-                }
-
-            } catch (Exception e) {
-                System.out.println("AddOk.doPost");
-                e.printStackTrace();
-            }
-        }
-        return result;
-    }
-
     @Override
     public int feedAdd(MultipartHttpServletRequest mreq, String aseq) {
 
