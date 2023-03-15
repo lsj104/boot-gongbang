@@ -2,6 +2,8 @@ package com.test.gongbang.feed.service;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+
 @Data
 public class FeedDTO {
 
@@ -10,4 +12,6 @@ public class FeedDTO {
     private String regdate;
     private String image;
     private String aseq;
+
+    private ArrayList<String> tag;
 }

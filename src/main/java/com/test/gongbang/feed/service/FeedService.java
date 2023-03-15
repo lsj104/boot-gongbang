@@ -1,5 +1,7 @@
 package com.test.gongbang.feed.service;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import java.util.List;
 
 public interface FeedService {
@@ -11,6 +13,8 @@ public interface FeedService {
 
 
     FeedCommentDTO feedcomment(String seq);
+
+    int feedAdd(MultipartHttpServletRequest mreq, String aseq);
 }
 
 

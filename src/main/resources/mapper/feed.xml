@@ -28,5 +28,33 @@
         where fseq = #{seq}
     </select>
 
+    <insert id="feedadd" parameterType="com.test.gongbang.feed.service.FeedDTO">
+        insert into TBLFEED values (seqFeed.nextval, #{content}, sysdate, #{image}, #{aseq})
+    </insert>
+
+    <select id="getBseq" resultType="String">
+        select max(seq) as seq from TBLFEED
+    </select>
+
+    <select id="existHashTag" resultType="boolean" parameterType="String">
+        select count(*) as cnt from TBLHASHTAG where name=#{tagName}
+    </select>
+
+    <select id="getRHseq" resultType="String" parameterType="String">
+        select seq from TBLHASHTAG where name=#{tagName}
+    </select>
+
+    <insert id="addHashTag" parameterType="String">
+        insert into TBLHASHTAG values (SEQHASHTAG.nextval, #{tagName})
+    </insert>
+
+    <select id="getHseq" resultType="String">
+        select max(seq) as seq from TBLHASHTAG
+    </select>
+    
+    <insert id="addTagging" parameterType="java.util.HashMap">
+        insert into TBLFEEDHASHTAG values (SEQFEEDHASHTAG.nextval, #{hseq}, #{bseq})
+    </insert>
+
 </mapper>
 
