@@ -2,6 +2,7 @@ package com.test.gongbang.feed.service;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -13,6 +14,10 @@ public interface FeedService {
 
     FeedDTO feedview(String seq);
 
+
+
+
+    int feedAdd(MultipartHttpServletRequest mreq, String aseq);
 
     List<FeedCommentDTO> feedcomment(String seq);
 
@@ -28,6 +33,7 @@ public interface FeedService {
     int commentadd(HttpServletRequest req);
 
     int commentdel(String seq);
+
 }
 
 
