@@ -36,7 +36,7 @@ public class KakaoService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=c1704b42e1333bc0cfe4a11e98bc4823");
+            sb.append("&client_id=kakao_id");
             sb.append("&redirect_uri=http://localhost:8090/member/kakao");
             sb.append("&code=" + code);
 
@@ -143,7 +143,7 @@ public class KakaoService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=c1704b42e1333bc0cfe4a11e98bc4823");
+            sb.append("&client_id=kakao_id");
             sb.append("&redirect_uri=http://localhost:8090/member/gongbang");
             sb.append("&code=" + code);
 
@@ -314,7 +314,7 @@ public class KakaoService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=c1704b42e1333bc0cfe4a11e98bc4823");
+            sb.append("&client_id=kakao_id");
             sb.append("&redirect_uri=http://localhost:8090/member/kakaologin");
             sb.append("&code=" + code);
 
@@ -367,7 +367,7 @@ public class KakaoService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=c1704b42e1333bc0cfe4a11e98bc4823");
+            sb.append("&client_id=kakao_id");
             sb.append("&redirect_uri=http://localhost:8090/member/gongkakaologin");
             sb.append("&code=" + code);
 
