@@ -84,7 +84,7 @@
                                                     <p class="fleft">인원</p>
                                                     <div class="fright" style="font-weight: bold">
                                                         <select class="form-control fleft" style="width:80px;" form="reservation" id="cnt" name="rmembercnt" onchange="total()">
-                                                            <option th:each="num, numStat: ${#numbers.sequence(1,(dto.membercnt))}" th:value="${numStat.count}" th:text="${numStat.count}"></option>
+                                                            <option th:each="num, numStat: ${#numbers.sequence(1,(availablecount - dto.membercnt))}" th:value="${numStat.count}" th:text="${numStat.count}"></option>
                                                         </select>
                                                         <p class="fright">&nbsp;명</p>
                                                         <div class="clearfix"></div>
@@ -92,7 +92,7 @@
                                                 </div>
                                                 <div style="clear: both"></div>
                                                 <hr style="margin: 10px 0;">
-                                                <div id="sum" style="font-size: 1.5rem; margin-bottom: 50px;">
+                                                <div id="total" style="font-size: 1.5rem; margin-bottom: 50px;">
                                                     <p class="fleft">최종 금액</p>
                                                     <div class="fright" style="font-weight: bold;">
                                                         <p id="totalPrice" class="fleft" th:text="${#numbers.formatInteger(dto.price, 0, 'COMMA')}"></p>&nbsp;원

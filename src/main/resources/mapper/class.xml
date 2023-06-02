@@ -117,6 +117,15 @@
                      from tblClass
                      where seq = #{cseq})
     </select>
+
+    <select id="reservationavailablecount" parameterType="String" resultType="int">
+        select
+            tc.membercnt - count(tmc.rmembercnt) as availablecount
+        from tblclass tc
+            inner join tblMemberCLass tmc on tc.seq = tmc.seq
+        where tc.seq = #{seq}
+    </select>
+
     <insert id="reservation" parameterType="hashmap">
         insert into tblMemberClass(seq, mseq, cseq, rdate, rmembercnt)
         values (seqMemberClass.nextVal,(select seq from tblMember where aseq = #{aseq}), #{cseq}, to_char(sysdate, 'YYYY-MM-DD'), #{rmembercnt})</insert>
