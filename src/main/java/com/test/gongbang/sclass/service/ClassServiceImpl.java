@@ -95,6 +95,14 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
+    public int reservationAvailableCount(String seq) {
+
+        int reservationAvailableCount = dao.reservationAvailableCount(seq);
+
+        return reservationAvailableCount;
+    }
+
+    @Override
     public int reservation(String cseq, String rmembercnt, HttpSession session) {
 
         String aseq = ((KakaoDTO) session.getAttribute("user")).getSeq() + "";
@@ -126,6 +134,8 @@ public class ClassServiceImpl implements ClassService{
 
         ClassDTO dto = new ClassDTO();
 
+        System.out.println(multiReq.getParameter("price"));
+
         dto.setCseq(multiReq.getParameter("cseq"));
         dto.setName(multiReq.getParameter("name"));
         dto.setIntro(multiReq.getParameter("intro").replace("\r\n","<br/>"));
@@ -134,15 +144,15 @@ public class ClassServiceImpl implements ClassService{
         dto.setDuedate(multiReq.getParameter("duedate"));
         dto.setDuetime(multiReq.getParameter("duetime"));
         dto.setMembercnt(multiReq.getParameter("membercnt"));
-        dto.setPrice(multiReq.getParameter("price"));
+        dto.setPrice(multiReq.getParameter("price").replace(",",""));
         dto.setSseq(multiReq.getParameter("sseq"));
+
+
+        System.out.println(dto.getPrice());
 
         MultipartFile mulFile = multiReq.getFile("image");
         String oriFilename = mulFile.getOriginalFilename();
 
-        //String path = mreq.getRealPath("/static/image");
-        //String path = "C:\\class\\code\\springboot\\profile";
-        //String path = multiReq.getRealPath("resources/static/image/class");
         String path = "C:\\class\\code\\springboot\\boot-gongbang\\src\\main\\resources\\static\\image\\class";
 
         System.out.println("path" + path);
@@ -193,5 +203,6 @@ public class ClassServiceImpl implements ClassService{
 
         return newClass;
     }
+
 
 }

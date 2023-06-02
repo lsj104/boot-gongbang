@@ -1,11 +1,8 @@
 package com.test.gongbang.sclass.controller;
 
-import com.test.gongbang.member.login.kakao.service.KakaoDTO;
-import com.test.gongbang.member.service.MemberDTO;
 import com.test.gongbang.sclass.service.CategoryDTO;
 import com.test.gongbang.shared.service.Paging;
 import com.test.gongbang.shop.service.ShopDTO;
-import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Controller;
 import com.test.gongbang.sclass.service.ClassDTO;
 import com.test.gongbang.sclass.service.ClassService;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -31,9 +27,7 @@ public class ClassController {
     public String list(Model model, HttpSession session, @RequestParam(value = "page", required = false, defaultValue = "1") String page, @RequestParam(value = "searchType", required = false) String searchType, @RequestParam(value = "searchWord", required = false) String searchWord) {
 
         Paging paging = service.paging(Integer.parseInt(page), searchType, searchWord);
-
         List<ClassDTO> list = service.list(paging, searchType, searchWord);
-
         List<CategoryDTO> category = service.getCategory();
 
         model.addAttribute("list", list);
@@ -61,9 +55,11 @@ public class ClassController {
 
         ClassDTO dto = service.getClass(seq);
         ShopDTO sdto = service.getShop(seq);
+        int reservationAvailableCount = service.reservationAvailableCount(seq);
 
         model.addAttribute("dto", dto);
         model.addAttribute("sdto", sdto);
+        model.addAttribute("availablecount",reservationAvailableCount);
 
         return "class/classreservation";
     }
@@ -75,13 +71,17 @@ public class ClassController {
 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
+        out.println("<script>");
 
-        if (result != 1) {
-            out.println("<script>alert('예약을 실패하였습니다. 다시 시도해주세요.'); history.back();</script>");
+        if (result == 1) {
+            out.println("alert('예약이 완료되었습니다.');");
+            out.println("location.href='/class';");
         } else {
-            out.println("<script>alert('예약이 완료되었습니다.'); location.href='/class'</script>");
+            out.println("alert('예약을 실패하였습니다. 다시 시도해주세요.');");
+            out.println("history.back();");
         }
 
+        out.println("</script>");
         out.flush();
     }
 
@@ -104,15 +104,18 @@ public class ClassController {
 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
+        out.println("<script>");
 
-        if (result != 1) {
-            out.println("<script>alert('예약을 실패하였습니다. 다시 시도해주세요.'); history.back();</script>");
+        if (result == 1) {
+            out.println("alert('클래스 개설이 완료되었습니다.');");
+            out.println("location.href='/class';");
         } else {
-            out.println("<script>alert('예약이 완료되었습니다.'); location.href='/class'");
+            out.println("alert('클래스 개설을 실패하였습니다. 다시 시도해주세요.');");
+            out.println("history.back();");
         }
 
+        out.println("</script>");
         out.flush();
-
     }
 
 }
