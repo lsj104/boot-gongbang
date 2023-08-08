@@ -8,7 +8,6 @@
         background-color: #555;
         color: #fff;
         border-radius: 5px;
-        margin: 10px;
         height: 38px;
     }
     form .reserve:hover {
@@ -50,7 +49,14 @@
                             <div class="col-md-8" style="border: 1px solid #eee; padding: 30px">
                                 <h2 style="margin: 20px 0;">예약 정보</h2>
                                 <div id="reservation-info">
-                                    <img th:src="@{'/image/class/' + ${dto.image}}" th:alt="${dto.image}" class="img-thumbnail fleft" style="width: 140px; height: 140px;" />
+                                    <th:block th:if="${#strings.substring(dto.image, 0, 3) != '개설_'}">
+                                        <img th:src="@{'/image/class/' + ${dto.image}}" th:alt="${dto.image}" class="img-thumbnail fleft" style="width: 140px; height: 140px;" />
+                                    </th:block>
+                                    <th:block th:if="${#strings.substring(dto.image, 0, 3) == '개설_'}">
+                                        <img th:src="@{'/class/' + ${dto.image}}" th:alt="${dto.image}" class="img-thumbnail fleft" style="width: 140px; height: 140px;" />
+                                    </th:block>
+
+
                                     <div id="class-info" class="fleft" style="padding: 20px 0 20px 20px;">
                                         <p th:text="${dto.name}" style="font-size: large; font-weight: bold;"></p>
                                         <p>일정&nbsp;&nbsp;<span th:text="|${#strings.substring(dto.duedate, 0, 10)} ${dto.duetime}|" style="font-weight: bold;"></span></p>
@@ -84,7 +90,7 @@
                                                     <p class="fleft">인원</p>
                                                     <div class="fright" style="font-weight: bold">
                                                         <select class="form-control fleft" style="width:80px;" form="reservation" id="cnt" name="rmembercnt" onchange="total()">
-                                                            <option th:each="num, numStat: ${#numbers.sequence(1,(availablecount - dto.membercnt))}" th:value="${numStat.count}" th:text="${numStat.count}"></option>
+                                                            <option th:each="num, numStat: ${#numbers.sequence(1,(reservationAvailableCount))}" th:value="${numStat.count}" th:text="${numStat.count}"></option>
                                                         </select>
                                                         <p class="fright">&nbsp;명</p>
                                                         <div class="clearfix"></div>
@@ -98,11 +104,30 @@
                                                         <p id="totalPrice" class="fleft" th:text="${#numbers.formatInteger(dto.price, 0, 'COMMA')}"></p>&nbsp;원
                                                     </div>
                                                 </div>
-                                                <input type="button" class="reserve" value="Reservation" style="width: 300px;  margin: 10px auto; display: block;" onclick="check()">
+                                                <th:block th:if="${checkReservation} == 0">
+                                                    <input type="button" class="reserve btn-block" value="예약하기" onclick="check()">
+                                                </th:block>
+                                                <th:block th:if="${checkReservation} != 0">
+                                                    <input type="button" class="reserve btn-block" value="에약완료" disabled="disabled" title="예약 완료 상태입니다.&#13;변경을 원하시면 마이페이지에서 취소 후 다시 예약하세요.">
+                                                </th:block>
                                                 <p class="text-center">※ 모든 결제는 현장 결제로 이루어집니다. ※</p>
-                                                <p id="confirm" style="white-space: pre; color: #ec615a; font-weight: bold; margin: 20px 0;"></p>
+                                                <div id="confirm" class="text-center" style=" color: #ec615a; font-weight: bold;">
+                                                    예약이 완료된 후에는 수정할 수 없고,
+                                                    <br>
+                                                    삭제 후 다시 예약하기만 가능합니다.
+                                                    <br>
+                                                    <br>
+                                                    삭제는 마이페이지에서 가능합니다.
+                                                    <br>
+                                                    <br>
+                                                    다시 한번 학인하시고
+                                                    <br>
+                                                    예약 하시려면 'OK' 버튼을
+                                                    <br>
+                                                    취소 하시려면 'Cancle' 버튼을 눌려주세요.
+                                                </div>
                                                 <div id="btn" style="text-align: center;">
-                                                    <input type="submit" class="reserve" value="O K" style="width: 130px;" >
+                                                    <input type="submit" class="OK" value="O K" style="width: 130px; border-radius: 5px;" >
                                                     <input type="button" value="Cancle" style="width: 130px; height: 38px; border-radius: 5px;" onclick="history.back()">
                                                 </div>
                                                 <input type="hidden" name="cseq" th:value="${dto.seq}">
@@ -124,6 +149,7 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script th:inline="javascript">
 
+    $('#confirm').hide();
     $('#btn').hide();
 
     function total() {
@@ -138,16 +164,7 @@
     }
 
     function check() {
-    var notification = `            예약이 완료된 후에는 수정할 수 없고,
-            삭제 후 다시 예약하기만 가능합니다.
-
-            삭제는 마이페이지에서 가능합니다.
-
-            다시 한번 학인하시고
-            예약 하시려면 'OK' 버튼을
-            취소 하시려면 'Cancle' 버튼을 눌려주세요.`;
-
-        $('#confirm').text(notification);
+        $('#confirm').show();
         $('#btn').show();
     }
 </script>

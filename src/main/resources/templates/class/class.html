@@ -47,6 +47,11 @@
 
     <div class="container padbot30">
         <div class="row padtop30 padbot20">
+            <div class="col-md-12 text-center">
+                <h5 class="bg-warning text-warning padtop20 padbot20">
+                    모든 CLASS는 수강일 전 자정까지만 예약 가능합니다.
+                </h5>
+            </div>
             <div class="col-md-12">
 				<span class="pagesit fleft">
 					Showing page [[${paging.nowPage}]] of [[${paging.totalPage}]]
@@ -82,15 +87,19 @@
                 </div>
                 <div class="wowitemboxlist" th:if="${!#lists.isEmpty(list)}">
                     <div class="wowitembox" th:each="dto : ${list}">
-                        <div class="wowitemboxinner">
+                        <div class="wowitemboxinner" th:id="'class'+${dto.seq}+'box'">
                             <div class="imagearea">
-                                <img style="height: 200px; object-fit: cover;"
-                                     th:src="@{'/image/class/' + ${dto.image}}"/>
+                                <th:block th:if="${#strings.substring(dto.image, 0, 3) != '개설_'}">
+                                    <img style="height: 200px; object-fit: cover; "
+                                         th:src="@{'/image/class/' + ${dto.image}}"/>
+                                </th:block>
+                                <th:block th:if="${#strings.substring(dto.image, 0, 3) == '개설_'}">
+                                    <img style="height: 200px; object-fit: cover; "
+                                         th:src="@{'/class/' + ${dto.image}}"/>
+                                </th:block>
                                 <div class="caption">
-                                    <div class="blur">
-                                    </div>
                                     <div class="caption-text">
-                                        <div class="captionbuttons">
+                                        <div class="captionbuttons" >
                                             <a th:href="@{/class/classviewdetails(seq=${dto.seq})}"
                                                class="captiondetails"><i class="fa fa-link"></i> View Details</a>
                                         </div>
@@ -112,8 +121,8 @@
                                          th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></div>
                                     <div class="cart fright">
                                         <th:block th:if="${session.user} != null and ${session.user.lv} == 1">
-                                            <form method="post" action="/class/classreservation">
-                                                <button type="submit">
+                                            <form method="get" action="/class/classreservation">
+                                                <button type="submit" th:class="'reservationbtn'+${dto.seq}">
                                                     <i class="fa fa-shopping-cart"></i>
                                                     <span>예약하기</span>
                                                 </button>
@@ -121,7 +130,7 @@
                                             </form>
                                         </th:block>
                                         <th:block th:if="${session.user} == null or ${session.user.lv} != 1">
-                                            <button type="button" onclick="loginRequest()">
+                                            <button type="button" th:class="'reservationbtn'+${dto.seq}" onclick="loginRequest()">
                                                 <i class="fa fa-shopping-cart"></i>
                                                 <span>예약하기</span>
                                             </button>
@@ -210,10 +219,33 @@
         </div>
     </div>
 </div>
-<script>
+<script th:inline="javascript">
     function loginRequest() {
         alert('일반 회원 로그인 후 이용하세요.');
     }
+
+    //예약 마감 설정
+    var today = new Date();
+
+    /*<![CDATA[*/
+    /*[# th:each="dto : ${list}"]*/
+    var duedate = new Date(/*[[${dto.duedate}]]*/);
+    var classBoxId = 'class'+[[${dto.seq}]]+'box';
+    var classBtn = '.reservationbtn'+[[${dto.seq}]];
+
+    //예약 마감 시간 설정
+    var deadline = new Date(duedate);
+    deadline.setDate(duedate.getDate()-1);
+    deadline.setHours(23,59,59,999);
+
+    if (deadline < today) {
+        document.getElementById(classBoxId).style.backgroundColor = '#EEEEEE';
+        document.querySelector(classBtn).style.pointerEvents = 'none';
+        document.querySelector(classBtn).innerHTML="Last Class";
+    }
+    /*[/]*/
+    /*]]>*/
+
 </script>
 </body>
 </html>

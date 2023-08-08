@@ -1,5 +1,6 @@
 package com.test.gongbang.sclass.controller;
 
+import com.test.gongbang.member.login.kakao.service.KakaoDTO;
 import com.test.gongbang.sclass.service.CategoryDTO;
 import com.test.gongbang.shared.service.Paging;
 import com.test.gongbang.shop.service.ShopDTO;
@@ -41,25 +42,35 @@ public class ClassController {
     @GetMapping ("/class/classviewdetails")
     public String view(Model model, @RequestParam String seq, HttpSession session) {
 
+        if (session.getAttribute("user") != null) {
+            int checkReservation = service.checkReservation(session, seq);
+            model.addAttribute("checkReservation",checkReservation);
+        }
+
         ClassDTO dto = service.getClass(seq);
         ShopDTO sdto = service.getShop(seq);
 
         model.addAttribute("dto", dto);
         model.addAttribute("sdto", sdto);
+
 
         return "class/classviewdetails";
     }
 
-    @PostMapping ("/class/classreservation")
+    @GetMapping ("/class/classreservation")
     public String reservation(String seq, Model model, HttpSession session) {
 
         ClassDTO dto = service.getClass(seq);
         ShopDTO sdto = service.getShop(seq);
+        int checkReservation = service.checkReservation(session, seq);
         int reservationAvailableCount = service.reservationAvailableCount(seq);
+
 
         model.addAttribute("dto", dto);
         model.addAttribute("sdto", sdto);
-        model.addAttribute("availablecount",reservationAvailableCount);
+        model.addAttribute("checkReservation",checkReservation);
+        model.addAttribute("reservationAvailableCount",reservationAvailableCount);
+
 
         return "class/classreservation";
     }

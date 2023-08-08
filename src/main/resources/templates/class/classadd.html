@@ -197,7 +197,7 @@
                                 <div id="class_price_wrap">
                                     <label for="class_price">가격</label>
                                     <div class="fright" style="height: 34px;">
-                                        <input  id="class_price" type="text" class="text input required" name="price" onkeyup="inputNumberFormat();">
+                                        <input  id="class_price" type="text" class="text input required" name="price" required="required" onkeyup="inputNumberFormat();">
                                         <span>원</span>
                                     </div>
                                 </div>
@@ -209,7 +209,19 @@
                                 <input name="class_add_submit" type="button" class="btn-block create_btn" value="Create" onclick="check()" style="width: 300px;  margin: 10px auto; display: block;">
                             </div>
                             <div id="class_add_check">
-                                <p id="confirm" style="white-space: pre; color: #ec615a; font-weight: bold; margin: 20px auto;"></p>
+                                <div id="confirm" class="text-center" style=" color: #ec615a; font-weight: bold;">
+                                    예약자 발생시 클래스 수정이 어렵습니다.
+                                    <br>
+                                    <br>
+                                    수정은 마이페이지에서 가능합니다.
+                                    <br>
+                                    <br>
+                                    다시 한번 확인하시고,
+                                    <br>
+                                    클래스를 생성하시려면 'OK'버튼을
+                                    <br>
+                                    취소하시려면 'Cancle'버튼을 눌러주세요.
+                                </div>
                                 <div id="class_submit_wrap" style="text-align: center;">
                                     <input type="hidden" name="sseq" th:value="${sseq}">
                                     <input name="class_add_submit" id="class_add_submit" type="submit" class="create_btn" value="OK">
@@ -263,19 +275,12 @@
     //input[type=date]에 내일 날짜를 min 값으로 설정
     var today = new Date();
     var tomorrow = new Date(today.setDate(today.getDate()+1));
-    tomorrow =  tomorrow.toISOString().slice(0, 10);
+    //getTimezoneOffset(): 로컬 시간에서 UTC까지의 차이를 구하여 분으로 반환
+    //반환값을 밀리초 단위를 인자로 받는 new Date() 함수에 적용하기 위해 1000(밀리초) * 60(초)를 곱해서 밀리초 단위로 만들어 빼는 것입니다.
+    tomorrow =  new Date(tomorrow.getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0];
     $('#class_duedate').attr("min", tomorrow);
 
     function check() {
-        var notification = `            예약자 발생시 클래스 수정이 어렵습니다.
-
-            수정은 마이페이지에서 가능합니다.
-
-            다시 한번 확인하시고,
-            클래스를 생성하시려면 'OK'버튼을
-            취소하시려면 'Cancle'버튼을 눌러주세요..`;
-
-        $('#confirm').text(notification);
         $('#class_add_check').show();
     }
 

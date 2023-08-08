@@ -28,9 +28,11 @@ public class HomeController {
     @GetMapping("/main")
     public String home(Model model) {
 
+        List<ClassDTO> bestClass = service.bestClass();
         List<ClassDTO> newClass = service.newClass();
         List<NoticeDTO> noticeViewList = adminService.getNoticeView();
 
+        model.addAttribute("bestClass", bestClass);
         model.addAttribute("newClass", newClass);
         model.addAttribute("noticeViewList", noticeViewList);
 

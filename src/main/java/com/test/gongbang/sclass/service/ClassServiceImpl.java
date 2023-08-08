@@ -95,9 +95,24 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
+    public int checkReservation(HttpSession session, String cseq) {
+
+        String aseq = ((KakaoDTO) session.getAttribute("user")).getSeq() + "";
+
+        HashMap<String, String> checkReservationMap = new HashMap<>();
+        checkReservationMap.put("aseq",aseq);
+        checkReservationMap.put("cseq",cseq);
+
+        int checkReservation = dao.checkReservation(checkReservationMap);
+
+        return checkReservation;
+    }
+
+
+    @Override
     public int reservationAvailableCount(String seq) {
 
-        int reservationAvailableCount = dao.reservationAvailableCount(seq);
+        int reservationAvailableCount = Integer.parseInt(dao.getClass(seq).getMembercnt()) - dao.reservationTotalCount(seq);
 
         return reservationAvailableCount;
     }
@@ -151,16 +166,20 @@ public class ClassServiceImpl implements ClassService{
         System.out.println(dto.getPrice());
 
         MultipartFile mulFile = multiReq.getFile("image");
+
         String oriFilename = mulFile.getOriginalFilename();
 
-        String path = "C:\\class\\code\\springboot\\boot-gongbang\\src\\main\\resources\\static\\image\\class";
+        mkDir();
+
+        String path = "C:\\class\\code\\springboot\\class";
 
         System.out.println("path" + path);
 
         if (!mulFile.isEmpty()) {
+
             String filename = getFileName(path, oriFilename);
 
-            File file = new File(path + "\\" + filename);
+            File file = new File(path + "\\개설_" + filename);
 
             try {
                 mulFile.transferTo(file);
@@ -168,12 +187,31 @@ public class ClassServiceImpl implements ClassService{
                 e.printStackTrace();
             }
 
-            dto.setImage(filename);
+            dto.setImage("개설_" + filename);
         }
 
         int result = dao.addClass(dto);
 
         return result;
+    }
+
+    private static void mkDir() {
+        String path = "C:\\class\\code\\springboot\\class"; //폴더 경로
+        File Folder = new File(path);
+
+        // 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+        if (!Folder.exists()) {
+            try{
+                Folder.mkdirs(); //폴더 생성합니다.
+                System.out.println("폴더가 생성되었습니다.");
+            }
+            catch(Exception e){
+                e.getStackTrace();
+            }
+        }else {
+            System.out.println("이미 폴더가 생성되어 있습니다.");
+        }
+
     }
 
     private String getFileName(String path, String filename) {
@@ -185,7 +223,7 @@ public class ClassServiceImpl implements ClassService{
 
         while (true) {
 
-            File file = new File(path + "\\" + filename);
+            File file = new File(path + "\\개설_" + filename);
 
             if (file.exists()) {
                 filename = String.format("%s_%d%s", tempName, n, tempExt);
@@ -204,5 +242,12 @@ public class ClassServiceImpl implements ClassService{
         return newClass;
     }
 
+    @Override
+    public List<ClassDTO> bestClass() {
+
+        List<ClassDTO> bestClass = dao.bestClass();
+
+        return bestClass;
+    }
 
 }

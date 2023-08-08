@@ -1,5 +1,6 @@
 package com.test.gongbang.qna.controller;
 
+import com.test.gongbang.admin.service.AdminDTO;
 import com.test.gongbang.member.login.kakao.service.KakaoDTO;
 import com.test.gongbang.qna.service.QnaDTO;
 import com.test.gongbang.qna.service.QnaServiceImpl;
@@ -52,8 +53,15 @@ public class QnaController {
     @ApiOperation(value = "qna 글쓰기")
     @PostMapping("/insertqna")
     public String insertQna(@ModelAttribute QnaDTO dto, HttpSession session, Model model) throws Exception {
-        KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
-        long aseq = kdto.getSeq();
+
+        long aseq = 0;
+
+        if (session.getAttribute("user").getClass() == AdminDTO.class) {
+            aseq=1;
+        } else {
+            KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
+            aseq = kdto.getSeq();
+        }
         dto.setAseq(aseq);
 
         qnaService.insertQna(dto);
@@ -81,8 +89,14 @@ public class QnaController {
     @PostMapping("/content")
     public String insertComment(HttpServletRequest request, HttpSession session, Model model) throws Exception {
 
-        KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
-        long aseq = kdto.getSeq();
+        long aseq = 0;
+
+        if (session.getAttribute("user").getClass() == AdminDTO.class) {
+            aseq=1;
+        } else {
+            KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
+            aseq = kdto.getSeq();
+        }
 
         String seq = request.getParameter("seq");
         String cseq = request.getParameter("cseq");

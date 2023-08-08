@@ -23,13 +23,17 @@ public interface ClassDAO {
 
     ShopDTO getShop(String cseq);
 
-    int reservationAvailableCount(String seq);
+    int checkReservation(HashMap<String, String> checkReservationMap);
+
+    int reservationTotalCount(String seq);
 
     int reservation(HashMap<String, String> reservationMap);
 
     String getShopSeq(String aseq);
 
     int addClass(ClassDTO dto);
+
+    List<ClassDTO> bestClass();
 
     List<ClassDTO> newClass();
 

@@ -95,7 +95,12 @@
                             예약일
                           </td>
                           <td>
-                            <img style="width: 30px; height: 30px;" th:src="@{/image/class/} + ${dto.image}">
+                            <th:block th:if="${#strings.substring(dto.image, 0, 3) != '개설_'}">
+                              <img style="width: 30px; height: 30px;" th:src="@{/image/class/} + ${dto.image}">
+                            </th:block>
+                            <th:block th:if="${#strings.substring(dto.image, 0, 3) == '개설_'}">
+                              <img style="width: 30px; height: 30px;" th:src="@{/class/} + ${dto.image}">
+                            </th:block>
                             <a style="color: #777777;" th:href="@{/classviewdetails(seq=${dto.cseq})}">
                               <span th:text="${dto.name}" class="edd_purchase_amount"></span></a>
                           </td>
