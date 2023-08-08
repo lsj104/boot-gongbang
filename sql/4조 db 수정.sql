@@ -96,6 +96,7 @@ from (select tc.seq,
              tc.price,
              tc.image,
              tc.cseq,
+             tc.duedate,
              ts.nickname,
              ts.address
       from tblClass tc
@@ -122,6 +123,5 @@ alter table tblFeedHashTag add constraint 제약조건명 foreign key (fseq) ref
 -- 댓글 fseq에 걸려있는 제약조건 삭제 후 추가
 alter table tblFeedComment drop constraint 제약조건명;
 alter table tblFeedComment add constraint 제약조건명 foreign key (fseq) references tblFeed(seq) on delete cascade;
-
 
 commit;

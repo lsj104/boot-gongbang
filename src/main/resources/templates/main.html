@@ -88,41 +88,49 @@
                 </div>
             </div>
             <div class="wowitemboxlist sectionlatestitems clear">
-
-                <div class="wowitembox">
-                    <div class="wowitemboxinner">
+                <div class="wowitembox" th:each="dto : ${bestClass}">
+                    <div class="wowitemboxinner" th:id="'bestClass'+${dto.seq}+'box'">
                         <div class="imagearea">
-                            <img width="555" height="370" src="/image/01.jpg"/>
+                            <th:block th:if="${#strings.substring(dto.image, 0, 3) != '개설_'}">
+                                <img style="height: 200px; object-fit: cover;"
+                                     th:src="@{'/image/class/' + ${dto.image}}"/>
+                            </th:block>
+                            <th:block th:if="${#strings.substring(dto.image, 0, 3) == '개설_'}">
+                                <img style="height: 200px; object-fit: cover;"
+                                     th:src="@{'/class/' + ${dto.image}}"/>
+                            </th:block>
                             <div class="caption">
                                 <div class="blur">
                                 </div>
                                 <div class="caption-text">
                                     <div class="captionbuttons">
-                                        <a href="productsingle.html" class="captiondetails"><i
-                                                class="fa fa-link"></i>
-                                            VIEW DETAILS</a>
+                                        <a th:href="@{/class/classviewdetails(seq=${dto.seq})}"
+                                           class="captiondetails"><i class="fa fa-link"></i> View Details</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="notesarea">
-                            <a href="productsingle.html">
-                                <h2>ㅋ</h2>
-                            </a>
-                            <div class="description">
-                                <p>
-                                    Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel
-                                    com.
-                                </p>
+                            <div class="title" style="height: 40px; overflow: hidden;">
+                                <a th:href="@{class/classviewdetails(seq=${dto.seq})}">
+                                    <h2 th:text="${dto.name}"></h2>
+                                </a>
+                            </div>
+                            <div class="description" style="height: 70px; overflow: hidden">
+                                <div th:text="${dto.nickname}" style="font-weight: bold; margin-bottom: 2px;"></div>
+                                <div th:text="${dto.address}"></div>
                             </div>
                             <div class="notesbottom">
-                                <div class="price fleft">
-                                    $19.00
-                                </div>
+                                <div class="price fleft"
+                                     th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></div>
                                 <div class="cart fright">
-                                    <a href="#" class="edd-add-to-cart">
-                                        <span class="edd-add-to-cart-label">예약하기</span>
-                                    </a>
+                                    <form method="GET" action="/class/classviewdetails">
+                                        <button type="submit">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                            <span>상세보기</span>
+                                        </button>
+                                        <input type="hidden" name="seq" th:value="${dto.seq}">
+                                    </form>
                                 </div>
                                 <div class="clearfix">
                                 </div>
@@ -132,139 +140,6 @@
                     <!-- .wowitemboxinner-->
                 </div>
                 <!-- .wowitembox-->
-
-                <div class="wowitembox">
-                    <div class="wowitemboxinner">
-                        <div class="imagearea">
-                            <img width="555" height="370" src="/image/01.jpg"/>
-                            <div class="caption">
-                                <div class="blur">
-                                </div>
-                                <div class="caption-text">
-                                    <div class="captionbuttons">
-                                        <a href="productsingle.html" class="captiondetails"><i
-                                                class="fa fa-link"></i>
-                                            VIEW DETAILS</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="notesarea">
-                            <a href="productsingle.html">
-                                <h2>Winter Feel</h2>
-                            </a>
-                            <div class="description">
-                                <p>
-                                    Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel
-                                    com.
-                                </p>
-                            </div>
-                            <div class="notesbottom">
-                                <div class="price fleft">
-                                    $3.00
-                                </div>
-                                <div class="cart fright">
-                                    <a href="#" class="edd-add-to-cart">
-                                        <span class="edd-add-to-cart-label">예약하기</span>
-                                    </a>
-                                </div>
-                                <div class="clearfix">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .wowitemboxinner-->
-                </div>
-                <!-- .wowitembox-->
-
-                <div class="wowitembox">
-                    <div class="wowitemboxinner">
-                        <div class="imagearea">
-                            <img width="555" height="370" src="/image/01.jpg"/>
-                            <div class="caption">
-                                <div class="blur">
-                                </div>
-                                <div class="caption-text">
-                                    <div class="captionbuttons">
-                                        <a href="productsingle.html" class="captiondetails"><i
-                                                class="fa fa-link"></i>
-                                            VIEW DETAILS</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="notesarea">
-                            <a href="productsingle.html">
-                                <h2>Eyes Wide Shut</h2>
-                            </a>
-                            <div class="description">
-                                <p>
-                                    Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel
-                                    com.
-                                </p>
-                            </div>
-                            <div class="notesbottom">
-                                <div class="price fleft">
-                                    $7.00
-                                </div>
-                                <div class="cart fright">
-                                    <a href="#" class="edd-add-to-cart">
-                                        <span class="edd-add-to-cart-label">예약하기</span>
-                                    </a>
-                                </div>
-                                <div class="clearfix">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .wowitemboxinner-->
-                </div>
-                <!-- .wowitembox-->
-
-                <div class="wowitembox">
-                    <div class="wowitemboxinner">
-                        <div class="imagearea">
-                            <img width="555" height="370" src="/image/01.jpg"/>
-                            <div class="caption">
-                                <div class="blur">
-                                </div>
-                                <div class="caption-text">
-                                    <div class="captionbuttons">
-                                        <a href="productsingle.html" class="captiondetails"><i
-                                                class="fa fa-link"></i>
-                                            VIEW DETAILS</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="notesarea">
-                            <a href="productsingle.html">
-                                <h2>Bananas</h2>
-                            </a>
-                            <div class="description">
-                                <p>
-                                    Sed ac scelerisque ligula, ac aliquam ligula. Vivamus ut pellentesque nisi, vel
-                                    com.
-                                </p>
-                            </div>
-                            <div class="notesbottom">
-                                <div class="price fleft">
-                                    $6.50
-                                </div>
-                                <div class="cart fright">
-                                    <a href="#" class="edd-add-to-cart">
-                                        <span class="edd-add-to-cart-label">예약하기</span>
-                                    </a>
-                                </div>
-                                <div class="clearfix">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .wowitemboxinner-->
-                </div>
-                <!-- .wowitembox-->
-
             </div>
             <!-- .wowitemboxlist-->
 
@@ -272,7 +147,6 @@
             </div>
             <div class="divider1">
             </div>
-
 
             <div class="clear text-center sectionbestseller">
                 <h2 class="maintitle">NEW 클래스</h2>
@@ -284,10 +158,16 @@
             <div class="wowitemboxlist sectionbestseller clear">
 
                 <div class="wowitembox" th:each="dto : ${newClass}">
-                    <div class="wowitemboxinner">
+                    <div class="wowitemboxinner" th:id="'newClass'+${dto.seq}+'box'">
                         <div class="imagearea">
-                            <img style="height: 200px; object-fit: cover;"
-                                 th:src="@{'/image/class/' + ${dto.image}}"/>
+                            <th:block th:if="${#strings.substring(dto.image, 0, 3) != '개설_'}">
+                                <img style="height: 200px; object-fit: cover;"
+                                     th:src="@{'/image/class/' + ${dto.image}}"/>
+                            </th:block>
+                            <th:block th:if="${#strings.substring(dto.image, 0, 3) == '개설_'}">
+                                <img style="height: 200px; object-fit: cover;"
+                                     th:src="@{'/class/' + ${dto.image}}"/>
+                            </th:block>
                             <div class="caption">
                                 <div class="blur">
                                 </div>
@@ -337,7 +217,6 @@
 </div>
 <!-- MAIN CONTENT ENDS -->
 
-
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script th:inline="javascript">
 
@@ -351,7 +230,40 @@
 
     }
 
-</script>
+    //예약 마감 설정
+    var today = new Date();
 
+    /*<![CDATA[*/
+
+    /*[# th:each="dto : ${bestClass}"]*/
+    var best_duedate = new Date(/*[[${dto.duedate}]]*/);
+    var best_classBoxId = 'bestClass'+[[${dto.seq}]]+'box';
+
+    //예약 마감 시간 설정
+    var best_deadline = new Date(best_duedate);
+    best_deadline.setDate(best_duedate.getDate()-1);
+    best_deadline.setHours(23,59,59,999);
+
+    if (best_deadline < today) {
+        document.getElementById(best_classBoxId).style.backgroundColor = '#EEEEEE';
+    }
+    /*[/]*/
+
+    /*[# th:each="dto : ${newClass}"]*/
+    var new_duedate = new Date(/*[[${dto.duedate}]]*/);
+    var new_classBoxId = 'newClass'+[[${dto.seq}]]+'box';
+
+    //예약 마감 시간 설정
+    var new_deadline = new Date(new_duedate);
+    new_deadline.setDate(new_duedate.getDate()-1);
+    new_deadline.setHours(23,59,59,999);
+
+    if (new_deadline < today) {
+        document.getElementById(new_classBoxId).style.backgroundColor = '#EEEEEE';
+    }
+    /*[/]*/
+    /*]]>*/
+
+</script>
 </body>
 </html>

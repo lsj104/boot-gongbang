@@ -19,6 +19,8 @@ public interface ClassService {
 
     ShopDTO getShop(String cseq);
 
+    int checkReservation(HttpSession session, String cseq);
+
     int reservationAvailableCount(String seq);
 
     int reservation(String cseq, String rmembercnt, HttpSession session);
@@ -26,6 +28,8 @@ public interface ClassService {
     String getShopSeq(HttpSession session);
 
     int addClass(MultipartHttpServletRequest multireq);
+
+    List<ClassDTO> bestClass();
 
     List<ClassDTO> newClass();
 

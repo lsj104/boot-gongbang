@@ -117,18 +117,28 @@
                      from tblClass
                      where seq = #{cseq})
     </select>
-
-    <select id="reservationavailablecount" parameterType="String" resultType="int">
+    <select id="checkreservation" parameterType="hashmap" resultType="int">
         select
-            tc.membercnt - count(tmc.rmembercnt) as availablecount
+            case when count(*) &gt; 0 then 1
+                 else 0
+            end as checkreservation
+        from tblMemberClass tmc
+            inner join tblMember tm on tmc.mseq = tm.seq
+        where tmc.cseq = #{cseq} and tm.aseq = #{aseq}
+    </select>
+    <select id="reservationtotalcount" parameterType="String" resultType="int">
+        select
+            case when sum(tmc.rmembercnt) &gt; 0 then sum(tmc.rmembercnt)
+                 else 0
+            end as reservationtotalcount
         from tblclass tc
-            inner join tblMemberCLass tmc on tc.seq = tmc.seq
+            inner join tblMemberCLass tmc on tc.seq = tmc.cseq
         where tc.seq = #{seq}
     </select>
-
     <insert id="reservation" parameterType="hashmap">
         insert into tblMemberClass(seq, mseq, cseq, rdate, rmembercnt)
-        values (seqMemberClass.nextVal,(select seq from tblMember where aseq = #{aseq}), #{cseq}, to_char(sysdate, 'YYYY-MM-DD'), #{rmembercnt})</insert>
+        values (seqMemberClass.nextVal,(select seq from tblMember where aseq = #{aseq}), #{cseq}, to_char(sysdate, 'YYYY-MM-DD'), #{rmembercnt})
+    </insert>
     <select id="getShopSeq" parameterType="String" resultType="String">
         select
             seq
@@ -139,6 +149,19 @@
         insert into tblClass(seq, cseq, name, intro, course, time, duedate, duetime, membercnt, price, image, sseq)
             values (seqClass.nextVal, #{cseq}, #{name}, #{intro}, #{course}, #{time}, #{duedate}, #{duetime}, #{membercnt}, #{price}, #{image},#{sseq})
     </insert>
+
+    <select id="bestClass" resultType="com.test.gongbang.sclass.service.ClassDTO">
+    select *
+    from vwClass vC
+        inner join (select *
+                    from (select
+                                rownum as rnum,
+                                c.*
+                            from (select cseq from tblMemberClass group by cseq order by count(cseq) desc, cseq desc) c) clist
+                    where clist.rnum between 1 and 4
+                    order by clist.rnum asc) blist on vC.seq = blist.cseq
+    </select>
+
     <select id="newClass" resultType="com.test.gongbang.sclass.service.ClassDTO">
         select *
         from (select

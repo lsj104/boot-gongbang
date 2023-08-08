@@ -1,5 +1,6 @@
 package com.test.gongbang.admin.controller;
 
+import com.test.gongbang.admin.service.AdminDTO;
 import com.test.gongbang.admin.service.AdminService;
 import com.test.gongbang.admin.service.ChartDTO;
 import com.test.gongbang.admin.service.NoticeDTO;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -37,8 +39,8 @@ public class AdminController {
     public int adminLoginOk(HttpServletRequest req, HttpSession session) {
 
         int result = adminService.loginOk(req.getParameter("id"), session);
-
         System.out.println("login" + result);
+
         return result;
     }
 

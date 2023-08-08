@@ -1,5 +1,6 @@
 package com.test.gongbang.feed.controller;
 
+import com.test.gongbang.admin.service.AdminDTO;
 import com.test.gongbang.feed.service.FeedCommentDTO;
 import com.test.gongbang.feed.service.FeedDTO;
 import com.test.gongbang.feed.service.FeedService;
@@ -37,10 +38,14 @@ public class FeedController {
         }
 
         List<FeedDTO> list = service.list();
+        String aseq = "";
 
-        KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
-        String aseq = kdto.getSeq() + "";
-
+        if (session.getAttribute("user").getClass() == AdminDTO.class) {
+            aseq = "1";
+        } else {
+            KakaoDTO kdto = (KakaoDTO) session.getAttribute("user");
+            aseq = kdto.getSeq() + "";
+        }
         model.addAttribute("list", list);
         model.addAttribute("aseq", aseq);
 

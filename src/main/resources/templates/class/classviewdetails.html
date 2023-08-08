@@ -87,7 +87,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="fleft">
-							<a href="#!">
+							<a th:href="@{/shopboard/list(seq=${sdto.seq}, shopnickname=${sdto.nickname})}">
 								<h1> [[${sdto.nickname}]] &nbsp; <i class="fa-solid fa-store"></i></h1>
 							</a>
 						</div>
@@ -111,7 +111,12 @@
 						<div class="wrapindexcerpt">
 							<div class="contenttext">
 								<div class="post-content">
-									<img th:src="@{'/image/class/' + ${dto.image}}" class="attachment-post-thumbnail wp-post-image" style=" object-fit: cover; height: 500px" th:alt="${dto.image}"/>
+									<th:block th:if="${#strings.substring(dto.image, 0, 3) != '개설_'}">
+										<img th:src="@{'/image/class/' + ${dto.image}}" class="attachment-post-thumbnail wp-post-image" style=" object-fit: cover; height: 500px" th:alt="${dto.image}"/>
+									</th:block>
+									<th:block th:if="${#strings.substring(dto.image, 0, 3) == '개설_'}">
+										<img th:src="@{'/class/' + ${dto.image}}" class="attachment-post-thumbnail wp-post-image" style=" object-fit: cover; height: 500px" th:alt="${dto.image}"/>
+									</th:block>
 
 									<h2>클래스 소개</h2>
 									<div class="wowmetaposts entry-meta">
@@ -149,17 +154,23 @@
 							<p th:text="|소요시간 : ${dto.time}|"></p>
 							<p style="font-size: large; font-weight: bold;" th:text="|${#numbers.formatInteger(dto.price, 0, 'COMMA')}원|"></p>
 						</div>
-						<form method="post" action="/class/classreservation" style="text-align: center;">
-							<th:block th:if="${session.user} != null and ${session.user.lv} == 1">
-								<button type="submit" class="btn-block">
+						<form method="get" action="/class/classreservation" style="text-align: center;">
+							<th:block th:if="(${session.user} != null and ${session.user.lv} == 1) and ${checkReservation} == 0">
+								<button type="submit" class="btn-block reservation_btn">
 									<i class="fa fa-shopping-cart"></i>
 									<span>&nbsp;예약하기</span>
 								</button>
 							</th:block>
 							<th:block th:if="${session.user} == null or ${session.user.lv} != 1">
-								<button type="button" class="btn-block" onclick="loginRequest()">
+								<button type="button" class="btn-block reservation_btn" onclick="loginRequest()">
 									<i class="fa fa-shopping-cart"></i>
 									<span>예약하기</span>
+								</button>
+							</th:block>
+							<th:block th:if="${session.user} != null and ${checkReservation} != 0">
+								<button type="button" class="btn-block reservation_btn" disabled="disabled" title="예약 완료 상태입니다.&#13;변경을 원하시면 마이페이지에서 취소 후 다시 예약하세요.">
+									<i class="fa fa-shopping-cart"></i>
+									<span>예약완료</span>
 								</button>
 							</th:block>
 							<input type="hidden" name="seq" th:value="${dto.seq}">
@@ -175,6 +186,25 @@
 
 <script th:inline="javascript" type="text/javascript">
 	/*<![CDATA[*/
+
+	function loginRequest() {
+		alert('일반 회원 로그인 후 이용하세요.');
+	}
+
+	//예약 마감 설정
+	var today = new Date();
+	var duedate = new Date(/*[[${dto.duedate}]]*/);
+	var classBtn = '.reservation_btn';
+
+	//예약 마감 시간 설정
+	var deadline = new Date(duedate);
+	deadline.setDate(duedate.getDate()-1);
+	deadline.setHours(23,59,59,999);
+
+	if (deadline < today) {
+		document.querySelector(classBtn).style.pointerEvents = 'none';
+		document.querySelector(classBtn).innerHTML="Last Class";
+	}
 
 	var container = document.getElementById('map');	// 지도를 표시할 div
 	var options = {	// 지도를 생성할 때 필요한 기본 옵션
@@ -250,10 +280,6 @@
 	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
 	function closeOverlay() {
 		overlay.setMap(null);
-	}
-
-	function loginRequest() {
-		alert('일반 회원 로그인 후 이용하세요.');
 	}
 
 	/*]]>*/

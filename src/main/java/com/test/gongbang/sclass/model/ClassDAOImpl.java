@@ -65,8 +65,17 @@ public class ClassDAOImpl implements ClassDAO {
     }
 
     @Override
-    public int reservationAvailableCount(String seq) {
-        return template.selectOne("class.reservationavailablecount", seq);
+    public int checkReservation(HashMap<String, String> checkReservationMap) {
+
+        int checkReservation = template.selectOne("class.checkreservation", checkReservationMap);
+
+        return checkReservation;
+    }
+
+
+    @Override
+    public int reservationTotalCount(String seq) {
+        return template.selectOne("class.reservationtotalcount", seq);
     }
 
     @Override
@@ -82,6 +91,11 @@ public class ClassDAOImpl implements ClassDAO {
     @Override
     public int addClass(ClassDTO dto) {
         return template.insert("class.add",dto);
+    }
+
+    @Override
+    public List<ClassDTO> bestClass() {
+        return template.selectList("class.bestClass");
     }
 
     @Override
